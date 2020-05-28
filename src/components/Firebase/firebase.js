@@ -2,13 +2,15 @@ import app from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 
+console.log(process.env.API_KEY);
+
 const config = {
-    apiKey: "AIzaSyDIjFa77J35Dqu959fl0x1kfuCIR0lWiek",
-    authDomain: "jupiter-space.firebaseapp.com",
-    databaseURL: "https://jupiter-space.firebaseio.com",
-    projectId: "jupiter-space",
-    storageBucket: "jupiter-space.appspot.com",
-    messagingSenderId: "147843933332",
+    apiKey: process.env.REACT_APP_API_KEY,
+    authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+    databaseURL: process.env.REACT_APP_DATABASE_URL,
+    projectId: process.env.REACT_APP_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
   };
 
   class Firebase {
