@@ -4,7 +4,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 import { Form, Input, Button, Checkbox } from 'antd';
-import "./SignUp.scss";
+import "./Sign.scss";
 
 const tailFormItemLayout = {
   wrapperCol: {
@@ -27,7 +27,8 @@ const SignUpPage = () => (
 );
 
 const INITIAL_STATE = {
-  username: '',
+  name: '',
+  nUSP: '',
   email: '',
   passwordOne: '',
   passwordTwo: '',
@@ -80,8 +81,8 @@ class SignUpFormBase extends Component {
     } = this.state;
 
     const isInvalid =
-      passwordOne !== passwordTwo ||
       passwordOne === '' ||
+      passwordTwo === '' ||
       email === '' ||
       name === '' ||
       nUSP === '';
@@ -157,14 +158,14 @@ class SignUpFormBase extends Component {
             name="email"
             value={email}
             onChange={this.onChange}
-            type="text"
+            type="email"
             placeholder="Email"
             />
           </Form.Item>
 
           <Form.Item
             className="FormField"
-            name="password"
+            name="passwordOne"
             rules={[
               {
                 required: true,
@@ -178,7 +179,7 @@ class SignUpFormBase extends Component {
             name="passwordOne"
             value={passwordOne}
             onChange={this.onChange}
-            type="text"
+            type="password"
             placeholder="Senha"
                     
             />
@@ -186,8 +187,8 @@ class SignUpFormBase extends Component {
 
           <Form.Item
             className="FormField"
-            name="confirm"
-            dependencies={['password']}
+            name="passwordTwo"
+            dependencies={['passwordOne']}
             hasFeedback
             rules={[
               {
@@ -196,7 +197,7 @@ class SignUpFormBase extends Component {
               },
               ({ getFieldValue }) => ({
                 validator(rule, value) {
-                  if (!value || getFieldValue('password') === value) {
+                  if (!value || getFieldValue('passwordOne') === value) {
                     return Promise.resolve();
                   }
 
@@ -210,7 +211,7 @@ class SignUpFormBase extends Component {
             name="passwordTwo"
             value={passwordTwo}
             onChange={this.onChange}
-            type="text"
+            type="password"
             placeholder="Confirmar Senha"
             />
           </Form.Item>
@@ -235,7 +236,7 @@ class SignUpFormBase extends Component {
           </Form.Item>
                 
           <Form.Item className="FormField">
-                  <Link to="/SingIn" className="FormField__Link">Log In</Link>
+                  <Link to="/signin" className="FormField__Link">Log In</Link>
           </Form.Item>
 
             {error && <p>{error.message}</p>}

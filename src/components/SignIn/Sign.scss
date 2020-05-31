@@ -49,14 +49,20 @@
 }
 
 .FormCenter {
-  margin-bottom: 100px;
+  background-color: white;
+  flex: 1;
+  align-items: center;
+  margin-top: 70px;
+  margin-bottom: 200px;
 }
 
 .FormTitle {
-    flex:1;
+  flex:1;
   color: #707C8B;
   font-weight: 300;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
+  margin-top: 50px;
+
 }
 
 .FormTitle__Link {
@@ -111,7 +117,8 @@
   outline: none;
   border-radius: 25px;
   padding: 15px 70px;
-  margin-bottom: 20px;
+  margin-top:25px;
+  margin-bottom: 25px;
   font-size: .8em;
   font-weight: 500;
 }
@@ -132,8 +139,6 @@
 .FormField__Checkbox {
   position: relative;
   top: 1.5px;
-  padding-bottom: 30px;
-  margin-top: 10px;
 }
 
 .FormField__TermsLink {
