@@ -3,10 +3,25 @@ import { Link, withRouter } from 'react-router-dom';
 
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
+import { Form, Input, Button, Checkbox } from 'antd';
+import "./SignUp.scss";
+
+const tailFormItemLayout = {
+  wrapperCol: {
+    xs: {
+      span: 24,
+      offset: 0,
+    },
+    sm: {
+      span: 16,
+      offset: 8,
+    },
+  },
+};
 
 const SignUpPage = () => (
-  <div>
-    <h1>SignUp</h1>
+  <div className='FormTitle'type="flex" justify="center" align="middle">
+    <h1>Criar conta</h1>
     <SignUpForm />
   </div>
 );
@@ -56,7 +71,8 @@ class SignUpFormBase extends Component {
 
   render() {
     const {
-      username,
+      name,
+      nUSP,
       email,
       passwordOne,
       passwordTwo,
@@ -67,44 +83,164 @@ class SignUpFormBase extends Component {
       passwordOne !== passwordTwo ||
       passwordOne === '' ||
       email === '' ||
-      username === '';
+      name === '' ||
+      nUSP === '';
 
     return (
-      <form onSubmit={this.onSubmit}>
-        <input
-          name="username"
-          value={username}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Full Name"
-        />
-        <input
-          name="email"
-          value={email}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Email Address"
-        />
-        <input
-          name="passwordOne"
-          value={passwordOne}
-          onChange={this.onChange}
-          type="password"
-          placeholder="Password"
-        />
-        <input
-          name="passwordTwo"
-          value={passwordTwo}
-          onChange={this.onChange}
-          type="password"
-          placeholder="Confirm Password"
-        />
-        <button disabled={isInvalid} type="submit">
-          Sign Up
-        </button>
+        <div
+        className = "FormCenter"
+        >
+          <Form name="normal_login"
+                className="login-form"
+                initialValues={{
+                remember: true,
+                }}
+                onSubmit={this.onSubmit}
+                >
+            
+            <Form.Item
+            className="FormField"
+            name="name"
+            rules={[
+              {
+                required: true,
+                message: 'Please input your name!',
+              },
+            ]}
+          >
+            <Input 
+            className = "FormField__Input"
+            name="name"
+            value={name}
+            onChange={this.onChange}
+            type="text"
+            placeholder="Nome completo"
+            />
+          </Form.Item>
 
-        {error && <p>{error.message}</p>}
-      </form>
+          <Form.Item
+            className="FormField"
+            name="nUSP"
+            rules={[
+              {
+                required: true,
+                message: 'Please input your USP number!',
+              },
+            ]}
+          >
+            <Input
+            className = "FormField__Input"
+            name="nUSP"
+            value={nUSP}
+            onChange={this.onChange}
+            type="number"
+            placeholder="Número USP"
+            />
+          </Form.Item>
+
+          <Form.Item
+            className="FormField"
+            name="email"
+            rules={[
+              {
+                type: 'email',
+                message: 'The input is not valid E-mail!',
+              },
+              {
+                required: true,
+                message: 'Please input your E-mail!',
+              },
+            ]}
+          >
+            <Input
+            className = "FormField__Input"
+            name="email"
+            value={email}
+            onChange={this.onChange}
+            type="text"
+            placeholder="Email"
+            />
+          </Form.Item>
+
+          <Form.Item
+            className="FormField"
+            name="password"
+            rules={[
+              {
+                required: true,
+                message: 'Please input your password!',
+              },
+            ]}
+            hasFeedback
+          >
+            <Input
+            className = "FormField__Input"
+            name="passwordOne"
+            value={passwordOne}
+            onChange={this.onChange}
+            type="text"
+            placeholder="Senha"
+                    
+            />
+          </Form.Item>
+
+          <Form.Item
+            className="FormField"
+            name="confirm"
+            dependencies={['password']}
+            hasFeedback
+            rules={[
+              {
+                required: true,
+                message: 'Please confirm your password!',
+              },
+              ({ getFieldValue }) => ({
+                validator(rule, value) {
+                  if (!value || getFieldValue('password') === value) {
+                    return Promise.resolve();
+                  }
+
+                  return Promise.reject('The two passwords that you entered do not match!');
+                },
+              }),
+            ]}
+          >
+            <Input
+            className = "FormField__Input"
+            name="passwordTwo"
+            value={passwordTwo}
+            onChange={this.onChange}
+            type="text"
+            placeholder="Confirmar Senha"
+            />
+          </Form.Item>
+
+          <Form.Item
+            className='FormField__Checkbox'
+            name="professor"
+            valuePropName="checked"
+            {...tailFormItemLayout}
+          >
+            <Checkbox >
+              <span className='FormField__CheckboxLabel'>
+              Professor(a)
+              </span>
+            </Checkbox>
+          </Form.Item>
+
+          <Form.Item {...tailFormItemLayout}>
+            <Button type="primary" htmltype="submit" className = 'FormField__Button'>
+              Register
+            </Button>
+          </Form.Item>
+                
+          <Form.Item className="FormField">
+                  <Link to="/SingIn" className="FormField__Link">Log In</Link>
+          </Form.Item>
+
+            {error && <p>{error.message}</p>}
+          </Form>
+        </div>
     );
   }
 }
