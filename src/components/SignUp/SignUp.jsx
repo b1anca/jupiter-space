@@ -6,19 +6,6 @@ import * as ROUTES from '../../constants/routes';
 import { Form, Input, Button, Checkbox } from 'antd';
 import "./Sign.scss";
 
-const tailFormItemLayout = {
-  wrapperCol: {
-    xs: {
-      span: 24,
-      offset: 0,
-    },
-    sm: {
-      span: 16,
-      offset: 8,
-    },
-  },
-};
-
 const SignUpPage = () => (
   <div className='FormTitle'type="flex" justify="center" align="middle">
     <h1>Criar conta</h1>
@@ -30,8 +17,8 @@ const INITIAL_STATE = {
   name: '',
   nUSP: '',
   email: '',
-  passwordOne: '',
-  passwordTwo: '',
+  password: '',
+  confirm: '',
   error: null,
 };
 
@@ -71,21 +58,15 @@ class SignUpFormBase extends Component {
   };
 
   render() {
+
     const {
       name,
       nUSP,
       email,
-      passwordOne,
-      passwordTwo,
+      password,
+      confirm,
       error,
     } = this.state;
-
-    const isInvalid =
-      passwordOne === '' ||
-      passwordTwo === '' ||
-      email === '' ||
-      name === '' ||
-      nUSP === '';
 
     return (
         <div
@@ -108,6 +89,7 @@ class SignUpFormBase extends Component {
                 message: 'Please input your name!',
               },
             ]}
+            hasFeedback
           >
             <Input 
             className = "FormField__Input"
@@ -127,7 +109,18 @@ class SignUpFormBase extends Component {
                 required: true,
                 message: 'Please input your USP number!',
               },
+              ({ getFieldValue }) => ({
+                validator(rule, value) {
+                  // eslint-disable-next-line no-mixed-operators
+                  if (!value || value.length >= 7) {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject('The USP number must be more than 7 numbers!');
+                },
+              }),
             ]}
+          // eslint-disable-next-line react/jsx-no-duplicate-props
+          hasFeedback
           >
             <Input
             className = "FormField__Input"
@@ -152,6 +145,7 @@ class SignUpFormBase extends Component {
                 message: 'Please input your E-mail!',
               },
             ]}
+            hasFeedback
           >
             <Input
             className = "FormField__Input"
@@ -163,64 +157,78 @@ class SignUpFormBase extends Component {
             />
           </Form.Item>
 
-          <Form.Item
-            className="FormField"
-            name="passwordOne"
-            rules={[
-              {
-                required: true,
-                message: 'Please input your password!',
+
+          <Form.Item 
+          name="password"
+          hasFeedback 
+          className="FormField"
+          rules={[
+            {
+              required: true,
+              message: 'Please input your password!',
+            },
+            ({ getFieldValue }) => ({
+              validator(rule, value) {
+                // eslint-disable-next-line no-mixed-operators
+                if (!value || value.length >= 8) {
+                  return Promise.resolve();
+                }
+                return Promise.reject('The password must be more than 8 characters!');
               },
-            ]}
-            hasFeedback
-          >
-            <Input
+            }),
+          ]}
+        // eslint-disable-next-line react/jsx-no-duplicate-props
+        hasFeedback
+          ><Input
             className = "FormField__Input"
-            name="passwordOne"
-            value={passwordOne}
+            name="password"
+            value={password}
             onChange={this.onChange}
             type="password"
             placeholder="Senha"
                     
             />
-          </Form.Item>
+        </Form.Item>
 
-          <Form.Item
-            className="FormField"
-            name="passwordTwo"
-            dependencies={['passwordOne']}
-            hasFeedback
-            rules={[
-              {
-                required: true,
-                message: 'Please confirm your password!',
-              },
-              ({ getFieldValue }) => ({
-                validator(rule, value) {
-                  if (!value || getFieldValue('passwordOne') === value) {
-                    return Promise.resolve();
-                  }
 
-                  return Promise.reject('The two passwords that you entered do not match!');
-                },
-              }),
-            ]}
-          >
-            <Input
+        <Form.Item 
+        name="confirm" 
+        hasFeedback 
+        className="FormField"
+        dependencies={['password']}
+        // eslint-disable-next-line react/jsx-no-duplicate-props
+        hasFeedback
+        rules={[
+          {
+            required: true,
+            message: 'Please confirm your password!',
+          },
+          ({ getFieldValue }) => ({
+            validator(rule, value) {
+              // eslint-disable-next-line no-mixed-operators
+              if (!value || getFieldValue('password') === value) {
+                return Promise.resolve();
+              }
+              return Promise.reject('The two passwords that you entered do not match!');
+            },
+          }),
+        ]}
+      >
+        <Input
             className = "FormField__Input"
-            name="passwordTwo"
-            value={passwordTwo}
+            name="confirm"
+            value={confirm}
+            onBlur={this.handleConfirmBlur}
             onChange={this.onChange}
             type="password"
             placeholder="Confirmar Senha"
             />
-          </Form.Item>
+        </Form.Item>
 
           <Form.Item
             className='FormField__Checkbox'
             name="professor"
             valuePropName="checked"
-            {...tailFormItemLayout}
           >
             <Checkbox >
               <span className='FormField__CheckboxLabel'>
@@ -229,7 +237,7 @@ class SignUpFormBase extends Component {
             </Checkbox>
           </Form.Item>
 
-          <Form.Item {...tailFormItemLayout}>
+          <Form.Item >
             <Button type="primary" htmltype="submit" className = 'FormField__Button'>
               Register
             </Button>

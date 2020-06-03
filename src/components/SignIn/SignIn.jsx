@@ -3,21 +3,8 @@ import { Link, withRouter } from 'react-router-dom';
 
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
-import { Form, Input, Button, Checkbox } from 'antd';
+import { Form, Input, Button } from 'antd';
 import "./Sign.scss";
-
-const tailFormItemLayout = {
-    wrapperCol: {
-      xs: {
-        span: 24,
-        offset: 0,
-      },
-      sm: {
-        span: 16,
-        offset: 8,
-      },
-    },
-  };
 
 const SignIn = () => (
     <div className='FormTitle'type="flex" justify="center" align="middle">
@@ -54,10 +41,6 @@ class SignInFormBase extends Component {
         error,
       } = this.state;
   
-      const isInvalid =
-        password === '' ||
-        email === '' ;
-  
       return (
           <div
           className = "FormCenter"
@@ -83,6 +66,7 @@ class SignInFormBase extends Component {
                   message: 'Please input your E-mail!',
                 },
               ]}
+              hasFeedback
             >
               <Input
               className = "FormField__Input"
@@ -102,12 +86,22 @@ class SignInFormBase extends Component {
                   required: true,
                   message: 'Please input your password!',
                 },
+                ({ getFieldValue }) => ({
+                  validator(rule, value) {
+                    // eslint-disable-next-line no-mixed-operators
+                    if (!value || value.length >= 8) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject('The password must be more than 8 characters!');
+                  },
+                }),
               ]}
-              hasFeedback
+            // eslint-disable-next-line react/jsx-no-duplicate-props
+            hasFeedback
             >
               <Input
               className = "FormField__Input"
-              name="passwordOne"
+              name="password"
               value={password}
               onChange={this.onChange}
               type="password"
@@ -116,7 +110,7 @@ class SignInFormBase extends Component {
               />
             </Form.Item>
   
-             <Form.Item {...tailFormItemLayout}>
+            <Form.Item>
               <Button type="primary" htmltype="submit" className = 'FormField__Button'>
                 Login
               </Button>
