@@ -4,6 +4,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 import { Form, Input, Button } from 'antd';
+import { RightOutlined } from '@ant-design/icons';
 import "./Sign.scss";
 
 const SignIn = () => (
@@ -110,15 +111,12 @@ class SignInFormBase extends Component {
               />
             </Form.Item>
   
-            <Form.Item>
-              <Button type="primary" htmltype="submit" className = 'FormField__Button'>
-                Login
-              </Button>
-            </Form.Item>
-                  
-            <Form.Item className="FormField">
-                    <Link to="/" className="FormField__Link">Criar Conta</Link>
-            </Form.Item>
+            <Form.Item >
+            <Button type="primary" htmltype="submit" className = 'FormField__Button'>
+            <RightOutlined />
+            </Button>
+            <Link to="/" className="FormField__Link">Criar Conta</Link>
+          </Form.Item>
   
               {error && <p>{error.message}</p>}
             </Form>

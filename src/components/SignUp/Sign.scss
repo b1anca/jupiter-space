@@ -9,9 +9,13 @@
 .FormTitle {
   flex:1;
   color: #707C8B;
-  font-weight: 300;
-  margin-bottom: 40px;
+  font-weight: 400;
+  font-size: large;
+  margin-bottom: 30px;
   margin-top: 50px;
+  text-align: left;
+  margin-left: 70px;
+  margin-right: 70px;
 
 }
 
@@ -50,6 +54,7 @@
   margin-bottom: 25px;
   font-size: .8em;
   font-weight: 500;
+  display: inline-block;
 }
 
 .FormField__CheckboxLabel {
@@ -60,4 +65,13 @@
 .FormField__Checkbox {
   position: relative;
   top: 1.5px;
+}
+
+.FormField__Link {
+  color: #66707D;
+  text-decoration: none;
+  border-bottom: 1.5px solid #225E62;
+  margin-top:25px;
+  margin-bottom: 25px;
+  float: right;
 }

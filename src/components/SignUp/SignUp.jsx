@@ -4,6 +4,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 import { Form, Input, Button, Checkbox } from 'antd';
+import { RightOutlined } from '@ant-design/icons';
 import "./Sign.scss";
 
 const SignUpPage = () => (
@@ -239,12 +240,9 @@ class SignUpFormBase extends Component {
 
           <Form.Item >
             <Button type="primary" htmltype="submit" className = 'FormField__Button'>
-              Register
+            <RightOutlined />
             </Button>
-          </Form.Item>
-                
-          <Form.Item className="FormField">
-                  <Link to="/signin" className="FormField__Link">Log In</Link>
+            <Link to="/signin" className="FormField__Link">Log In</Link>
           </Form.Item>
 
             {error && <p>{error.message}</p>}
