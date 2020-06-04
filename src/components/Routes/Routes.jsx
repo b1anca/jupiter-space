@@ -13,9 +13,9 @@ import * as ROUTES from '../../constants/routes';
 
 const Routes = () => (
     <Router>
-        <Route exact path={ROUTES.LANDING} component={SignUpPage} />
+        <Route exact path={ROUTES.SIGN_UP} component={SignUpPage} />
         {/* <Route exact path={ROUTES.SIGN_UP} component={SignUpPage} /> */}
-        <Route exact path={ROUTES.SIGN_IN} component={SignInPage} />
+        <Route exact path={ROUTES.LANDING} component={SignInPage} />
         <Route exact path={ROUTES.RANKING} component={Ranking} />
         <Route exact path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
         <Route exact path={ROUTES.HOME} component={HomePage} />

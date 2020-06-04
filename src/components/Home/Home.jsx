@@ -1,8 +1,10 @@
 import React from 'react';
+import SignOutButton from '../../components/SignOut/SignOut';
  
 const Home = () => (
     <div>
-        BLABLA
+        BLABLA Home
+        <SignOutButton />
     </div>
 );
  

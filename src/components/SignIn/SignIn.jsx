@@ -28,7 +28,19 @@ class SignInFormBase extends Component {
     }
   
     onSubmit = event => {
- 
+      const { email, password } = this.state;
+   
+      this.props.firebase
+        .doSignInWithEmailAndPassword(email, password)
+        .then(() => {
+          this.setState({ ...INITIAL_STATE });
+          this.props.history.push(ROUTES.HOME);
+        })
+        .catch(error => {
+          this.setState({ error });
+        });
+   
+      event.preventDefault();
     };
   
     onChange = event => {
@@ -51,7 +63,6 @@ class SignInFormBase extends Component {
                   initialValues={{
                   remember: true,
                   }}
-                  onSubmit={this.onSubmit}
                   >
 
             <Form.Item
@@ -112,10 +123,10 @@ class SignInFormBase extends Component {
             </Form.Item>
   
             <Form.Item >
-            <Button type="primary" htmltype="submit" className = 'FormField__Button'>
+            <Button type="primary" htmltype="submit" className = 'FormField__Button' onClick={this.onSubmit}>
             <RightOutlined />
             </Button>
-            <Link to="/" className="FormField__Link">Criar Conta</Link>
+            <Link to={ROUTES.SIGN_UP} className="FormField__Link">Criar Conta</Link>
           </Form.Item>
   
               {error && <p>{error.message}</p>}

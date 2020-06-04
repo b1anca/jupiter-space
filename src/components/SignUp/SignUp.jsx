@@ -31,10 +31,10 @@ class SignUpFormBase extends Component {
   }
 
   onSubmit = event => {
-    const { email, passwordOne } = this.state;
+    const { email, password } = this.state;
 
     this.props.firebase
-      .doCreateUserWithEmailAndPassword(email, passwordOne)
+      .doCreateUserWithEmailAndPassword(email, password)
       .then(authUser => {
         this.setState({ ...INITIAL_STATE });
         this.props.history.push(ROUTES.HOME);
@@ -43,23 +43,15 @@ class SignUpFormBase extends Component {
         this.setState({ error });
       });
 
-      const aux = {
-        teste: "teste",
-      }
-
-      this.props.firebase
-      .createSomething('batata')
-      .set(aux);
-
     event.preventDefault();
   };
+
 
   onChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
 
   render() {
-
     const {
       name,
       nUSP,
@@ -75,6 +67,7 @@ class SignUpFormBase extends Component {
         >
           <Form name="normal_login"
                 className="login-form"
+                onFinish={this.onFinish}
                 initialValues={{
                 remember: true,
                 }}
@@ -239,10 +232,10 @@ class SignUpFormBase extends Component {
           </Form.Item>
 
           <Form.Item >
-            <Button type="primary" htmltype="submit" className = 'FormField__Button'>
+            <Button type="primary" htmltype="submit" className = 'FormField__Button' onClick={this.onSubmit}>
             <RightOutlined />
             </Button>
-            <Link to="/signin" className="FormField__Link">Log In</Link>
+            <Link to="/" className="FormField__Link">Log In</Link>
           </Form.Item>
 
             {error && <p>{error.message}</p>}
