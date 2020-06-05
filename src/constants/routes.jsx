@@ -7,3 +7,5 @@ export const ADMIN = '/admin';
 export const RANKING = '/ranking';
 export const PASSWORD_FORGET = '/pw-forget';
 export const DASHBOARD = '/dashboard';
+export const SUBJECTS = '/subjects';
+export const CREATE_SUBJECTS = '/create-subjects'
