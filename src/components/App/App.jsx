@@ -1,9 +1,12 @@
 import React from 'react';
 import Routes from '../Routes/Routes';
-import 'antd/dist/antd.css';
+import Nav from '../Nav';
 
 const App = () => (
-  <Routes />
+  <>
+    <Nav />
+    <Routes />
+  </>
 );
 
 export default App;

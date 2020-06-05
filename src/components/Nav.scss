@@ -1,0 +1,37 @@
+@import '../constants/';
+
+.navbar {
+  background: $BLUE;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+
+  @media screen and (max-width: $MD-BREAKPOINT) {
+    display: none;
+  }
+
+  .text {
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .name {
+    text-transform: capitalize;
+  }
+
+  .mr {
+    margin-right: 30px;
+  }
+
+  .ant-menu {
+    background: $BLUE;
+
+
+    .ant-menu-item {
+      &.ant-menu-item-selected {
+        background-color: darken($BLUE, 5%);
+      }
+    }
+  }
+}
