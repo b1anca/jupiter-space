@@ -6,3 +6,4 @@ export const ACCOUNT = '/account';
 export const ADMIN = '/admin';
 export const RANKING = '/ranking';
 export const PASSWORD_FORGET = '/pw-forget';
+export const DASHBOARD = '/dashboard';
