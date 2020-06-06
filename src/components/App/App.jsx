@@ -1,9 +1,21 @@
 import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { Layout } from 'antd';
 import Routes from '../Routes/Routes';
-import 'antd/dist/antd.css';
+import Nav from '../Nav';
+import Sidenav from '../Sidenav';
+import './App.scss';
 
 const App = () => (
-  <Routes />
+  <Router>
+    <Layout>
+      <Nav />
+      <Layout>
+        <Routes />
+      </Layout>
+      <Sidenav />
+    </Layout>
+  </Router>
 );
 
 export default App;

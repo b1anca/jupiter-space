@@ -1,0 +1,26 @@
+@import '../../constants';
+
+.menu {
+  flex: 1 1 auto;
+  min-height: 0px;
+  margin: 10px 0 30px;
+
+  @media screen and (max-width: $MD-BREAKPOINT) {
+    overflow-y: auto;
+    height: 50vh;
+  }
+
+  .ant-card {
+    border: 1px solid $BLUE;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+
+  .ant-card-head-title {
+    font-weight: bold;
+  }
+
+  .ant-card-body {
+    padding: 0;
+  }
+}
