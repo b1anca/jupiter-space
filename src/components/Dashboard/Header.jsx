@@ -19,7 +19,6 @@ const Header = ({ cards = isStudent ? studentCards : teacherCards, name = 'john 
   <div className="header-container">
     <div className="header">
       <h1>{name}</h1>
-      <i className="icon fas fa-bars"></i>
     </div>
     <div className="info">
       {cards.map((card, index) => (
