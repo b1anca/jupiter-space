@@ -69,6 +69,13 @@
     &:hover {
       background-color: darken($BLUE, 5%);
     }
+
+    &.ant-menu-item-selected {
+      background-color: unset;
+      &:hover {
+        background-color: darken($BLUE, 5%);
+      }
+    }
   }
   .ant-menu-item a:hover {
     color: white;
