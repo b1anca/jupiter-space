@@ -1,0 +1,19 @@
+@import '../../constants';
+
+.top-3 {
+  display: flex;
+  color: white;
+
+  .card {
+    border: 1px solid greenyellow;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  img {
+    height: 100px;
+    width: 100px;
+    border-radius: 50px;
+  }
+}

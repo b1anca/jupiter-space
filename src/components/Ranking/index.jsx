@@ -1,8 +1,13 @@
 import React from 'react';
+import Top3 from './Top3';
+import Header from '../Header';
+import './Ranking.scss';
 
 const Ranking = () => (
-  <div>
-    página do ranking separada de tudo eeeeee
+  <div className="ranking">
+    <Header title="Ranking" />
+    <Top3 />
+    <div>alunos restantes</div>
   </div>
 );
 
