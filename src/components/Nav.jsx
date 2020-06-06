@@ -1,5 +1,6 @@
 import React from 'react';
 import { Menu, Layout, Row, Dropdown } from 'antd';
+import * as ROUTES from '../constants/routes'
 import './Nav.scss';
 
 const defaultUser = {
@@ -13,10 +14,10 @@ const NavDropdown = ({ user }) => (
     <Menu.Item className="text email" key="0">{user.email}</Menu.Item>
     <Menu.Divider />
     <Menu.Item key="1">
-      <a className="text" href="/users/edit">Editar cadastro</a>
+      <a className="text" href={ROUTES.USERS_EDIT}>Editar cadastro</a>
     </Menu.Item>
     <Menu.Item key="2">
-      <a className="text" href="/users/sign-out">Sair</a>
+      <a className="text" href={ROUTES.USERS_SIGN_OUT}>Sair</a>
     </Menu.Item>
   </Menu>
 );
