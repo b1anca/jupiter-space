@@ -1,0 +1,7 @@
+@import '../../constants';
+
+.ant-layout.ant-layout-has-sider {
+  @media screen and (min-width: $MD-BREAKPOINT) {
+    flex-direction: column;
+  }
+}

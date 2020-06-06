@@ -1,0 +1,54 @@
+@import '../../constants/';
+
+.recent-quizzes {
+  height: 20vh;
+  max-height: 150px;
+  display: flex;
+  flex-direction: column;
+
+  .subtitle {
+    text-transform: uppercase;
+    font-size: 13px;
+    font-weight: 600;
+    color: $GRAY;
+    margin-bottom: 5px;
+  }
+
+  .horizontal-scroll {
+    display: flex;
+    overflow: auto;
+    flex: 1;
+
+    .ant-card {
+      background: $LIGHT-GRAY;
+      margin-right: 10px;
+      padding: 10px 5px;
+      width: 150px;
+      max-width: 120px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      &:hover {
+        background: darken($LIGHT-GRAY, 5%);
+        cursor: pointer;
+        transition: 100ms;
+      }
+
+      .ant-card-head {
+        font-weight: 800;
+        min-height: unset;
+        padding: 0px;
+
+        .ant-card-head-title {
+          padding: 0;
+        }
+      }
+
+      .ant-card-body {
+        padding: 0;
+        color: black;
+      }
+    }
+  }
+}

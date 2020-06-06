@@ -1,0 +1,22 @@
+@import '../../constants';
+
+body {
+  height: 100vh;
+  @media screen and (max-width: 768px) {
+    overflow: hidden;
+  }
+}
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .white-bg {
+    padding: 0 15px 15px;
+  }
+}
+
+.ant-row {
+  justify-content: center;
+}

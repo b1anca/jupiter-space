@@ -1,0 +1,37 @@
+@import '../../constants';
+
+.link {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid $BLUE;
+  margin-bottom: 10px;
+  padding: 15px 10px;
+  align-items: center;
+  border-radius: 8px;
+
+  &:hover {
+    cursor: pointer;
+    background: $BLUE;
+    transition: 100ms;
+
+    span {
+      color: white;
+      transition: 100ms;
+    }
+
+    .icon {
+      color: white;
+      transition: 100ms;
+    }
+  }
+
+  span {
+    font-weight: 800;
+    color: black;
+    font-size: 16px;
+  }
+
+  .icon {
+    color: black;
+  }
+}

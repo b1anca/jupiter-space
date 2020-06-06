@@ -1,0 +1,49 @@
+@import '../../constants/';
+
+.dashboard-header {
+  background: $BLUE;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  height: 25vh;
+  max-height: 150px;
+
+  @media screen and (min-width: $MD_BREAKPOINT) {
+    display: none;
+  }
+
+  .header {
+    display: flex;
+    color: white;
+    align-items: center;
+    justify-content: space-between;
+
+    h1 {
+      font-weight: 800;
+      color: white;
+      margin-bottom: 0;
+      text-transform: capitalize;
+      font-size: 19px;
+    }
+  }
+
+  .info {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 10px;
+
+    .card {
+      color: white;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      padding: 0 8px;
+
+      .count {
+        font-size: 17px;
+        font-weight: bold;
+      }
+    }
+  }
+}
