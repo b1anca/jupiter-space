@@ -16,7 +16,7 @@ const teacherCards = [
 const isStudent = true;
 
 const Header = ({ cards = isStudent ? studentCards : teacherCards, name = 'john doe' }) => (
-  <div className="header-container">
+  <div className="dashboard-header">
     <div className="header">
       <h1>{name}</h1>
     </div>

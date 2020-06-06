@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, Layout, Row, Dropdown } from 'antd';
-import * as ROUTES from '../constants/routes'
+import * as ROUTES from '../../constants/routes'
 import './Nav.scss';
 
 const defaultUser = {

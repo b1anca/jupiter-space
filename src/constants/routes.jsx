@@ -1,6 +1,11 @@
+export const BONUS = '/bonus';
 export const DASHBOARD = '/dashboard';
 export const QUIZZES = '/quizzes';
+export const QUIZZES_ANSWERED = '/quizzes/answered';
+export const QUIZZES_OPEN = '/quizzes/open';
 export const RANKING = '/ranking';
+export const SETTINGS = '/settings';
+export const STUDENTS = '/students';
 export const SUBJECTS = '/subjects';
 export const SUBJECTS_NEW = '/subjects/new';
 export const USERS_EDIT = '/users/edit';

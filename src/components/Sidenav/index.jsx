@@ -19,7 +19,9 @@ const Sidenav = () => {
       >
         <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
           <Menu.Item>
-            <div className="text name">Jupiter Space</div>
+            <Link to={ROUTES.DASHBOARD}>
+              <div className="text name">Jupiter Space</div>
+            </Link>
           </Menu.Item>
           <Menu.Divider />
           <Menu.Item key="1">

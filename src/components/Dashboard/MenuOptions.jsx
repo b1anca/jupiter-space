@@ -1,29 +1,30 @@
 import React from 'react';
 import Link from './Link';
+import * as ROUTES from '../../constants/routes';
 import './MenuOptions.scss';
 
 const studentOptions = [
-  { text: 'Quizzes abertos', url: '/quizzes/open' },
-  { text: 'Quizzes respondidos', url: '/quizzes/answered' },
-  { text: 'Ranking', url: '/ranking' },
-  { text: 'Disciplinas', url: '/subjects' },
-  { text: 'Bônus ganhos', url: '/bonus' },
-  { text: 'Configurações', url: '/settings' },
+  { text: 'Quizzes abertos', url: ROUTES.QUIZZES_OPEN },
+  { text: 'Quizzes respondidos', url: ROUTES.QUIZZES_ANSWERED },
+  { text: 'Ranking', url: ROUTES.RANKING },
+  { text: 'Disciplinas', url: ROUTES.SUBJECTS },
+  { text: 'Bônus ganhos', url: ROUTES.BONUS },
+  { text: 'Configurações', url: ROUTES.SETTINGS },
 ];
 
 const teacherOptions = [
-  { text: 'Disciplinas', url: '/subjects' },
-  { text: 'Quizzes', url: '/quizzes/open' },
-  { text: 'Ranking', url: '/ranking' },
-  { text: 'Bônus disponíveis', url: '/available-bonus' },
-  { text: 'Alunos', url: '/students' },
-  { text: 'Configurações', url: '/settings' },
+  { text: 'Disciplinas', url: ROUTES.SUBJECTS },
+  { text: 'Quizzes', url: ROUTES.QUIZZES },
+  { text: 'Ranking', url: ROUTES.RANKING },
+  { text: 'Bônus disponíveis', url: ROUTES.BONUS },
+  { text: 'Alunos', url: ROUTES.STUDENTS },
+  { text: 'Configurações', url: ROUTES.SETTINGS },
 ];
 
 const Menu = ({ isStudent = true }) => (
   <div className="menu">
     {(isStudent ? studentOptions : teacherOptions).map((option, index) => (
-      <Link key={index} text={option.text} />
+      <Link key={index} text={option.text} url={option.url} />
     ))}
   </div>
 );
