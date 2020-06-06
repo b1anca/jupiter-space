@@ -1,4 +1,5 @@
 export const DASHBOARD = '/dashboard';
+export const QUIZZES = '/quizzes';
 export const RANKING = '/ranking';
 export const SUBJECTS = '/subjects';
 export const SUBJECTS_NEW = '/subjects/new';
