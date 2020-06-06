@@ -1,11 +1,11 @@
 export const LANDING = '/';
-export const SIGN_UP = '/signup';
-export const SIGN_IN = '/signin';
-export const HOME = '/home';
+export const SIGN_UP = '/sign-up';
+export const SIGN_IN = '/sign-in';
+export const SIGN_OUT = '/sign-out';
 export const ACCOUNT = '/account';
 export const ADMIN = '/admin';
 export const RANKING = '/ranking';
-export const PASSWORD_FORGET = '/pw-forget';
+export const FORGOT_PASSWORD = '/forgot-password';
 export const DASHBOARD = '/dashboard';
 export const SUBJECTS = '/subjects';
-export const CREATE_SUBJECTS = '/create-subjects'
+export const CREATE_SUBJECTS = '/subjects/new'

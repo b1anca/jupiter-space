@@ -37,7 +37,7 @@ class SignUpFormBase extends Component {
       .doCreateUserWithEmailAndPassword(email, passwordOne)
       .then(authUser => {
         this.setState({ ...INITIAL_STATE });
-        this.props.history.push(ROUTES.HOME);
+        this.props.history.push(ROUTES.DASHBOARD);
       })
       .catch(error => {
         this.setState({ error });
@@ -80,7 +80,7 @@ class SignUpFormBase extends Component {
                 }}
                 onSubmit={this.onSubmit}
                 >
-            
+
             <Form.Item
             className="FormField"
             name="name"
@@ -92,7 +92,7 @@ class SignUpFormBase extends Component {
             ]}
             hasFeedback
           >
-            <Input 
+            <Input
             className = "FormField__Input"
             name="name"
             value={name}
@@ -159,9 +159,9 @@ class SignUpFormBase extends Component {
           </Form.Item>
 
 
-          <Form.Item 
+          <Form.Item
           name="password"
-          hasFeedback 
+          hasFeedback
           className="FormField"
           rules={[
             {
@@ -187,14 +187,14 @@ class SignUpFormBase extends Component {
             onChange={this.onChange}
             type="password"
             placeholder="Senha"
-                    
+
             />
         </Form.Item>
 
 
-        <Form.Item 
-        name="confirm" 
-        hasFeedback 
+        <Form.Item
+        name="confirm"
+        hasFeedback
         className="FormField"
         dependencies={['password']}
         // eslint-disable-next-line react/jsx-no-duplicate-props
