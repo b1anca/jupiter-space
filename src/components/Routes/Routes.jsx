@@ -12,18 +12,6 @@ import CreateSubjectsForm from '../CreateSubject/CreateSubjectsForm'
 import * as ROUTES from '../../constants/routes';
 
 const Routes = () => (
-<<<<<<< HEAD
-    <Router>
-        <Route exact path={ROUTES.SIGN_UP} component={SignUpPage} />
-        {/* <Route exact path={ROUTES.SIGN_UP} component={SignUpPage} /> */}
-        <Route exact path={ROUTES.LANDING} component={SignInPage} />
-        <Route exact path={ROUTES.RANKING} component={Ranking} />
-        <Route exact path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
-        <Route exact path={ROUTES.HOME} component={HomePage} />
-        <Route exact path={ROUTES.ACCOUNT} component={AccountPage} />
-    </Router>
-  );
-=======
   <Switch>
     <Route exact path={ROUTES.USERS_SIGN_UP} component={SignUpPage} />
     <Route exact path={ROUTES.USERS_SIGN_IN} component={SignInPage} />
@@ -35,6 +23,5 @@ const Routes = () => (
     <Route path="/" component={Dashboard} />
   </Switch>
 );
->>>>>>> 20676d451f7eeaa27bc2f6fdc471a6d7abb4fc02
 
 export default Routes;
