@@ -34,7 +34,7 @@ class SignInFormBase extends Component {
         .doSignInWithEmailAndPassword(email, password)
         .then(() => {
           this.setState({ ...INITIAL_STATE });
-          this.props.history.push(ROUTES.HOME);
+          this.props.history.push(ROUTES.DASHBOARD);
         })
         .catch(error => {
           this.setState({ error });
@@ -126,7 +126,7 @@ class SignInFormBase extends Component {
             <Button type="primary" htmltype="submit" className = 'FormField__Button' onClick={this.onSubmit}>
             <RightOutlined />
             </Button>
-            <Link to={ROUTES.SIGN_UP} className="FormField__Link">Criar Conta</Link>
+            <Link to={ROUTES.USERS_SIGN_UP} className="FormField__Link">Criar Conta</Link>
           </Form.Item>
   
               {error && <p>{error.message}</p>}
