@@ -35,17 +35,17 @@ const Nav = ({ user = defaultUser }) => (
         <Menu.Item key="1">
           <Link to={ROUTES.QUIZZES}>
             quizzes
-            </Link>
+          </Link>
         </Menu.Item>
         <Menu.Item key="2">
           <Link to={ROUTES.SUBJECTS}>
             disciplinas
-            </Link>
+          </Link>
         </Menu.Item>
         <Menu.Item key="3">
           <Link to={ROUTES.RANKING}>
             ranking
-            </Link>
+          </Link>
         </Menu.Item>
       </Menu>
     </Row>
