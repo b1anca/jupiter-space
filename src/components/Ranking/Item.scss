@@ -48,5 +48,14 @@
       font-weight: 800;
       margin: 0 20px 0 10px;
     }
+
+    @media screen and (min-width: $MD-BREAKPOINT) {
+      background-color: unset;
+      border: 1px solid $ORANGE;
+
+      .score, .name {
+        color: black;
+      }
+    }
   }
 }

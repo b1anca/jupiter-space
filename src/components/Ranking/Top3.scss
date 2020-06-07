@@ -13,6 +13,10 @@
     align-items: center;
     flex: 1;
 
+    .rank {
+      font-weight: 800;
+    }
+
     img.avatar {
       height: 100px;
       width: 100px;
@@ -50,6 +54,12 @@
 
     &:last-child {
       margin: 40px 0 0 -75px;
+    }
+
+    @media screen and (min-width: $MD-BREAKPOINT) {
+      .name, .rank {
+        color: black;
+      }
     }
   }
 }

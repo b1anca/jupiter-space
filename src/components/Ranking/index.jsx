@@ -1,6 +1,8 @@
 import React from 'react';
+import { Row, Col } from 'antd';
 import Top3 from './Top3';
-import Header from '../Header';
+import MobileHeader from '../MobileHeader';
+import BrowserHeader from '../BrowserHeader';
 import Item from './Item';
 import './Ranking.scss';
 
@@ -25,12 +27,17 @@ const Ranking = ({ students = defaultStudents }) => {
   const remaining = sortedStudents.slice(3);
 
   return (
-    <div className="ranking">
-      <Header title="Ranking" />
-      <Top3 students={top3} />
-      {remaining.map((student, index) => (
-        <Item key={index} rank={index + 4} {...student} />
-      ))}
+    <div className="ranking-container">
+      <Row>
+        <Col sm={{ span: 24 }} md={{ span: 18 }} lg={{ span: 12 }}>
+          <MobileHeader title="Ranking" />
+          <BrowserHeader title="Ranking" />
+          <Top3 students={top3} />
+          {remaining.map((student, index) => (
+            <Item key={index} rank={index + 4} {...student} />
+          ))}
+        </Col>
+      </Row>
     </div>
   )
 };
