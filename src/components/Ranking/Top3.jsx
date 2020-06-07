@@ -1,20 +1,15 @@
 import React from 'react';
 import './Top3.scss';
 
-const defaultTop3 = [
-  { name: 'Hanna Young', score: 1600, avatarUrl: 'http://placekitten.com/500/500' },
-  { name: 'Barry B. Arroyo', score: 1324, avatarUrl: 'http://placekitten.com/600/600' },
-  { name: 'James B. Guzman', score: 1024, avatarUrl: 'http://placekitten.com/800/700' },
-];
-
-const Top3 = ({ students = defaultTop3 }) => (
+const Top3 = ({ students }) => (
   <div className="top-3">
     {students.map((student, index) => (
       <div key={index} className="card">
-        <span>1</span>
-        <img src={student.avatarUrl} alt={student.name} />
-        <span>{student.name}</span>
-        <span>12321</span>
+        <i className="crown fas fa-crown" />
+        <span className="rank">{[2, 1, 3][index]}</span>
+        <img className="avatar" src={student.avatarUrl} alt={student.name} />
+        <span className="name">{student.name}</span>
+        <span className="score">{student.score}</span>
       </div>
     ))}
   </div>

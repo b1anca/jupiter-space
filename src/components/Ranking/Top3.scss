@@ -2,18 +2,54 @@
 
 .top-3 {
   display: flex;
+  justify-content: center;
+  padding: 0 10px;
   color: white;
+  margin-bottom: 10px;
 
   .card {
-    border: 1px solid greenyellow;
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
+    flex: 1;
 
-  img {
-    height: 100px;
-    width: 100px;
-    border-radius: 50px;
+    img.avatar {
+      height: 100px;
+      width: 100px;
+      border-radius: 50px;
+      border: 3px solid $ORANGE;
+    }
+
+    .name {
+      font-weight: 800;
+      text-align: center;
+      width: 100px;
+    }
+
+    .score {
+      font-weight: 800;
+      color: $ORANGE;
+      font-size: 16px;
+    }
+
+    &:first-child {
+      margin-right: -75px;
+      margin-top: 20px;
+    }
+
+    .crown {
+      color: $ORANGE;
+      opacity: 0;
+    }
+
+    &:nth-child(2) {
+      .crown {
+        opacity: 1;
+      }
+    }
+
+    &:last-child {
+      margin: 40px 0 0 -75px;
+    }
   }
 }

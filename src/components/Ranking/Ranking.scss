@@ -1,6 +1,9 @@
 @import '../../constants';
 
 .ranking {
-  background-color: $ORANGE;
-  height: 100vh;
+  overflow: auto;
+
+  @media screen and (max-width: $MD-BREAKPOINT) {
+    background-color: darken($ORANGE, 20%);
+  }
 }
