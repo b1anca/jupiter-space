@@ -1,0 +1,21 @@
+@import '../../constants';
+
+.browser-header {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 26px;
+  font-weight: 800;
+  color: black;
+
+  @media screen and (max-width: $MD-BREAKPOINT) {
+    display: none;
+  }
+
+  &.orange {
+    color: $ORANGE;
+  }
+
+  &.blue {
+    color: $BLUE;
+  }
+}

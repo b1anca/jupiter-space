@@ -1,0 +1,67 @@
+@import '../../constants';
+
+.ranking-item {
+  display: flex;
+  font-size: 15px;
+  align-items: center;
+  color: white;
+
+  .rank {
+    font-weight: 800;
+    margin-left: 10px;
+    width: 20px;
+    text-align: center;
+  }
+
+  .card {
+    flex-grow: 1;
+    border-radius: 25px;
+    margin: 5px 10px;
+    background-color: rgba(236, 151, 31, 0.3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .horizontal {
+      display: flex;
+      align-items: center;
+
+      img.avatar {
+        height: 50px;
+        width: 50px;
+        border-radius: 25px;
+        border: 3px solid $ORANGE;
+        margin-right: 10px;
+      }
+
+      .name {
+        font-weight: 800;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 50vw;
+      }
+    }
+
+    .score {
+      color: $ORANGE;
+      font-weight: 800;
+      margin: 0 20px 0 10px;
+    }
+  }
+  @media screen and (min-width: $MD-BREAKPOINT) {
+    .card {
+      background-color: unset;
+      border: 1px solid $ORANGE;
+
+      .score,
+      .name {
+        color: black;
+      }
+    }
+
+    .rank {
+      color: black;
+    }
+  }
+}

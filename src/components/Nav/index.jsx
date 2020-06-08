@@ -30,22 +30,24 @@ const NavDropdown = ({ user }) => (
 const Nav = ({ user = defaultUser }) => (
   <Layout.Header className="navbar">
     <Row>
-      <div className="text mr">Jupiter Space</div>
+      <Link to={ROUTES.DASHBOARD}>
+        <div className="text mr">Jupiter Space</div>
+      </Link>
       <Menu theme="dark" mode="horizontal" >
         <Menu.Item key="1">
           <Link to={ROUTES.QUIZZES}>
             quizzes
-            </Link>
+          </Link>
         </Menu.Item>
         <Menu.Item key="2">
           <Link to={ROUTES.SUBJECTS}>
             disciplinas
-            </Link>
+          </Link>
         </Menu.Item>
         <Menu.Item key="3">
           <Link to={ROUTES.RANKING}>
             ranking
-            </Link>
+          </Link>
         </Menu.Item>
       </Menu>
     </Row>
