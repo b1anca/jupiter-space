@@ -1,8 +1,12 @@
 import React from 'react';
-import { Layout, Menu } from 'antd';
+import { Layout, Menu, Button } from 'antd';
 import { Link } from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
 import './Sidenav.scss';
+
+const SignOutButton = ( firebase ) => (
+  firebase.doSignOut
+);
 
 const Sidenav = () => {
   const [collapsed, setCollapsed] = React.useState(true);
@@ -30,8 +34,8 @@ const Sidenav = () => {
             </Link>
           </Menu.Item>
           <Menu.Item key="2">
-            <Link to={ROUTES.USERS_SIGN_OUT} >
-              <span className="nav-text">Sair</span>
+            <Link to={'/'} onClick={SignOutButton}>
+              <span className="text">Sair</span>
             </Link>
           </Menu.Item>
         </Menu>

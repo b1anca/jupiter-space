@@ -10,6 +10,10 @@ const defaultUser = {
   email: 'john@email.com'
 };
 
+const SignOutButton = ( firebase ) => (
+  firebase.doSignOut
+);
+
 const NavDropdown = ({ user }) => (
   <Menu className="user-info-dropdown">
     <Menu.Item className="text email" key="0">{user.email}</Menu.Item>
@@ -20,7 +24,7 @@ const NavDropdown = ({ user }) => (
       </Link>
     </Menu.Item>
     <Menu.Item key="2">
-      <Link to={ROUTES.USERS_SIGN_OUT}>
+      <Link to={'/'} onClick={SignOutButton}>
         <span className="text">Sair</span>
       </Link>
     </Menu.Item>
@@ -30,24 +34,22 @@ const NavDropdown = ({ user }) => (
 const Nav = ({ user = defaultUser }) => (
   <Layout.Header className="navbar">
     <Row>
-      <Link to={ROUTES.DASHBOARD}>
-        <div className="text mr">Jupiter Space</div>
-      </Link>
+      <div className="text mr">Jupiter Space</div>
       <Menu theme="dark" mode="horizontal" >
         <Menu.Item key="1">
           <Link to={ROUTES.QUIZZES}>
             quizzes
-          </Link>
+            </Link>
         </Menu.Item>
         <Menu.Item key="2">
           <Link to={ROUTES.SUBJECTS}>
             disciplinas
-          </Link>
+            </Link>
         </Menu.Item>
         <Menu.Item key="3">
           <Link to={ROUTES.RANKING}>
             ranking
-          </Link>
+            </Link>
         </Menu.Item>
       </Menu>
     </Row>

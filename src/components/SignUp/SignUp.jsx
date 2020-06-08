@@ -31,10 +31,10 @@ class SignUpFormBase extends Component {
   }
 
   onSubmit = event => {
-    const { email, passwordOne } = this.state;
+    const { email, password } = this.state;
 
     this.props.firebase
-      .doCreateUserWithEmailAndPassword(email, passwordOne)
+      .doCreateUserWithEmailAndPassword(email, password)
       .then(authUser => {
         this.setState({ ...INITIAL_STATE });
         this.props.history.push(ROUTES.DASHBOARD);
@@ -42,14 +42,6 @@ class SignUpFormBase extends Component {
       .catch(error => {
         this.setState({ error });
       });
-
-      const aux = {
-        teste: "teste",
-      }
-
-      this.props.firebase
-      .createSomething('batata')
-      .set(aux);
 
     event.preventDefault();
   };
@@ -78,7 +70,6 @@ class SignUpFormBase extends Component {
                 initialValues={{
                 remember: true,
                 }}
-                onSubmit={this.onSubmit}
                 >
 
             <Form.Item
@@ -239,7 +230,7 @@ class SignUpFormBase extends Component {
           </Form.Item>
 
           <Form.Item >
-            <Button type="primary" htmltype="submit" className = 'FormField__Button'>
+            <Button type="primary" htmltype="submit" className='FormField__Button' onClick={this.onSubmit}>
             <RightOutlined />
             </Button>
             <Link to="/signin" className="FormField__Link">Log In</Link>
