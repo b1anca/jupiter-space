@@ -1,39 +1,55 @@
-@import '~antd/dist/antd.css';
 @import '../../constants';
 
-.ant-typography strong {
-    font-weight: 750;
-}
+.ant-layout.layoutSubject {
+  background-color: darken($BLUE, 10%);
+  min-height: 100vh;
 
-.ant-btn {
-    align-items: center;
-    align-content: center;
-    text-align: center;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 100%;
-    height: 40px;
+  .ant-row {
+    justify-content: center;
+  }
 
-    i {
-        color: black;    
-        width: 20px;
-        height: 20px;
-        position: absolute;
-        right: 5px;
-        bottom: 7px;
+  .ant-row {
+    padding: 10px;
+
+    .ant-col {
+      flex: 1;
+
+      .button {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 4px;
+        padding: 15px;
+        margin-bottom: 10px;
+        background-color: $LIGHT-BLUE;
+        cursor: pointer;
+
+        .subject-name {
+          font-weight: 800;
+          color: white;
+          font-size: 15px;
+        }
+
+        .icon {
+          color: white;
+        }
+      }
     }
-}
+  }
 
-.mobile-header-container {
+  @media screen and (min-width: $MD-BREAKPOINT) {
+    background-color: white;
 
-    color: black;
+    .ant-row .ant-col {
+      .button {
+        background-color: white;
+        border: 1px solid $BLUE;
 
-    .title {
-        color: black;
+        .subject-name,
+        .icon {
+          color: black;
+        }
+      }
     }
-}
-
-.trigger.fas.fa-bars {
-    color: black;
+  }
 }
