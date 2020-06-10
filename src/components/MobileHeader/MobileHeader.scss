@@ -24,6 +24,12 @@
     margin-bottom: 2px;
   }
 
+  &.black {
+    .title, .back {
+      color: black;
+    }
+  }
+
   span.for-alignment {
     width: 30px;
   }

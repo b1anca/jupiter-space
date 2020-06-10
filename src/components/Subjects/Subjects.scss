@@ -1,0 +1,55 @@
+@import '../../constants';
+
+.ant-layout.layoutSubject {
+  background-color: darken($BLUE, 10%);
+  min-height: 100vh;
+
+  .ant-row {
+    justify-content: center;
+  }
+
+  .ant-row {
+    padding: 10px;
+
+    .ant-col {
+      flex: 1;
+
+      .button {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 4px;
+        padding: 15px;
+        margin-bottom: 10px;
+        background-color: $LIGHT-BLUE;
+        cursor: pointer;
+
+        .subject-name {
+          font-weight: 800;
+          color: white;
+          font-size: 15px;
+        }
+
+        .icon {
+          color: white;
+        }
+      }
+    }
+  }
+
+  @media screen and (min-width: $MD-BREAKPOINT) {
+    background-color: white;
+
+    .ant-row .ant-col {
+      .button {
+        background-color: white;
+        border: 1px solid $BLUE;
+
+        .subject-name,
+        .icon {
+          color: black;
+        }
+      }
+    }
+  }
+}
