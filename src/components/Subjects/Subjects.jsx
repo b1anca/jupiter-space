@@ -3,9 +3,9 @@ import { Layout, Typography, Row, Col } from 'antd';
 import './Subjects.scss'
 import MobileHeader from '../MobileHeader';
 import BrowserHeader from '../BrowserHeader';
+import BottomButton from '../BottomButton';
 
 const { Text } = Typography;
-const { Content } = Layout;
 
 const defaultSubjects = [
   { name: 'Disciplina 1' },
@@ -22,13 +22,14 @@ const Subjects = ({ subjects = defaultSubjects }) => (
     <Row>
       <Col sm={{ span: 24 }} md={{ span: 18 }} lg={{ span: 12 }}>
         {subjects.map((subject, index) => (
-          <div className='button'>
+          <div key={index} className='button'>
             <Text className="subject-name">{subject.name}</Text>
             <i className="icon fas fa-chevron-right" />
           </div>
         ))}
       </Col>
     </Row>
+    <BottomButton title="Criar disciplina" />
   </Layout>
 );
 
