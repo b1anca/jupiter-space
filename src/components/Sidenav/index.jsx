@@ -17,7 +17,7 @@ const Sidenav = () => {
         collapsed={collapsed}
         trigger={null}
       >
-        <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
+        <Menu theme="dark" mode="inline">
           <Menu.Item>
             <Link to={ROUTES.DASHBOARD}>
               <div className="text name">Jupiter Space</div>

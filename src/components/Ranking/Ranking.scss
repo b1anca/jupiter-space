@@ -1,0 +1,11 @@
+@import '../../constants';
+
+.ranking-container {
+  @media screen and (max-width: $MD-BREAKPOINT) {
+    background-color: darken($ORANGE, 20%);
+  }
+
+  .ant-row {
+    justify-content: center;
+  }
+}
