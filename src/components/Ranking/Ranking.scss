@@ -1,6 +1,8 @@
 @import '../../constants';
 
 .ranking-container {
+  min-height: 100vh;
+
   @media screen and (max-width: $MD-BREAKPOINT) {
     background-color: darken($ORANGE, 20%);
   }
