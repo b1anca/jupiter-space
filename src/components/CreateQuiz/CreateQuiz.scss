@@ -1,0 +1,15 @@
+@import '../../constants';
+
+.create-quiz-container {
+  min-height: 100vh;
+  margin-bottom: 50px;
+
+  .ant-row {
+    justify-content: center;
+    padding: 10px;
+
+    .ant-col {
+      flex: 1;
+    }
+  }
+}

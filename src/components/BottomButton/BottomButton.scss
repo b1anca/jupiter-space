@@ -4,7 +4,7 @@
   .ant-col {
     @media screen and (max-width: $MD-BREAKPOINT) {
       bottom: 30px;
-      position: absolute;
+      position: fixed;
       left: 0;
       cursor: pointer;
       right: 0;
@@ -18,9 +18,19 @@
     color: white;
     background-color: $BLUE;
     border-radius: 5px;
+    cursor: pointer;
+    transition: ease-out 300ms;
 
     &.orange-bg {
       background-color: $ORANGE;
+
+      &:hover {
+        background-color: darken($ORANGE, 5%);
+      }
+    }
+
+    &:hover {
+      background-color: darken($BLUE, 5%);
     }
   }
 }

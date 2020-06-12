@@ -1,0 +1,24 @@
+@import '../../constants';
+
+.number-field-container {
+  border: 1px solid $BLUE;
+  border-radius: 3px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+
+  &.orange {
+    border-color: $ORANGE;
+  }
+
+  .ant-input-number {
+    border: none;
+    color: black;
+
+    &:hover, &:focus {
+      box-shadow: none;
+      border-color: white;
+    }
+  }
+
+}
