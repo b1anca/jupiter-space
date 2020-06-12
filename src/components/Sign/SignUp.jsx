@@ -248,7 +248,7 @@ class SignUpFormBase extends Component {
 
           <Form.Item >
             <Form.Item className='left'>
-              <a href={ROUTES.USERS_SIGN_IN} className="FormField__Link">Log In</a>
+              <a href={ROUTES.USERS_SIGN_IN} className="FormField__Link">Criar conta</a>
             </Form.Item>            
             <Form.Item className='right'>
               <Button type="primary" htmltype="submit" className = 'FormField__Button' onClick={this.onSubmit}>

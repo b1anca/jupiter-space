@@ -130,7 +130,7 @@ class SignInFormBase extends Component {
 
             
             <Form.Item className= 'FormField__ButtonLabel'>
-            Login
+            Log In
             <Button type="primary" htmltype="submit" className = 'FormField__Button' onClick={this.onSubmit}>
             <RightOutlined />
             </Button>
