@@ -1,3 +1,5 @@
+@import '../../constants';
+
 .FormCenter {
   justify-content: center;
   background-color: white;
@@ -57,8 +59,8 @@
 }
 
 .FormField__Button {
-  background-color: #52C4B9;
-  color: black;
+  background-color: $BLUE;
+  color: white;
   border: none;
   padding: 10px;
   size: initial;
