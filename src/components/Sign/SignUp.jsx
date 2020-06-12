@@ -246,9 +246,9 @@ class SignUpFormBase extends Component {
             </Checkbox>
           </Form.Item>
 
-          <Form.Item >
+          <Form.Item className='FormField__Margin'>
             <Form.Item className='left'>
-              <a href={ROUTES.USERS_SIGN_IN} className="FormField__Link">Criar conta</a>
+              Cadastrar
             </Form.Item>            
             <Form.Item className='right'>
               <Button type="primary" htmltype="submit" className = 'FormField__Button' onClick={this.onSubmit}>
@@ -256,6 +256,10 @@ class SignUpFormBase extends Component {
               </Button>
             </Form.Item> 
           </Form.Item>
+
+          <Form.Item className='left'>
+            <a href={ROUTES.USERS_SIGN_IN} className="FormField__Link">Log In</a>
+          </Form.Item> 
 
             {error && <p>{error.message}</p>}
           </Form>
