@@ -2,8 +2,8 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import Ranking from '../Ranking';
-import SignUpPage from '../SignUp/SignUp';
-import SignInPage from '../SignIn/SignIn';
+import SignUpPage from '../Sign/SignUp';
+import SignInPage from '../Sign/SignIn';
 import ForgotPasswordPage from '../ForgotPassword';
 import Dashboard from '../Dashboard';
 import Subjects from '../Subjects/Subjects';

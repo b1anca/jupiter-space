@@ -3,14 +3,16 @@ import { Link, withRouter } from 'react-router-dom';
 
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
-import { Form, Input, Button, Checkbox } from 'antd';
-import { RightOutlined } from '@ant-design/icons';
+import { Row, Col, Form, Input, Button, Checkbox } from 'antd';
+import { RightOutlined, MailOutlined, LockOutlined, UserOutlined, FieldNumberOutlined } from '@ant-design/icons';
 import "./Sign.scss";
 
 const SignUpPage = () => (
-  <div className='FormTitle'type="flex" justify="center" align="middle">
-    <h1>Criar conta</h1>
-    <SignUpForm />
+  <div className="Form-container">
+    <div className='FormTitle'  type="flex" justify="center" align="middle">
+      <h1>Criar conta</h1>
+      <SignUpForm />
+    </div>
   </div>
 );
 
@@ -31,10 +33,10 @@ class SignUpFormBase extends Component {
   }
 
   onSubmit = event => {
-    const { email, passwordOne } = this.state;
+    const { email, password } = this.state;
 
     this.props.firebase
-      .doCreateUserWithEmailAndPassword(email, passwordOne)
+      .doCreateUserWithEmailAndPassword(email, password)
       .then(authUser => {
         this.setState({ ...INITIAL_STATE });
         this.props.history.push(ROUTES.DASHBOARD);
@@ -43,23 +45,15 @@ class SignUpFormBase extends Component {
         this.setState({ error });
       });
 
-      const aux = {
-        teste: "teste",
-      }
-
-      this.props.firebase
-      .createSomething('batata')
-      .set(aux);
-
     event.preventDefault();
   };
+
 
   onChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
 
   render() {
-
     const {
       name,
       nUSP,
@@ -70,11 +64,15 @@ class SignUpFormBase extends Component {
     } = this.state;
 
     return (
-        <div
-        className = "FormCenter"
-        >
+    <div className="Form-container">  
+      <Row
+      className = "FormCenter"
+      align="middle"
+      >
+      <Col xs={{ span: 24 }} md={{ span: 18 }} lg={{ span: 12 }}>
           <Form name="normal_login"
                 className="login-form"
+                onFinish={this.onFinish}
                 initialValues={{
                 remember: true,
                 }}
@@ -87,12 +85,15 @@ class SignUpFormBase extends Component {
             rules={[
               {
                 required: true,
-                message: 'Please input your name!',
+                message: 'Insira seu nome, por favor!',
               },
             ]}
             hasFeedback
           >
             <Input
+            prefix={ <UserOutlined
+              />
+            } 
             className = "FormField__Input"
             name="name"
             value={name}
@@ -108,15 +109,15 @@ class SignUpFormBase extends Component {
             rules={[
               {
                 required: true,
-                message: 'Please input your USP number!',
+                message: 'Insira seu número USP, por favor!',
               },
               ({ getFieldValue }) => ({
                 validator(rule, value) {
                   // eslint-disable-next-line no-mixed-operators
-                  if (!value || value.length >= 7) {
+                  if (!value || value.length >= 7 && value.length <= 8) {
                     return Promise.resolve();
                   }
-                  return Promise.reject('The USP number must be more than 7 numbers!');
+                  return Promise.reject('O número USP deve ter entre 7 e 8 caracteres!');
                 },
               }),
             ]}
@@ -124,6 +125,9 @@ class SignUpFormBase extends Component {
           hasFeedback
           >
             <Input
+            prefix={ <FieldNumberOutlined 
+              />
+            } 
             className = "FormField__Input"
             name="nUSP"
             value={nUSP}
@@ -139,16 +143,19 @@ class SignUpFormBase extends Component {
             rules={[
               {
                 type: 'email',
-                message: 'The input is not valid E-mail!',
+                message: 'O e-mail inserido é invalido!',
               },
               {
                 required: true,
-                message: 'Please input your E-mail!',
+                message: 'Insira um e-mail, por favor!',
               },
             ]}
             hasFeedback
           >
             <Input
+            prefix={ <MailOutlined
+              />
+            } 
             className = "FormField__Input"
             name="email"
             value={email}
@@ -166,7 +173,7 @@ class SignUpFormBase extends Component {
           rules={[
             {
               required: true,
-              message: 'Please input your password!',
+              message: 'Insira uma senha, por favor!',
             },
             ({ getFieldValue }) => ({
               validator(rule, value) {
@@ -174,13 +181,16 @@ class SignUpFormBase extends Component {
                 if (!value || value.length >= 8) {
                   return Promise.resolve();
                 }
-                return Promise.reject('The password must be more than 8 characters!');
+                return Promise.reject('A senha inserida deve possuir mais de 8 caracteres!');
               },
             }),
           ]}
         // eslint-disable-next-line react/jsx-no-duplicate-props
         hasFeedback
-          ><Input
+          ><Input.Password
+            prefix={ <LockOutlined
+              />
+            } 
             className = "FormField__Input"
             name="password"
             value={password}
@@ -202,7 +212,7 @@ class SignUpFormBase extends Component {
         rules={[
           {
             required: true,
-            message: 'Please confirm your password!',
+            message: 'Confirme sua senha, por favor!',
           },
           ({ getFieldValue }) => ({
             validator(rule, value) {
@@ -210,12 +220,15 @@ class SignUpFormBase extends Component {
               if (!value || getFieldValue('password') === value) {
                 return Promise.resolve();
               }
-              return Promise.reject('The two passwords that you entered do not match!');
+              return Promise.reject('As senhas insiridas não correspondem!');
             },
           }),
         ]}
       >
-        <Input
+        <Input.Password
+            prefix={ <LockOutlined
+              />
+            } 
             className = "FormField__Input"
             name="confirm"
             value={confirm}
@@ -231,23 +244,31 @@ class SignUpFormBase extends Component {
             name="professor"
             valuePropName="checked"
           >
-            <Checkbox >
-              <span className='FormField__CheckboxLabel'>
+            <Checkbox className='FormField__CheckboxLabel'>
               Professor(a)
-              </span>
             </Checkbox>
           </Form.Item>
 
-          <Form.Item >
-            <Button type="primary" htmltype="submit" className = 'FormField__Button'>
-            <RightOutlined />
-            </Button>
-            <Link to="/signin" className="FormField__Link">Log In</Link>
+          <Form.Item className='FormField__Margin'>
+            <Form.Item className='left'>
+              Cadastrar
+            </Form.Item>            
+            <Form.Item className='right'>
+              <Button type="primary" htmltype="submit" className = 'FormField__Button' onClick={this.onSubmit}>
+              <RightOutlined />
+              </Button>
+            </Form.Item> 
           </Form.Item>
+
+          <Form.Item className='left'>
+            <a href={ROUTES.USERS_SIGN_IN} className="FormField__Link">Log In</a>
+          </Form.Item> 
 
             {error && <p>{error.message}</p>}
           </Form>
-        </div>
+        </Col>
+      </Row>
+    </div>
     );
   }
 }

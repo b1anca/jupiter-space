@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
-
+import { withRouter } from 'react-router-dom';
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
-import { Form, Input, Button } from 'antd';
-import { RightOutlined } from '@ant-design/icons';
+import { Row, Col, Form, Input, Button } from 'antd';
+import { RightOutlined, MailOutlined, LockOutlined } from '@ant-design/icons';
 import "./Sign.scss";
 
 const SignIn = () => (
-    <div className='FormTitle'type="flex" justify="center" align="middle">
-    <h1>Bem vindo(a) </h1>
-    <SignInForm />
-  </div>
+    <div className="Form-container">
+      <div className='FormTitle'  type="flex" justify="center" align="middle">
+        <h1>Bem vindo(a) de volta</h1>
+        <SignInForm />
+      </div>
+    </div>
 );
 
 const INITIAL_STATE = {
@@ -28,7 +29,19 @@ class SignInFormBase extends Component {
     }
   
     onSubmit = event => {
- 
+      const { email, password } = this.state;
+   
+      this.props.firebase
+        .doSignInWithEmailAndPassword(email, password)
+        .then(() => {
+          this.setState({ ...INITIAL_STATE });
+          this.props.history.push(ROUTES.DASHBOARD);
+        })
+        .catch(error => {
+          this.setState({ error });
+        });
+   
+      event.preventDefault();
     };
   
     onChange = event => {
@@ -43,15 +56,17 @@ class SignInFormBase extends Component {
       } = this.state;
   
       return (
-          <div
+        <div className="Form-container">
+          <Row
           className = "FormCenter"
+          align="middle"
           >
+          <Col xs={{ span: 24 }} md={{ span: 18 }} lg={{ span: 12 }}>
             <Form name="normal_login"
-                  className="login-form"
+                  className = "FormMain"
                   initialValues={{
                   remember: true,
                   }}
-                  onSubmit={this.onSubmit}
                   >
 
             <Form.Item
@@ -60,22 +75,24 @@ class SignInFormBase extends Component {
               rules={[
                 {
                   type: 'email',
-                  message: 'The input is not valid E-mail!',
+                  message: 'O e-mail inserido é invalido!',
                 },
                 {
                   required: true,
-                  message: 'Please input your E-mail!',
+                  message: 'Insira um e-mail, por favor!',
                 },
               ]}
               hasFeedback
             >
               <Input
-              className = "FormField__Input"
-              name="email"
-              value={email}
-              onChange={this.onChange}
-              type="text"
-              placeholder="Email"
+                prefix={<MailOutlined/>}
+                className = "FormField__Input"
+                name="email"
+                value={email}
+                onChange={this.onChange}
+                type="text"
+                placeholder="Email"
+              
               />
             </Form.Item>
   
@@ -85,7 +102,7 @@ class SignInFormBase extends Component {
               rules={[
                 {
                   required: true,
-                  message: 'Please input your password!',
+                  message: 'Insira uma senha, por favor!',
                 },
                 ({ getFieldValue }) => ({
                   validator(rule, value) {
@@ -93,14 +110,17 @@ class SignInFormBase extends Component {
                     if (!value || value.length >= 8) {
                       return Promise.resolve();
                     }
-                    return Promise.reject('The password must be more than 8 characters!');
+                    return Promise.reject('A senha inserida deve possuir mais de 8 caracteres!');
                   },
                 }),
               ]}
             // eslint-disable-next-line react/jsx-no-duplicate-props
             hasFeedback
             >
-              <Input
+              <Input.Password
+              prefix={ <LockOutlined
+                />
+              }  
               className = "FormField__Input"
               name="password"
               value={password}
@@ -110,17 +130,33 @@ class SignInFormBase extends Component {
                       
               />
             </Form.Item>
-  
-            <Form.Item >
-            <Button type="primary" htmltype="submit" className = 'FormField__Button'>
+
+            
+            <Form.Item className= 'FormField__ButtonLabel'>
+            Log In
+            <Button type="primary" htmltype="submit" className = 'FormField__Button' onClick={this.onSubmit}>
             <RightOutlined />
             </Button>
-            <Link to="/" className="FormField__Link">Criar Conta</Link>
-          </Form.Item>
+            </Form.Item>
+
+            <Form.Item className="FormField">
+              <Form.Item className='left'>
+                <a href={ROUTES.USERS_SIGN_UP} className="FormField__Link">Criar Conta</a>
+              </Form.Item>
+              <Form.Item className='right'>
+                <a href={ROUTES.USERS_SIGN_UP} className="FormField__Link">Esqueceu a Senha?</a>
+              </Form.Item>
+            </Form.Item>
+
+
+            </Form>
+            </Col>
+
   
               {error && <p>{error.message}</p>}
-            </Form>
-          </div>
+            
+          </Row>
+        </div>
       );
     }
   }
