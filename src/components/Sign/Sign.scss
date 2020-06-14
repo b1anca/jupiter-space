@@ -1,133 +1,136 @@
 @import '../../constants';
 
-.FormCenter {
-  justify-content: center;
-  background-color: white;
-  padding: 0px;
-  margin-left: 0px;
-}
+.Form-container {
 
-.FormTitle {
-  flex:1;
-  color: #707C8B;
-  font-weight: 400;
-  font-size: x-large;
-  margin-bottom: 30px;
-  margin-top: 50px;
-  text-align: left;
-  margin-left: 70px;
-  margin-right: 70px;
-  text-align: center;
-}
+  .FormCenter {
+    justify-content: center;
+    background-color: white;
+    padding: 0px;
+    margin-left: 0px;
+  }
 
-.FormMain {
-  flex-direction: column;
-  height: 100%;
-  background-color:white;
-  margin-top: 100px;
-  display:flex;
-}
+  .FormTitle {
+    flex:1;
+    color: #707C8B;
+    font-weight: 800;
+    font-size: 26px;
+    margin-bottom: 30px;
+    margin-top: 50px;
+    text-align: left;
+    margin-left: 70px;
+    margin-right: 70px;
+    text-align: center;
+  }
 
-.FormField {
-  margin-bottom: 40px;
-  align-items: center;
-  align-content: center;
-  text-align: center;
-  display: block;
-  margin-left: 0px;
-  margin-right: 0px;
-}
+  .FormMain {
+    flex-direction: column;
+    height: 100%;
+    background-color:white;
+    margin-top: 100px;
+    display:flex;
+  }
 
-.FormField__Label {
-  display: block;
-  text-transform: uppercase;
-  font-size: .9em;
-  color: black;
-}
+  .FormField {
+    margin-bottom: 40px;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    display: block;
+    margin-left: 0px;
+    margin-right: 0px;
+  }
 
-.FormField__Input {
-  width: 100%;
-  background-color: transparent;
-  border: none;
-  color: black;
-  outline: none;
-  border-bottom: 1px solid #445366;
-  font-size: 1em;
-  font-weight: 300;
-  padding-bottom: 10px;
-  margin-top: 10px;
-}
+  .FormField__Label {
+    display: block;
+    text-transform: uppercase;
+    font-size: .9em;
+    color: black;
+  }
 
-.FormField__Button {
-  background-color: $BLUE;
-  color: white;
-  border: none;
-  padding: 10px;
-  size: initial;
-  text-align: center;
-  text-decoration: none;
-  font-size: 20px;
-  height: 35px;
-  width: 35px;
-  border-radius: 50%;
-  display: flex;
-  float: right;
-  justify-content: center;
-  align-items: center;
-  margin-left: 0px;
-  margin-right: 0px;
-}
+  .FormField__Input {
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    color: black;
+    outline: none;
+    border-bottom: 1px solid #445366;
+    font-size: 1em;
+    font-weight: 300;
+    padding-bottom: 10px;
+    margin-top: 10px;
+  }
 
-.FormField__CheckboxLabel {
-  color: #646F7D;
-  font-size: .9em;
-}
+  .FormField__Button {
+    background-color: $BLUE;
+    color: white;
+    border: none;
+    padding: 10px;
+    size: initial;
+    text-align: center;
+    text-decoration: none;
+    font-size: 20px;
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    display: flex;
+    float: right;
+    justify-content: center;
+    align-items: center;
+    margin-left: 0px;
+    margin-right: 0px;
+  }
 
-.FormField__Checkbox {
-  position: relative;
-  top: 1.5px;
-  padding-bottom: 10px;
-  text-align: start;
-}
+  .FormField__CheckboxLabel {
+    color: #646F7D;
+    font-size: .9em;
+  }
 
-.FormField__Link {
-  color: #66707D;
-  text-decoration: none;
-  border-bottom: 1px solid #445366;
-  font-size: 13px;
-  font-weight: 30;
-  padding-bottom: 5px;
-  display: inline;
-}
+  .FormField__Checkbox {
+    position: relative;
+    top: 1.5px;
+    padding-bottom: 10px;
+    text-align: start;
+  }
 
-.right{
-  text-align: right;
-  text-align: start;
-  float: right;
-}
+  .FormField__Link {
+    color: #66707D;
+    text-decoration: none;
+    border-bottom: 1px solid #445366;
+    font-size: 13px;
+    font-weight: 30;
+    padding-bottom: 5px;
+    display: inline;
+  }
 
-.left{
-  float: left;
-  text-align: left;
-  text-align: start;
-}
+  .right{
+    text-align: right;
+    text-align: start;
+    float: right;
+  }
 
-.FormField__CheckboxLabel {
-  color: #646F7D;
-  font-size: .9em;
-  font-weight: 30;
-}
+  .left{
+    float: left;
+    text-align: left;
+    text-align: start;
+  }
 
-.FormField__ButtonLabel {
-  color: #66707D;
-  font-size: 15px;
-  font-weight: 30;
-  padding-bottom: 10px;
-  text-align: start;
-  display: inline-block;
-  margin-top: 40px;
-}
+  .FormField__CheckboxLabel {
+    color: #646F7D;
+    font-size: .9em;
+    font-weight: 30;
+  }
 
-.FormField__Margin {
-  margin-bottom: 0px;
+  .FormField__ButtonLabel {
+    color: #66707D;
+    font-size: 15px;
+    font-weight: 30;
+    padding-bottom: 10px;
+    text-align: start;
+    display: inline-block;
+    margin-top: 40px;
+  }
+
+  .FormField__Margin {
+    margin-bottom: 0px;
+  }
 }

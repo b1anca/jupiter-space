@@ -7,10 +7,12 @@ import { RightOutlined, MailOutlined, LockOutlined } from '@ant-design/icons';
 import "./Sign.scss";
 
 const SignIn = () => (
-    <div className='FormTitle'  type="flex" justify="center" align="middle">
-    <h1>Bem vindo(a) de volta</h1>
-    <SignInForm />
-  </div>
+    <div className="Form-container">
+      <div className='FormTitle'  type="flex" justify="center" align="middle">
+        <h1>Bem vindo(a) de volta</h1>
+        <SignInForm />
+      </div>
+    </div>
 );
 
 const INITIAL_STATE = {
@@ -54,6 +56,7 @@ class SignInFormBase extends Component {
       } = this.state;
   
       return (
+        <div className="Form-container">
           <Row
           className = "FormCenter"
           align="middle"
@@ -153,6 +156,7 @@ class SignInFormBase extends Component {
               {error && <p>{error.message}</p>}
             
           </Row>
+        </div>
       );
     }
   }

@@ -8,9 +8,11 @@ import { RightOutlined, MailOutlined, LockOutlined, UserOutlined, FieldNumberOut
 import "./Sign.scss";
 
 const SignUpPage = () => (
-  <div className='FormTitle'type="flex" justify="center" align="middle">
-    <h1>Criar conta</h1>
-    <SignUpForm />
+  <div className="Form-container">
+    <div className='FormTitle'  type="flex" justify="center" align="middle">
+      <h1>Criar conta</h1>
+      <SignUpForm />
+    </div>
   </div>
 );
 
@@ -62,6 +64,7 @@ class SignUpFormBase extends Component {
     } = this.state;
 
     return (
+    <div className="Form-container">  
       <Row
       className = "FormCenter"
       align="middle"
@@ -265,6 +268,7 @@ class SignUpFormBase extends Component {
           </Form>
         </Col>
       </Row>
+    </div>
     );
   }
 }
