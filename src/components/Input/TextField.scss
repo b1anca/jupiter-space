@@ -1,22 +1,36 @@
 @import '../../constants';
 
 .text-field-container {
-  border: 1px solid $BLUE;
-  border-radius: 3px;
   margin-bottom: 10px;
 
-  &.orange {
-    border-color: $ORANGE;
+  .input-container {
+    border: 1px solid $BLUE;
+    border-radius: 3px;
+
+    &.orange {
+      border-color: $ORANGE;
+    }
+
+    .ant-input {
+      font-size: 16px;
+      color: black;
+      border: none;
+
+      &:hover,
+      &:focus {
+        border-color: white;
+        box-shadow: none;
+      }
+    }
   }
 
-  .ant-input {
-    font-size: 16px;
-    color: black;
-    border: none;
+  &.error {
+    .input-container {
+      border-color: red;
+    }
 
-    &:hover, &:focus {
-      border-color: white;
-      box-shadow: none;
+    .error-msg {
+      color: red;
     }
   }
 }

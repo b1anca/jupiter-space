@@ -4,7 +4,7 @@ import Label from './Label';
 import locale from 'antd/es/date-picker/locale/pt_BR';
 import './DatePicker.scss';
 
-const DatePicker = ({ label, color, onChange, required }) => (
+const DatePicker = ({ label, color, onChange, required, onBlur }) => (
   <div key={label} className={`date-picker-container ${color}`}>
     <Label name={label} required={required} />
     <AntDatePicker
@@ -12,6 +12,7 @@ const DatePicker = ({ label, color, onChange, required }) => (
       placeholder=""
       format="L"
       onChange={onChange}
+      onBlur={onBlur}
     />
   </div>
 );

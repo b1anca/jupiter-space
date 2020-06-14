@@ -17,10 +17,24 @@ const defaultSubjects = [
 ];
 
 const CreateQuiz = ({ subjects = defaultSubjects, firebase }) => {
-  const [quiz, setQuiz] = React.useState({});
+  const [quiz, setQuiz] = React.useState({ name: '', startDate: '' });
+  const [errors, setErrors] = React.useState({});
+  // const requiredFields = ['name', ]
+
+  const validate = (field) => {
+    console.log('validate', 'field', field, quiz[field]);
+    const required = (f) => !quiz[f] && { [f]: 'Campo obrigatório' };
+    return setErrors(field ? { ...errors, ...required(field) }
+      : () => Object.keys(quiz).reduce((acc, k) => {
+        return { ...acc, ...required(k) }
+      }, {}));
+  };
 
   const onSubmit = () => {
-    firebase.db.ref('quizzes').push(quiz);
+    const vErrors = validate();
+    console.log('error', vErrors);
+    setErrors(vErrors);
+    // firebase.db.ref('quizzes').push(quiz);
   };
 
   return (
@@ -33,7 +47,10 @@ const CreateQuiz = ({ subjects = defaultSubjects, firebase }) => {
             label="Nome"
             color="orange"
             required
+            name="name"
             onChange={(e) => setQuiz({ ...quiz, name: e.target.value })}
+            error={errors.name}
+            onBlur={validate}
           />
           <SelectField
             label="Disciplina"
@@ -51,6 +68,7 @@ const CreateQuiz = ({ subjects = defaultSubjects, firebase }) => {
             color="orange"
             onChange={(date) => setQuiz({ ...quiz, startDate: date.format('L') })}
             required
+            onBlur={validate}
           />
           <DatePicker
             label="Data de término"
