@@ -1,0 +1,25 @@
+@import '../../constants';
+
+.select-field-container {
+  border: 1px solid $BLUE;
+  border-radius: 3px;
+  display: flex;
+  flex-direction: column;
+
+  &.orange {
+    border-color: $ORANGE;
+  }
+
+  .ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
+    font-size: 16px;
+    color: black;
+    border: none;
+    box-shadow: none;
+
+    &:hover,
+    &:focus {
+      border-color: white;
+      box-shadow: none;
+    }
+  }
+}

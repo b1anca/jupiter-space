@@ -1,0 +1,13 @@
+@import '../../constants';
+
+label {
+  padding: 0 10px;
+  color: $GRAY;
+
+  &.required {
+    &:after {
+      content: " *";
+      color: $DARK-RED;
+    }
+  }
+}

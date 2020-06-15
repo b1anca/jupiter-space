@@ -1,0 +1,21 @@
+@import '../../constants';
+
+.text-area-container {
+  border: 1px solid $BLUE;
+  border-radius: 3px;
+
+  &.orange {
+    border-color: $ORANGE;
+  }
+
+  .ant-input {
+    font-size: 16px;
+    color: black;
+    border: none;
+
+    &:hover, &:focus {
+      border-color: white;
+      box-shadow: none;
+    }
+  }
+}
