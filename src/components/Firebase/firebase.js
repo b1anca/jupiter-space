@@ -28,7 +28,22 @@ const config = {
     doSignInWithEmailAndPassword = (email, password) =>
     this.auth.signInWithEmailAndPassword(email, password);
 
-    doSignOut = () => this.auth.signOut();
+    doSignOut = () => {
+      console.log(`testes`)
+      indexedDB.deleteDatabase('firebaseLocalStorageDb');
+      console.log(indexedDB.databases())
+      // req.onsuccess = function () {
+      //     console.log("Deleted database successfully");
+      // };
+      // req.onerror = function () {
+      //     console.log("Couldn't delete database");
+      // };
+      // req.onblocked = function () {
+      //     console.log("Couldn't delete database due to the operation being blocked");
+      // };
+    }
+
+    teste = () => this.auth.signOut;
 
     doPasswordReset = email => this.auth.sendPasswordResetEmail(email);
 
@@ -39,7 +54,9 @@ const config = {
 
     //exemplo\
 
-    createSomething = (something) => this.db.ref(`teste/${something}`);
+    createQuizz = () => this.db.ref('quizzes/');
+
+    getQuizz = () => this.db.ref(`quizzes/`);
   }
    
   export default Firebase;

@@ -233,7 +233,7 @@ class SignUpFormBase extends Component {
             <Button type="primary" htmltype="submit" className='FormField__Button' onClick={this.onSubmit}>
             <RightOutlined />
             </Button>
-            <Link to="/signin" className="FormField__Link">Log In</Link>
+            <Link to="/" className="FormField__Link">Log In</Link>
           </Form.Item>
 
             {error && <p>{error.message}</p>}

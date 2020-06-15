@@ -18,6 +18,7 @@ const INITIAL_STATE = {
     email: '',
     password: '',
     error: null,
+    subject: [],
   };
 
 class SignInFormBase extends Component {
@@ -27,9 +28,15 @@ class SignInFormBase extends Component {
       this.state = { ...INITIAL_STATE };
     }
   
+    componentWillMount = () => {
+      this.props.firebase.getQuizz().on('value', snapshot => {
+        const messageObject = snapshot.val();
+        this.setState({ subject: messageObject })
+      });
+    }
+
     onSubmit = event => {
       const { email, password } = this.state;
-   
       this.props.firebase
         .doSignInWithEmailAndPassword(email, password)
         .then(() => {
@@ -39,7 +46,6 @@ class SignInFormBase extends Component {
         .catch(error => {
           this.setState({ error });
         });
-   
       event.preventDefault();
     };
   
@@ -127,7 +133,7 @@ class SignInFormBase extends Component {
             <Button type="primary" htmltype="submit" className = 'FormField__Button' onClick={this.onSubmit}>
             <RightOutlined />
             </Button>
-            <Link to="/" className="FormField__Link">Criar Conta</Link>
+            <Link to={ROUTES.USERS_SIGN_UP} className="FormField__Link">Criar Conta</Link>
           </Form.Item>
   
               {error && <p>{error.message}</p>}

@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, Layout, Row, Dropdown } from 'antd';
 import * as ROUTES from '../../constants/routes'
+import { AuthUserContext } from '../Session';
 import './Nav.scss';
 
 const defaultUser = {
@@ -10,11 +11,28 @@ const defaultUser = {
   email: 'john@email.com'
 };
 
-const SignOutButton = ( firebase ) => (
-  firebase.doSignOut
-);
+const doSignOut = ( ) => {
+  indexedDB.deleteDatabase('firebaseLocalStorageDb');
+}
 
-const NavDropdown = ({ user }) => (
+const Nav = ({ authUser }) => (
+  <div>
+    <AuthUserContext.Consumer>
+      {authUser =>
+        authUser ? <NavAuth /> : <NavigationNonAuth />
+      }
+    </AuthUserContext.Consumer>
+  </div>);
+
+const NavigationNonAuth = () => (
+  <Layout.Header className="navbar">
+    <Row>
+      <div className="text mr">Jupiter Space</div>
+    </Row>
+</Layout.Header>
+)
+
+const NavDropdown = ( user, firebase ) => (
   <Menu className="user-info-dropdown">
     <Menu.Item className="text email" key="0">{user.email}</Menu.Item>
     <Menu.Divider />
@@ -24,14 +42,14 @@ const NavDropdown = ({ user }) => (
       </Link>
     </Menu.Item>
     <Menu.Item key="2">
-      <Link to={'/'} onClick={SignOutButton}>
+      <Link to={'/signout'} onClick={doSignOut}>
         <span className="text">Sair</span>
       </Link>
     </Menu.Item>
   </Menu>
 );
 
-const Nav = ({ user = defaultUser }) => (
+const NavAuth = ({ user = defaultUser }) => (
   <Layout.Header className="navbar">
     <Row>
       <div className="text mr">Jupiter Space</div>

@@ -8,12 +8,14 @@ import ForgotPasswordPage from '../ForgotPassword';
 import Dashboard from '../Dashboard';
 import Subjects from '../Subjects/Subjects';
 import CreateSubjectsForm from '../CreateSubject/CreateSubjectsForm'
+import SignOutPage from '../SignOut/SignOutPage';
 
 import * as ROUTES from '../../constants/routes';
 
 const Routes = () => (
   <Switch>
     <Route exact path={ROUTES.USERS_SIGN_UP} component={SignUpPage} />
+    <Route exact path={'/signout'} component={SignOutPage} />
     <Route exact path={'/'} component={SignInPage} />
     <Route exact path={ROUTES.RANKING} component={Ranking} />
     <Route exact path={ROUTES.USERS_FORGOT_PASSWORD} component={ForgotPasswordPage} />
