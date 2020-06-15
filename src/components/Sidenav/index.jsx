@@ -4,7 +4,11 @@ import { Link, useLocation } from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
 import './Sidenav.scss';
 
-const routesWithBlackTriggerIcon = [ROUTES.CREATE_QUIZ];
+const routesWithBlackTriggerIcon = [
+  ROUTES.CREATE_QUIZ,
+  ROUTES.USERS_SIGN_UP,
+  ROUTES.USERS_SIGN_IN
+];
 
 const Sidenav = () => {
   const [collapsed, setCollapsed] = React.useState(true);
