@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Form } from 'antd';
+import { Row, Col, Form, notification } from 'antd';
 import { withFirebase } from '../Firebase';
 import BrowserHeader from '../BrowserHeader';
 import MobileHeader from '../MobileHeader';
@@ -15,6 +15,9 @@ const defaultSubjects = [
   { label: 'Disciplina 5', value: 5 },
   { label: 'Disciplina 6', value: 6 },
 ];
+
+const openNotificationWithIcon = ({ type, message, description }) =>
+  notification[type]({ message, description });
 
 const CreateQuiz = ({ subjects = defaultSubjects, firebase }) => {
   const form = React.useRef();
@@ -38,7 +41,18 @@ const CreateQuiz = ({ subjects = defaultSubjects, firebase }) => {
   const onSubmit = () => {
     form.current.validateFields(fields)
       .then((quiz) => firebase.db.ref('quizzes').push(parseQuiz(quiz)))
-      .catch((e) => console.log('errors', e))
+      .then(() => {
+        openNotificationWithIcon({
+          type: 'success',
+          message: 'Quiz criado!',
+          description: 'Adicione perguntas ao seu novo quiz!'
+        });
+        form.current.resetFields(fields);
+      })
+      .catch(() => openNotificationWithIcon({
+        type: 'error',
+        message: 'Erro ao criar quiz',
+      }))
   };
 
   return (
