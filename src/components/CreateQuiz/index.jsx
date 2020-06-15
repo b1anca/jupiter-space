@@ -32,8 +32,8 @@ const CreateQuiz = ({ subjects = defaultSubjects, firebase }) => {
 
   const parseQuiz = (quiz) => ({
     ...quiz,
-    startDate: quiz.startDate ? quiz.startDate.format('L') : '',
-    endDate: quiz.endDate ? quiz.endDate.format('L') : '',
+    startDate: quiz.startDate ? quiz.startDate.format('DD/MM/YYYY') : '',
+    endDate: quiz.endDate ? quiz.endDate.format('DD/MM/YYYY') : '',
     bonusDescription: quiz.bonusDescription || '',
     score: quiz.score || '',
   });
@@ -90,7 +90,15 @@ const CreateQuiz = ({ subjects = defaultSubjects, firebase }) => {
               />
             </Form.Item>
             <Form.Item
-              rules={[{ required: true, message: 'Campo obrigatório' }]}
+              rules={[
+                { required: true, message: 'Campo obrigatório' },
+                ({ validateFields }) => ({
+                  validator(_rule, _value) {
+                    validateFields(['endDate']);
+                    return Promise.resolve();
+                  }
+                })
+              ]}
               name="startDate"
               hasFeedback
             >
@@ -101,10 +109,36 @@ const CreateQuiz = ({ subjects = defaultSubjects, firebase }) => {
                 name="startDate"
               />
             </Form.Item>
-            <Form.Item name="endDate" hasFeedback>
+            <Form.Item
+              name="endDate"
+              hasFeedback
+              rules={[
+                ({ getFieldValue }) => {
+                  const startDate = getFieldValue('startDate');
+                  return {
+                    validator(_rule, value) {
+                      return value && value.isBefore(startDate) ?
+                        Promise.reject('Data de término deve ser após data de ínicio') :
+                        Promise.resolve();
+                    }
+                  }
+                }]}
+            >
               <DatePicker label="Data de término" color="orange" name="endDate" />
             </Form.Item>
-            <Form.Item name="score" hasFeedback>
+            <Form.Item
+              name="score"
+              hasFeedback
+              rules={[
+                () => ({
+                  validator(_rule, value) {
+                    return typeof value !== 'number' || value >= 0 ?
+                      Promise.resolve() :
+                      Promise.reject('Pontuação deve ser maior ou igual a 0')
+                  }
+                })
+              ]}
+            >
               <NumberField label="Pontuação" color="orange" name="score" />
             </Form.Item>
           </Form>

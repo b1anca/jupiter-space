@@ -11,7 +11,7 @@ const DatePicker = ({ label, color, onChange = () => { }, required, name }) => (
     <AntDatePicker
       locale={locale}
       placeholder=""
-      format="L"
+      format="DD/MM/YYYY"
       onChange={onChange}
       name={name}
     />
