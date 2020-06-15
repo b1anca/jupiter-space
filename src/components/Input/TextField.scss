@@ -1,8 +1,6 @@
 @import '../../constants';
 
 .text-field-container {
-  margin-bottom: 10px;
-
   .input-container {
     border: 1px solid $BLUE;
     border-radius: 3px;
@@ -21,16 +19,11 @@
         border-color: white;
         box-shadow: none;
       }
+
     }
   }
 
-  &.error {
-    .input-container {
-      border-color: red;
-    }
-
-    .error-msg {
-      color: red;
-    }
+  &.error .input-container {
+    border-color: red;
   }
 }

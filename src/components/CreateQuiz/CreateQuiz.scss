@@ -4,12 +4,15 @@
   min-height: 100vh;
   margin-bottom: 50px;
 
-  .ant-row {
+  > .ant-row {
     justify-content: center;
     padding: 10px;
 
     .ant-col {
       flex: 1;
+      .ant-form-item-has-feedback .ant-form-item-children-icon {
+        margin-top: 0;
+      }
     }
   }
 }

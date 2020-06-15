@@ -3,7 +3,6 @@
 .date-picker-container {
   border: 1px solid $BLUE;
   border-radius: 3px;
-  margin-bottom: 10px;
   display: flex;
   flex-direction: column;
 
@@ -13,6 +12,10 @@
 
   .ant-picker {
     border: none;
+
+    input{
+      font-size: 16px;
+    }
 
     &.ant-picker:hover, &.ant-picker-focused {
       box-shadow: none;

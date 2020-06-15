@@ -3,7 +3,6 @@
 .number-field-container {
   border: 1px solid $BLUE;
   border-radius: 3px;
-  margin-bottom: 10px;
   display: flex;
   flex-direction: column;
 
@@ -15,6 +14,8 @@
     border: none;
     color: black;
     width: 100%;
+    font-size: 16px;
+    box-shadow: none;
 
     &:hover, &:focus {
       box-shadow: none;

@@ -3,10 +3,10 @@ import { Select } from 'antd';
 import Label from './Label';
 import './SelectField.scss';
 
-const SelectField = ({ onChange, label, color, options, required }) => (
+const SelectField = ({ onChange = () => { }, label, color, options, required, name }) => (
   <div key={label} className={`select-field-container ${color}`}>
     <Label name={label} required={required} />
-    <Select onChange={onChange}>
+    <Select onChange={onChange} name={name}>
       {options.map((option) => (
         <Select.Option key={option.value} value={option.value}>{option.label}</Select.Option>
       ))}
