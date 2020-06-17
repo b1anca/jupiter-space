@@ -1,6 +1,6 @@
 import React from 'react';
 import { Layout, Menu, Button } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
 import './Sidenav.scss';
 
@@ -8,12 +8,19 @@ const SignOutButton = ( firebase ) => (
   firebase.doSignOut
 );
 
+const routesWithBlackTriggerIcon = [
+  ROUTES.CREATE_QUIZ,
+  ROUTES.USERS_SIGN_UP,
+  ROUTES.USERS_SIGN_IN
+];
+
 const Sidenav = () => {
   const [collapsed, setCollapsed] = React.useState(true);
+  const withBlackIcon = routesWithBlackTriggerIcon.includes(useLocation().pathname);
 
   return (
     <div className="sidenav">
-      <i className="trigger fas fa-bars" onClick={() => setCollapsed(!collapsed)} />
+      <i className={`trigger fas fa-bars ${withBlackIcon && 'black'}`} onClick={() => setCollapsed(!collapsed)} />
       <Layout.Sider
         breakpoint="md"
         collapsedWidth="0"

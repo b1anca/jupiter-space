@@ -13,6 +13,11 @@
     margin: 5px 15px 0 -30px;
     padding: 15px 0;
     cursor: pointer;
+    z-index: 1;
+
+    &.black {
+      color: black;
+    }
   }
 
   .ant-layout-sider {

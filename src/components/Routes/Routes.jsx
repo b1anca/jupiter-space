@@ -2,13 +2,14 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import Ranking from '../Ranking';
-import SignUpPage from '../SignUp/SignUp';
-import SignInPage from '../SignIn/SignIn';
+import SignUpPage from '../Sign/SignUp';
+import SignInPage from '../Sign/SignIn';
 import ForgotPasswordPage from '../ForgotPassword';
 import Dashboard from '../Dashboard';
 import Subjects from '../Subjects/Subjects';
 import CreateSubjectsForm from '../CreateSubject/CreateSubjectsForm'
 import SignOutPage from '../SignOut/SignOutPage';
+import CreateQuiz from '../CreateQuiz';
 
 import * as ROUTES from '../../constants/routes';
 
@@ -22,6 +23,8 @@ const Routes = () => (
     <Route exact path={ROUTES.SUBJECTS} component={Subjects} />
     <Route exact path={ROUTES.SUBJECTS_NEW} component={CreateSubjectsForm} />
     <Route exact path={ROUTES.DASHBOARD} component={Dashboard} />
+    <Route exact path={ROUTES.CREATE_QUIZ} component={CreateQuiz} />
+    <Route path="/" component={Dashboard} />
   </Switch>
 );
 

@@ -1,0 +1,41 @@
+@import '../../constants';
+
+.bottom-button-container.ant-row {
+  .ant-col {
+    @media screen and (max-width: $MD-BREAKPOINT) {
+      bottom: 30px;
+      position: fixed;
+      left: 0;
+      right: 0;
+      margin: 10px;
+    }
+
+    .ant-btn {
+      height: unset;
+      width: 100%;
+      padding: 15px;
+      font-weight: 800;
+      font-size: 15px;
+      text-align: center;
+      color: white;
+      background-color: $BLUE;
+      border-radius: 5px;
+      border-color: none;
+
+      &.orange-bg {
+        background-color: $ORANGE;
+
+        &:hover,
+        &:focus {
+          background-color: darken($ORANGE, 5%);
+        }
+      }
+
+      &:hover,
+      &:focus {
+        background-color: darken($BLUE, 5%);
+        border-color: white;
+      }
+    }
+  }
+}

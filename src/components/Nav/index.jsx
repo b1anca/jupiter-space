@@ -7,7 +7,7 @@ import './Nav.scss';
 
 const defaultUser = {
   name: 'john doe',
-  avatarUrl: 'http://placekitten.com/300/300',
+  avatarUrl: '',
   email: 'john@email.com'
 };
 
@@ -73,7 +73,7 @@ const NavAuth = ({ user = defaultUser }) => (
     </Row>
     <Dropdown overlay={<NavDropdown user={user} />} placement="bottomRight" trigger={['click']}>
       <div className="user-info">
-        <img src={user.avatarUrl} alt="user avatar" />
+        <img src={user.avatarUrl || '/avatar.svg'} alt="user avatar" />
         <div className="text name">{user.name}</div>
         <i className="icon fas fa-chevron-down"></i>
       </div>
