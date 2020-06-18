@@ -8,16 +8,15 @@ import { withAuthentication } from '../Session';
 import './App.scss';
 
 const App = () => (
-        <Router>
-          <Layout>
-            <Nav/>
-            <Layout>
-              <Routes/>
-            </Layout>
-            <Sidenav />
-          </Layout>
-        </Router>
-
-    );
+  <Router>
+    <Layout>
+      <Nav />
+      <Layout>
+        <Routes />
+      </Layout>
+      <Sidenav />
+    </Layout>
+  </Router>
+);
 
 export default withAuthentication(App);

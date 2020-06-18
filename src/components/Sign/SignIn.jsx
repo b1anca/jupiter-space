@@ -29,13 +29,6 @@ class SignInFormBase extends Component {
       this.state = { ...INITIAL_STATE };
     }
 
-    componentWillMount = () => {
-      this.props.firebase.getQuizz().on('value', snapshot => {
-        const messageObject = snapshot.val();
-        this.setState({ subject: messageObject })
-      });
-    }
-
     onSubmit = event => {
       const { email, password } = this.state;
       this.props.firebase
@@ -147,10 +140,10 @@ class SignInFormBase extends Component {
 
             <Form.Item className="FormField">
               <Form.Item className='left'>
-                <a href={ROUTES.USERS_SIGN_UP} className="FormField__Link">Criar Conta</a>
+                <a href={ROUTES.SIGN_UP} className="FormField__Link">Criar Conta</a>
               </Form.Item>
               <Form.Item className='right'>
-                <a href={ROUTES.USERS_SIGN_UP} className="FormField__Link">Esqueceu a Senha?</a>
+                <a href={ROUTES.SIGN_UP} className="FormField__Link">Esqueceu a Senha?</a>
               </Form.Item>
             </Form.Item>
 
