@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, Layout, Row, Dropdown } from 'antd';
-import * as ROUTES from '../../constants/routes'
+import { ROUTES } from '../../constants'
 import { AuthContext } from '../Session';
 import { withFirebase } from '../Firebase';
 import NavDropdown from './NavDropdown';

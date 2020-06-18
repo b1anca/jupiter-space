@@ -1,143 +1,78 @@
-import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import React from 'react';
 import { withFirebase } from '../Firebase';
-import * as ROUTES from '../../constants/routes';
+import { ROUTES } from '../../constants';
 import { Row, Col, Form, Input, Button } from 'antd';
 import { RightOutlined, MailOutlined, LockOutlined } from '@ant-design/icons';
 import "./Sign.scss";
 
 const SignIn = () => (
-    <div className="Form-container">
-      <div className='FormTitle'  type="flex" justify="center" align="middle">
-        <h1>Bem vindo(a) de volta</h1>
-        <SignInForm />
-      </div>
+  <div className="Form-container">
+    <div className='FormTitle' type="flex" justify="center" align="middle">
+      <h1>Bem vindo(a) de volta</h1>
+      <SignInForm />
     </div>
+  </div>
 );
 
-const INITIAL_STATE = {
-    email: '',
-    password: '',
-    error: null,
-    subject: [],
-  };
+const SignInFormBase = ({ firebase }) => {
+  const form = React.useRef();
+  const fields = ['email', 'password'];
 
-class SignInFormBase extends Component {
-    constructor(props) {
-      super(props);
+  const onSubmit = () =>
+    form.current.validateFields(fields)
+      .then(({ email, password }) => firebase.signIn({ email, password }));
 
-      this.state = { ...INITIAL_STATE };
-    }
-
-    onSubmit = event => {
-      const { email, password } = this.state;
-      this.props.firebase
-        .doSignInWithEmailAndPassword(email, password)
-        .then(() => {
-          this.setState({ ...INITIAL_STATE });
-          this.props.history.push(ROUTES.DASHBOARD);
-        })
-        .catch(error => {
-          this.setState({ error });
-        });
-      event.preventDefault();
-    };
-
-    onChange = event => {
-      this.setState({ [event.target.name]: event.target.value });
-    };
-
-    render() {
-      const {
-        email,
-        password,
-        error,
-      } = this.state;
-
-      return (
-        <div className="Form-container">
-          <Row
-          className = "FormCenter"
-          align="middle"
-          >
-          <Col xs={{ span: 24 }} md={{ span: 18 }} lg={{ span: 12 }}>
-            <Form name="normal_login"
-                  className = "FormMain"
-                  initialValues={{
-                  remember: true,
-                  }}
-                  >
-
+  return (
+    <div className="Form-container">
+      <Row align="middle">
+        <Col xs={{ span: 24 }} md={{ span: 18 }} lg={{ span: 12 }}>
+          <Form ref={form}>
             <Form.Item
-              className="FormField"
               name="email"
-              rules={[
-                {
-                  type: 'email',
-                  message: 'O e-mail inserido é invalido!',
-                },
-                {
-                  required: true,
-                  message: 'Insira um e-mail, por favor!',
-                },
-              ]}
               hasFeedback
+              rules={[
+                { type: 'email', message: 'Email invalido' },
+                { required: true, message: 'Campo obrigatório' },
+              ]}
             >
               <Input
-                prefix={<MailOutlined/>}
-                className = "FormField__Input"
+                prefix={<MailOutlined />}
                 name="email"
-                value={email}
-                onChange={this.onChange}
                 type="text"
                 placeholder="Email"
-
               />
             </Form.Item>
 
             <Form.Item
-              className="FormField"
+              hasFeedback
               name="password"
               rules={[
                 {
                   required: true,
-                  message: 'Insira uma senha, por favor!',
+                  message: 'Campo obrigatório',
                 },
-                ({ getFieldValue }) => ({
-                  validator(rule, value) {
-                    // eslint-disable-next-line no-mixed-operators
+                () => ({
+                  validator(_rule, value) {
                     if (!value || value.length >= 8) {
                       return Promise.resolve();
                     }
-                    return Promise.reject('A senha inserida deve possuir mais de 8 caracteres!');
+                    return Promise.reject('Senha deve possuir no mínimo 8 caracteres');
                   },
                 }),
               ]}
-            // eslint-disable-next-line react/jsx-no-duplicate-props
-            hasFeedback
             >
-              <Input.Password
-              prefix={ <LockOutlined
-                />
-              }
-              className = "FormField__Input"
-              name="password"
-              value={password}
-              onChange={this.onChange}
-              type="password"
-              placeholder="Senha"
-
+              <Input.Password prefix={<LockOutlined />}
+                name="password"
+                type="password"
+                placeholder="Senha"
               />
             </Form.Item>
-
-
-            <Form.Item className= 'FormField__ButtonLabel'>
-            Log In
-            <Button type="primary" htmltype="submit" className = 'FormField__Button' onClick={this.onSubmit}>
-            <RightOutlined />
-            </Button>
+            <Form.Item >
+              Log In
+            <Button type="primary" htmltype="submit" onClick={onSubmit}>
+                <RightOutlined />
+              </Button>
             </Form.Item>
-
             <Form.Item className="FormField">
               <Form.Item className='left'>
                 <a href={ROUTES.SIGN_UP} className="FormField__Link">Criar Conta</a>
@@ -146,20 +81,13 @@ class SignInFormBase extends Component {
                 <a href={ROUTES.SIGN_UP} className="FormField__Link">Esqueceu a Senha?</a>
               </Form.Item>
             </Form.Item>
+          </Form>
+        </Col>
+      </Row>
+    </div>
+  );
+}
 
-
-            </Form>
-            </Col>
-
-
-              {error && <p>{error.message}</p>}
-
-          </Row>
-        </div>
-      );
-    }
-  }
-
-const SignInForm = withRouter(withFirebase(SignInFormBase));
+const SignInForm = withFirebase(SignInFormBase);
 
 export default SignIn;

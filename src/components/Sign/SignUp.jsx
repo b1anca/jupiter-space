@@ -1,8 +1,8 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { withFirebase } from '../Firebase';
-import * as ROUTES from '../../constants/routes';
-import { Row, Col, Form, Input, Button, Checkbox, notification } from 'antd';
+import { ROUTES } from '../../constants';
+import { Row, Col, Form, Input, Button, Checkbox } from 'antd';
 import { RightOutlined, MailOutlined, LockOutlined, UserOutlined, FieldNumberOutlined } from '@ant-design/icons';
 import "./Sign.scss";
 
@@ -15,23 +15,22 @@ const SignUpPage = () => (
   </div>
 );
 
-const SignUp = () => {
+const SignUp = ({ firebase }) => {
   const form = React.useRef();
   const fields = [
     'name',
     'USPN',
     'email',
     'password',
-    'passwordConfirmation'
+    'passwordConfirmation',
+    'role'
   ];
 
-  const onSubmit = () => {
-    console.log('debug submit')
+  const parseUser = (user) => ({ ...user, role: user.role ? 'teacher' : 'student' });
+
+  const onSubmit = () =>
     form.current.validateFields(fields)
-      .then((user) => console.log('debug user after validate', user))
-      .catch(() => notification['error']({ message: 'Erro ao criar conta' }))
-    // this.props.firebase.signUp({email, password, role: 'student', displayName: 'fasljfas sfadsf'})
-  }
+      .then((user) => firebase.signUp(parseUser(user)));
 
   return (
     <div className="Form-container">
@@ -115,7 +114,7 @@ const SignUp = () => {
                 ({ getFieldValue }) => ({
                   validator(_rule, value) {
                     return value && getFieldValue('password') !== value ?
-                      Promise.reject('As senhas insiridas não correspondem') :
+                      Promise.reject('As senhas inseridas não correspondem') :
                       Promise.resolve()
                   }
                 })
@@ -130,7 +129,6 @@ const SignUp = () => {
             <Form.Item
               name="role"
               valuePropName="checked"
-              rules={[{ required: true, message: 'Campo obrigatório' }]}
             >
               <Checkbox name="role">Professor(a)</Checkbox>
             </Form.Item>

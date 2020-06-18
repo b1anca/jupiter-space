@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from './Link';
-import * as ROUTES from '../../constants/routes';
+import { ROUTES } from '../../constants';
 import './MenuOptions.scss';
 
 const studentOptions = [

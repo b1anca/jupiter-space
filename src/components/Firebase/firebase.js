@@ -2,6 +2,7 @@ import app from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 import { notification } from 'antd';
+import { ERRORS } from '../../constants';
 
 const config = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -19,43 +20,25 @@ class Firebase {
     this.db = app.database();
   }
 
-  signUp = ({ email, password, displayName, role }) =>
+  signUp = ({ email, password, name, role, USPN }) =>
     this.auth.createUserWithEmailAndPassword(email, password)
       .then(({ user }) =>
-        this.db.ref('users/' + user.uid).set({
-          name: displayName,
-          email,
-          role,
-        }))
-      .then(() => notification['success']({ message: 'Conta criada com sucesso' }))
-      .catch(e => notification['error']({ message: e }));
+        this.db.ref('users/' + user.uid).set({ name, email, role, USPN }))
+      .then(() => notification['success']({ message: 'Conta criada com sucesso!' }))
+      .catch((e) => notification['error']({ message: ERRORS[e.code] || e.message }))
 
-  doSignInWithEmailAndPassword = (email, password) =>
-    this.auth.signInWithEmailAndPassword(email, password);
+  signIn = ({ email, password }) =>
+    this.auth.signInWithEmailAndPassword(email, password)
+      .then(() => notification['success']({ message: 'Login realizado com sucesso!' }))
+      .catch((e) => notification['error']({ message: ERRORS[e.code] || e.message }))
 
-
-  signOut = () => {
-    console.log('debug sign out');
-    indexedDB.deleteDatabase('firebaseLocalStorageDb');
-    console.log(indexedDB.databases())
-    // teste = () => this.auth.signOut;
-
-    // req.onsuccess = function () {
-    //     console.log("Deleted database successfully");
-    // };
-    // req.onerror = function () {
-    //     console.log("Couldn't delete database");
-    // };
-    // req.onblocked = function () {
-    //     console.log("Couldn't delete database due to the operation being blocked");
-    // };
-  }
-
+  signOut = () =>
+    this.auth.signOut().then(() =>
+      indexedDB.deleteDatabase('firebaseLocalStorageDb'))
 
   resetPassword = email => this.auth.sendPasswordResetEmail(email);
 
-  updatePassword = password =>
-    this.auth.currentUser.updatePassword(password);
+  updatePassword = password => this.auth.currentUser.updatePassword(password);
 }
 
 export default Firebase;

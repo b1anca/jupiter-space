@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Menu } from 'antd';
-import * as ROUTES from '../../constants/routes'
+import { ROUTES } from '../../constants'
 
 const NavDropdown = ({ user, firebase }) => (
   <Menu className="user-info-dropdown">
