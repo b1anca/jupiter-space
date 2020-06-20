@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import { ROUTES } from '../../constants';
 import './Sidenav.scss';
 import { withFirebase } from '../Firebase';
+import { AuthContext } from '../Session';
 
 const routesWithBlackTriggerIcon = [
   ROUTES.CREATE_QUIZ,
@@ -12,6 +13,7 @@ const routesWithBlackTriggerIcon = [
 
 const Sidenav = ({ firebase }) => {
   const [collapsed, setCollapsed] = React.useState(true);
+  const { user } = React.useContext(AuthContext);
   const withBlackIcon = routesWithBlackTriggerIcon.includes(useLocation().pathname);
 
   return (
@@ -34,16 +36,26 @@ const Sidenav = ({ firebase }) => {
             </Link>
           </Menu.Item>
           <Menu.Divider />
-          <Menu.Item key="1">
-            <Link to={ROUTES.USERS_EDIT} >
-              <span className="nav-text">Editar cadastro</span>
-            </Link>
-          </Menu.Item>
+          {user && (
+            <Menu.Item key="1">
+              <span className="text">{user.email} - {user.role === 'student' ? 'aluno' : 'professor'}</span>
+            </Menu.Item>
+          )}
           <Menu.Item key="2">
-            <Link to={'/'} onClick={firebase.signOut}>
-              <span className="text">Sair</span>
-            </Link>
+            {user ? (
+              <Link to={ROUTES.USERS_EDIT} >
+                <span className="nav-text">Editar cadastro</span>
+              </Link>
+            ) : (<span className="nav-text">Cadastre-se</span>)
+            }
           </Menu.Item>
+          {user && (
+            <Menu.Item key="3">
+              <Link to="/" onClick={firebase.signOut}>
+                <span className="text">Sair</span>
+              </Link>
+            </Menu.Item>
+          )}
         </Menu>
       </Layout.Sider>
     </div>

@@ -16,8 +16,6 @@ import { ROUTES } from '../../constants';
 
 const Routes = () => (
   <Switch>
-    <PublicRoute restricted exact path={ROUTES.SIGN_UP} component={SignUpPage} />
-    <PublicRoute restricted exact path={ROUTES.SIGN_IN} component={SignInPage} />
     <PrivateRoute exact path={ROUTES.RANKING} component={Ranking} />
     <PublicRoute exact path={ROUTES.FORGOT_PASSWORD} component={ForgotPasswordPage} />
     <PrivateRoute exact path={ROUTES.SUBJECTS} component={Subjects} />
@@ -25,6 +23,8 @@ const Routes = () => (
     <PrivateRoute exact path={ROUTES.DASHBOARD} component={Dashboard} />
     <PrivateRoute exact path={ROUTES.CREATE_QUIZ} component={CreateQuiz} />
     <PrivateRoute path="/" component={Dashboard} />
+    <PublicRoute restricted exact path={ROUTES.SIGN_UP} component={SignUpPage} />
+    <PublicRoute restricted exact path={ROUTES.SIGN_IN} component={SignInPage} />
   </Switch>
 );
 
