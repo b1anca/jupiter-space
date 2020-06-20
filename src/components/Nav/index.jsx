@@ -13,7 +13,7 @@ const Nav = ({ firebase }) => {
   return (
     <Layout.Header className="navbar">
       <Row>
-        <a href="/" className="text mr">Jupiter Space</a>
+        <Link to="/" className="text mr">Jupiter Space</Link>
         <Menu theme="dark" mode="horizontal" >
           <Menu.Item key="1">
             <Link to={ROUTES.QUIZZES}>
