@@ -15,7 +15,10 @@
 
   > .ant-row {
     padding: 0 20px;
-    height: 100vh;
+
+    @media screen and (max-width: $MD-BREAKPOINT) {
+      height: 100vh;
+    }
 
     h1 {
       color: white;
@@ -32,127 +35,138 @@
       }
     }
 
-    > .ant-col > .ant-form {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-
-      .ant-input-password.ant-input-affix-wrapper.ant-input-affix-wrapper-focused {
-        box-shadow: none;
+    > .ant-col {
+      @media screen and (min-width: $MD-BREAKPOINT) {
+        margin-top: 50px;
+        padding: 40px;
+        box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px,
+        rgba(9, 30, 66, 0.31) 0px 0px 1px;
       }
 
-      .ant-input-password {
-        padding: 4px 11px;
-        border: none;
-        border-bottom: 1px solid black;
+      > .ant-form {
+        display: flex;
+        flex-direction: column;
+        box-shadow: none;
+        height: 100%;
 
-        &:hover,
-        &:focus {
-          border-color: white;
+        .ant-input-password.ant-input-affix-wrapper.ant-input-affix-wrapper-focused {
           box-shadow: none;
-          border-bottom-color: black;
         }
 
-        &.ant-input-affix-wrapper:active,
-        &.ant-input-affix-wrapper:focused {
+        .ant-input-password {
+          padding: 4px 11px;
           border: none;
           border-bottom: 1px solid black;
-          outline: none;
-          box-shadow: none;
-        }
 
-        > .ant-input {
-          border: none;
-        }
-      }
+          &:hover,
+          &:focus {
+            border-color: white;
+            box-shadow: none;
+            border-bottom-color: black;
+          }
 
-      .ant-input {
-        font-size: 16px;
-        color: black;
-        border: none;
-        border-bottom: 1px solid black;
+          &.ant-input-affix-wrapper:active,
+          &.ant-input-affix-wrapper:focused {
+            border: none;
+            border-bottom: 1px solid black;
+            outline: none;
+            box-shadow: none;
+          }
 
-        &::placeholder {
-          color: black;
-        }
-
-        &:hover,
-        &:focus {
-          border-color: white;
-          box-shadow: none;
-          border-bottom-color: black;
-        }
-      }
-
-      .ant-checkbox-wrapper {
-        .ant-checkbox-inner {
-          border-color: $BLUE;
-        }
-
-        .ant-checkbox-checked .ant-checkbox-inner {
-          background-color: $BLUE;
-        }
-
-        > span {
-          color: black;
-        }
-      }
-
-      .btn-container {
-        margin-top: auto;
-
-        .ant-form-item-control-input-content {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-
-          > span {
-            color: black;
-            font-size: 16px;
+          > .ant-input {
+            border: none;
           }
         }
 
-        .ant-btn {
-          border-radius: 1px solid pink;
-          background-color: $BLUE;
-          border-radius: 50%;
-          height: 44px;
-          width: 44px;
-          padding: 0px;
+        .ant-input {
+          font-size: 16px;
+          color: black;
+          border: none;
+          border-bottom: 1px solid black;
+
+          &::placeholder {
+            color: black;
+          }
+
+          &:hover,
+          &:focus {
+            border-color: white;
+            box-shadow: none;
+            border-bottom-color: black;
+          }
         }
 
-        @media screen and (min-width: $MD-BREAKPOINT) {
-          display: none;
+        .ant-checkbox-wrapper {
+          .ant-checkbox-inner {
+            border-color: $BLUE;
+          }
+
+          .ant-checkbox-checked .ant-checkbox-inner {
+            background-color: $BLUE;
+          }
+
+          > span {
+            color: black;
+          }
         }
-      }
 
-      .ant-row.bottom-button-container {
-        justify-content: center;
+        .btn-container {
+          margin-top: auto;
 
-        @media screen and (max-width: $MD-BREAKPOINT) {
-          display: none;
+          .ant-form-item-control-input-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            > span {
+              color: black;
+              font-size: 16px;
+            }
+          }
+
+          .ant-btn {
+            border-radius: 1px solid pink;
+            background-color: $BLUE;
+            border-radius: 50%;
+            height: 44px;
+            width: 44px;
+            padding: 0px;
+          }
+
+          @media screen and (min-width: $MD-BREAKPOINT) {
+            display: none;
+          }
         }
-      }
 
-      .links .ant-form-item-control-input-content {
-        display: flex;
-        justify-content: space-between;
+        .ant-row.bottom-button-container {
+          margin-top: 20px;
+          justify-content: center;
 
-        @media screen and (min-width: $MD-BREAKPOINT) {
-          flex-direction: column;
+          @media screen and (max-width: $MD-BREAKPOINT) {
+            display: none;
+          }
         }
-      }
 
-      .FormField__Link {
-        color: #66707d;
-        text-decoration: none;
-        border-bottom: 1px solid #66707d;
-        margin-bottom: 20px;
-        width: max-content;
+        .links .ant-form-item-control-input-content {
+          display: flex;
+          justify-content: space-between;
 
-        @media screen and (min-width: $MD-BREAKPOINT) {
-          align-self: center;
-          margin: 10px;
+          @media screen and (min-width: $MD-BREAKPOINT) {
+            flex-direction: column;
+          }
+        }
+
+        .FormField__Link {
+          color: #66707d;
+          text-decoration: none;
+          border-bottom: 1px solid #66707d;
+          margin-bottom: 20px;
+          width: max-content;
+
+          @media screen and (min-width: $MD-BREAKPOINT) {
+            align-self: center;
+            margin: 10px;
+          }
         }
       }
     }

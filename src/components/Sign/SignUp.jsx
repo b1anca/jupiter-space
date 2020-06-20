@@ -1,5 +1,6 @@
 import React from 'react';
 import { Row, Col, Form, Input, Button, Checkbox, notification } from 'antd';
+import { Link } from 'react-router-dom';
 import { RightOutlined } from '@ant-design/icons';
 import { withFirebase } from '../Firebase';
 import { ROUTES } from '../../constants';
@@ -35,10 +36,10 @@ const SignUp = ({ firebase }) => {
   return (
     <div className="Form-container">
       <img src="blob.svg" alt="blob" />
-      <BrowserHeader title="Criar conta" />
       <Row justify="center">
         <h1>Criar conta</h1>
-        <Col xs={{ span: 24 }} md={{ span: 18 }} lg={{ span: 12 }}>
+        <Col xs={{ span: 24 }} sm={{ span: 18 }} md={{ span: 14 }} lg={{ span: 8 }}>
+          <BrowserHeader title="Criar conta" />
           <Form ref={form}>
             <Form.Item
               name="name"
@@ -137,8 +138,8 @@ const SignUp = ({ firebase }) => {
                 {!isLoading && (<RightOutlined />)}
               </Button>
             </Form.Item>
-            <BottomButton loading={isLoading} title="Cadastrar" />
-            <a className="FormField__Link" href={ROUTES.SIGN_IN}>Log In</a>
+            <BottomButton loading={isLoading} title="Cadastrar" onClick={onSubmit} />
+            <Link className="FormField__Link" to={ROUTES.SIGN_IN}>Log In</Link>
           </Form>
         </Col>
       </Row>
