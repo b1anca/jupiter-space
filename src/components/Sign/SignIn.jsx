@@ -31,7 +31,7 @@ const SignIn = ({ firebase }) => {
       <Row justify="center">
         <h1>Bem vindo(a) de volta</h1>
         <Col xs={{ span: 24 }} sm={{ span: 18 }} md={{ span: 14 }} lg={{ span: 8 }}>
-          <BrowserHeader title="Log in" />
+          <BrowserHeader title="Entrar" />
           <Form ref={form}>
             <Form.Item
               name="email"
@@ -68,12 +68,12 @@ const SignIn = ({ firebase }) => {
               <Input.Password name="password" type="password" placeholder="Senha" />
             </Form.Item>
             <Form.Item className="btn-container">
-              <span>Log In</span>
+              <span>Entrar</span>
               <Button type="primary" htmltype="submit" onClick={onSubmit} loading={isLoading}>
                 {!isLoading && (<RightOutlined />)}
               </Button>
             </Form.Item>
-            <BottomButton loading={isLoading} title="Log In" onClick={onSubmit} />
+            <BottomButton loading={isLoading} title="Entrar" onClick={onSubmit} />
             <Form.Item className="links">
               <Link to={ROUTES.SIGN_UP} className="FormField__Link">Criar Conta</Link>
               <Link to={ROUTES.SIGN_UP} className="FormField__Link">Esqueceu a Senha?</Link>

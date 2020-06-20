@@ -140,13 +140,13 @@ const SignUp = ({ firebase }) => {
               <Checkbox name="role">Professor(a)</Checkbox>
             </Form.Item>
             <Form.Item className="btn-container">
-              <span>Cadastrar</span>
+              <span>Criar conta</span>
               <Button type="primary" htmltype="submit" onClick={onSubmit} loading={isLoading}>
                 {!isLoading && (<RightOutlined />)}
               </Button>
             </Form.Item>
-            <BottomButton loading={isLoading} title="Cadastrar" onClick={onSubmit} />
-            <Link className="FormField__Link" to={ROUTES.SIGN_IN}>Log In</Link>
+            <BottomButton loading={isLoading} title="Criar conta" onClick={onSubmit} />
+            <Link className="FormField__Link" to={ROUTES.SIGN_IN}>Entrar</Link>
           </Form>
         </Col>
       </Row>
