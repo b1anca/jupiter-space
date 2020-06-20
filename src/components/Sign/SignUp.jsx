@@ -1,19 +1,11 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { Row, Col, Form, Input, Button, Checkbox } from 'antd';
+import { RightOutlined } from '@ant-design/icons';
 import { withFirebase } from '../Firebase';
 import { ROUTES } from '../../constants';
-import { Row, Col, Form, Input, Button, Checkbox } from 'antd';
-import { RightOutlined, MailOutlined, LockOutlined, UserOutlined, FieldNumberOutlined } from '@ant-design/icons';
+import BrowserHeader from '../BrowserHeader';
+import BottomButton from '../BottomButton';
 import "./Sign.scss";
-
-const SignUpPage = () => (
-  <div className="Form-container">
-    <div className='FormTitle' type="flex" justify="center" align="middle">
-      <h1>Criar conta</h1>
-      <SignUpForm />
-    </div>
-  </div>
-);
 
 const SignUp = ({ firebase }) => {
   const form = React.useRef();
@@ -34,7 +26,10 @@ const SignUp = ({ firebase }) => {
 
   return (
     <div className="Form-container">
+      <img src="blob.svg" alt="blob" />
+      <BrowserHeader title="Criar conta" />
       <Row justify="center">
+        <h1>Criar conta</h1>
         <Col xs={{ span: 24 }} md={{ span: 18 }} lg={{ span: 12 }}>
           <Form ref={form}>
             <Form.Item
@@ -43,7 +38,6 @@ const SignUp = ({ firebase }) => {
               hasFeedback
             >
               <Input
-                prefix={<UserOutlined />}
                 name="name"
                 type="text"
                 placeholder="Nome completo"
@@ -64,7 +58,6 @@ const SignUp = ({ firebase }) => {
               ]}
             >
               <Input
-                prefix={<FieldNumberOutlined />}
                 name="USPN"
                 type="number"
                 placeholder="Número USP"
@@ -79,7 +72,6 @@ const SignUp = ({ firebase }) => {
               ]}
             >
               <Input
-                prefix={<MailOutlined />}
                 name="email"
                 type="email"
                 placeholder="Email"
@@ -100,7 +92,6 @@ const SignUp = ({ firebase }) => {
               ]}
             >
               <Input.Password
-                prefix={<LockOutlined />}
                 name="password"
                 type="password"
                 placeholder="Senha"
@@ -120,7 +111,7 @@ const SignUp = ({ firebase }) => {
                 })
               ]}
             >
-              <Input.Password prefix={<LockOutlined />}
+              <Input.Password
                 name="passwordConfirmation"
                 type="password"
                 placeholder="Confirmar Senha"
@@ -132,17 +123,14 @@ const SignUp = ({ firebase }) => {
             >
               <Checkbox name="role">Professor(a)</Checkbox>
             </Form.Item>
-            <Form.Item>
-              <a href={ROUTES.SIGN_IN}>Log In</a>
+            <Form.Item className="btn-container">
+              <span>Cadastrar</span>
+              <Button type="primary" htmltype="submit" onClick={onSubmit}>
+                <RightOutlined />
+              </Button>
             </Form.Item>
-            <Form.Item >
-              <Form.Item className='left'>Cadastrar</Form.Item>
-              <Form.Item className='right'>
-                <Button type="primary" htmltype="submit" className='FormField__Button' onClick={onSubmit}>
-                  <RightOutlined />
-                </Button>
-              </Form.Item>
-            </Form.Item>
+            <BottomButton title="Cadastrar" />
+            <a className="FormField__Link" href={ROUTES.SIGN_IN}>Log In</a>
           </Form>
         </Col>
       </Row>
@@ -151,6 +139,4 @@ const SignUp = ({ firebase }) => {
 
 }
 
-const SignUpForm = withRouter(withFirebase(SignUp));
-
-export default SignUpPage;
+export default withFirebase(SignUp);

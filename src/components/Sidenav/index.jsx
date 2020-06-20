@@ -8,8 +8,6 @@ import { withFirebase } from '../Firebase';
 
 const routesWithBlackTriggerIcon = [
   ROUTES.CREATE_QUIZ,
-  ROUTES.SIGN_UP,
-  ROUTES.SIGN_IN
 ];
 
 const Sidenav = ({ firebase }) => {
