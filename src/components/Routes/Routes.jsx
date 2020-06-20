@@ -22,9 +22,9 @@ const Routes = () => (
     <PrivateRoute exact path={ROUTES.SUBJECTS_NEW} component={CreateSubjectsForm} />
     <PrivateRoute exact path={ROUTES.DASHBOARD} component={Dashboard} />
     <PrivateRoute exact path={ROUTES.CREATE_QUIZ} component={CreateQuiz} />
-    <PrivateRoute path="/" component={Dashboard} />
     <PublicRoute restricted exact path={ROUTES.SIGN_UP} component={SignUpPage} />
     <PublicRoute restricted exact path={ROUTES.SIGN_IN} component={SignInPage} />
+    <PrivateRoute path="/" component={Dashboard} />
   </Switch>
 );
 

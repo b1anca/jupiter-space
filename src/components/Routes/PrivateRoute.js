@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { AuthContext } from '../Session';
+import { AuthContext, withAuthorization } from '../Session';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const { user } = React.useContext(AuthContext);
@@ -13,4 +13,4 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
   );
 };
 
-export default PrivateRoute;
+export default withAuthorization(PrivateRoute);

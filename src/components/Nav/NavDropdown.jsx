@@ -5,7 +5,9 @@ import { ROUTES } from '../../constants'
 
 const NavDropdown = ({ user, firebase }) => (
   <Menu className="user-info-dropdown">
-    <Menu.Item className="text email" key="0">{user.email}</Menu.Item>
+    <Menu.Item className="text email" key="0">
+      {user.email} - {user.role === 'teacher' ? 'professor' : 'aluno'}
+    </Menu.Item>
     <Menu.Divider />
     <Menu.Item key="1">
       <Link to={ROUTES.USERS_EDIT}>
