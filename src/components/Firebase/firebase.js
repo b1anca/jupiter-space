@@ -40,6 +40,9 @@ const config = {
     //exemplo\
 
     createSomething = (something) => this.db.ref(`teste/${something}`);
+
+    getSubjects = () => this.db.ref(`subjects/`);
+
   }
    
   export default Firebase;
