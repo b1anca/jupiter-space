@@ -34,6 +34,7 @@ const QuizList = ({ quizNames = defaultQuizNames }) => (
         ))}
       </Col>
     </Row>
+    <div className="space"></div>
     <BottomButton title="Criar pergunta" />
   </Layout>
 );
