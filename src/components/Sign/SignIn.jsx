@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Form, Input, Button } from 'antd';
+import { Row, Col, Form, Input, Button, notification } from 'antd';
 import { RightOutlined } from '@ant-design/icons';
 import { withFirebase } from '../Firebase';
 import { ROUTES } from '../../constants';
@@ -9,11 +9,20 @@ import "./Sign.scss";
 
 const SignIn = ({ firebase }) => {
   const form = React.useRef();
+  const [isLoading, setIsLoading] = React.useState();
   const fields = ['email', 'password'];
 
   const onSubmit = () =>
     form.current.validateFields(fields)
-      .then(({ email, password }) => firebase.signIn({ email, password }));
+      .then(({ email, password }) => {
+        setIsLoading(true);
+        return firebase.signIn({
+          email,
+          password,
+          callback: () => setIsLoading(false)
+        });
+      })
+      .catch(() => notification['error']({ message: 'Erro ao fazer login' }));
 
   return (
     <div className="Form-container">
@@ -59,11 +68,11 @@ const SignIn = ({ firebase }) => {
             </Form.Item>
             <Form.Item className="btn-container">
               <span>Log In</span>
-              <Button type="primary" htmltype="submit" onClick={onSubmit}>
-                <RightOutlined />
+              <Button type="primary" htmltype="submit" onClick={onSubmit} loading={isLoading}>
+                {!isLoading && (<RightOutlined />)}
               </Button>
             </Form.Item>
-            <BottomButton title="Log In" onClick={onSubmit}/>
+            <BottomButton loading={isLoading} title="Log In" onClick={onSubmit} />
             <Form.Item className="links">
               <a href={ROUTES.SIGN_UP} className="FormField__Link">Criar Conta</a>
               <a href={ROUTES.SIGN_UP} className="FormField__Link">Esqueceu a Senha?</a>

@@ -5,11 +5,10 @@ import { compose } from 'recompose';
 
 const withAuthentication = (Component) => ({ firebase }) => {
   const [user, setUser] = React.useState({})
-  const [isLoading, setIsLoading] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(true);
 
   React.useEffect(() => {
     let unsubscribe;
-    setIsLoading(true);
     const getUser = async () => {
       unsubscribe = await firebase.auth.onAuthStateChanged((firebaseUser) => {
         if (firebaseUser) {
@@ -21,9 +20,8 @@ const withAuthentication = (Component) => ({ firebase }) => {
         }
 
         setUser({});
-      }
-      )
-      setIsLoading(false);
+        setIsLoading(false);
+      })
     }
     getUser();
     return () => unsubscribe()

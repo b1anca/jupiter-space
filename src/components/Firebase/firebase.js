@@ -20,17 +20,25 @@ class Firebase {
     this.db = app.database();
   }
 
-  signUp = ({ email, password, name, role, USPN }) =>
+  signUp = ({ email, password, name, role, USPN, callback = () => { } }) =>
     this.auth.createUserWithEmailAndPassword(email, password)
       .then(({ user }) =>
         this.db.ref('users/' + user.uid).set({ name, email, role, USPN }))
+      .then(() => callback())
       .then(() => notification['success']({ message: 'Conta criada com sucesso!' }))
-      .catch((e) => notification['error']({ message: ERRORS[e.code] || e.message }))
+      .catch((e) => {
+        callback();
+        notification['error']({ message: ERRORS[e.code] || e.message });
+      })
 
-  signIn = ({ email, password }) =>
+  signIn = ({ email, password, callback = () => { } }) =>
     this.auth.signInWithEmailAndPassword(email, password)
+      .then(() => callback())
       .then(() => notification['success']({ message: 'Login realizado com sucesso!' }))
-      .catch((e) => notification['error']({ message: ERRORS[e.code] || e.message }))
+      .catch((e) => {
+        callback();
+        notification['error']({ message: ERRORS[e.code] || e.message });
+      })
 
   signOut = () =>
     this.auth.signOut()

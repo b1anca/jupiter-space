@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Form, Input, Button, Checkbox } from 'antd';
+import { Row, Col, Form, Input, Button, Checkbox, notification } from 'antd';
 import { RightOutlined } from '@ant-design/icons';
 import { withFirebase } from '../Firebase';
 import { ROUTES } from '../../constants';
@@ -9,6 +9,7 @@ import "./Sign.scss";
 
 const SignUp = ({ firebase }) => {
   const form = React.useRef();
+  const [isLoading, setIsLoading] = React.useState();
   const fields = [
     'name',
     'USPN',
@@ -22,7 +23,14 @@ const SignUp = ({ firebase }) => {
 
   const onSubmit = () =>
     form.current.validateFields(fields)
-      .then((user) => firebase.signUp(parseUser(user)));
+      .then((user) => {
+        setIsLoading(true);
+        return firebase.signUp({
+          ...parseUser(user),
+          callback: () => setIsLoading(false)
+        })
+      })
+      .catch(() => notification['error']({ message: 'Erro ao criar conta' }));
 
   return (
     <div className="Form-container">
@@ -125,11 +133,11 @@ const SignUp = ({ firebase }) => {
             </Form.Item>
             <Form.Item className="btn-container">
               <span>Cadastrar</span>
-              <Button type="primary" htmltype="submit" onClick={onSubmit}>
-                <RightOutlined />
+              <Button type="primary" htmltype="submit" onClick={onSubmit} loading={isLoading}>
+                {!isLoading && (<RightOutlined />)}
               </Button>
             </Form.Item>
-            <BottomButton title="Cadastrar" />
+            <BottomButton loading={isLoading} title="Cadastrar" />
             <a className="FormField__Link" href={ROUTES.SIGN_IN}>Log In</a>
           </Form>
         </Col>
