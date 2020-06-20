@@ -33,8 +33,10 @@ class Firebase {
       .catch((e) => notification['error']({ message: ERRORS[e.code] || e.message }))
 
   signOut = () =>
-    this.auth.signOut().then(() =>
-      indexedDB.deleteDatabase('firebaseLocalStorageDb'))
+    this.auth.signOut()
+      .then(() => indexedDB.deleteDatabase('firebaseLocalStorageDb'))
+      .then(() => notification['success']({ message: 'Logout realizado com sucesso!' }))
+      .catch((e) => notification['error']({ message: ERRORS[e.code] || e.message }))
 
   resetPassword = email => this.auth.sendPasswordResetEmail(email);
 

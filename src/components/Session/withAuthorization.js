@@ -13,7 +13,7 @@ const withAuthorization = (Component) => (props) => {
   const { user } = React.useContext(AuthContext);
   const { path } = props;
 
-  if (user.role !== 'teacher' && teacherOnlyRoutes.includes(path)) {
+  if (user && user.role !== 'teacher' && teacherOnlyRoutes.includes(path)) {
     return (
       <Result
         status="403"

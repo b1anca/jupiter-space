@@ -63,7 +63,7 @@ const SignIn = ({ firebase }) => {
                 <RightOutlined />
               </Button>
             </Form.Item>
-            <BottomButton title="Log In" />
+            <BottomButton title="Log In" onClick={onSubmit}/>
             <Form.Item className="links">
               <a href={ROUTES.SIGN_UP} className="FormField__Link">Criar Conta</a>
               <a href={ROUTES.SIGN_UP} className="FormField__Link">Esqueceu a Senha?</a>
