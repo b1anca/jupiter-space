@@ -20,7 +20,14 @@ const SignUp = ({ firebase }) => {
     'role'
   ];
 
-  const parseUser = (user) => ({ ...user, role: user.role ? 'teacher' : 'student' });
+  const parseUser = ({ passwordConfirmation, ...user }) => ({
+    ...user,
+    USPN: parseInt(user.USPN),
+    role: user.role ? 'teacher' : 'student',
+    avatarUrl: '',
+    score: 0,
+    course: '',
+  });
 
   const onSubmit = () =>
     form.current.validateFields(fields)

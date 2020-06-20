@@ -20,10 +20,10 @@ class Firebase {
     this.db = app.database();
   }
 
-  signUp = ({ email, password, name, role, USPN, callback = () => { } }) =>
+  signUp = ({ email, password, callback = () => { }, ...userProps }) =>
     this.auth.createUserWithEmailAndPassword(email, password)
       .then(({ user }) =>
-        this.db.ref('users/' + user.uid).set({ name, email, role, USPN }))
+        this.db.ref('users/' + user.uid).set({ email, ...userProps }))
       .then(() => callback())
       .then(() => notification['success']({ message: 'Conta criada com sucesso!' }))
       .catch((e) => {
