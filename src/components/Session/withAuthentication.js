@@ -5,14 +5,19 @@ import { withFirebase } from '../Firebase';
 const withAuthentication = (Component) =>
   withFirebase(({ firebase }) => {
     const [user, setUser] = React.useState({})
+    const [isLoading, setIsLoading] = React.useState(true);
 
     React.useEffect(() => {
       let unsubscribe;
+      setIsLoading(true);
       const getUser = async () => {
         unsubscribe = await firebase.auth.onAuthStateChanged((firebaseUser) =>
           firebaseUser ?
             firebase.db.ref(`users/${firebaseUser.uid}`)
-              .on('value', user => setUser({ user: user.val(), firebaseUser })) :
+              .on('value', user => {
+                setUser({ user: user.val(), firebaseUser })
+                setIsLoading(false);
+              }) :
             setUser({})
         )
       }
@@ -22,7 +27,7 @@ const withAuthentication = (Component) =>
 
     return (
       <AuthContext.Provider value={user}>
-        <Component firebase={firebase} />
+        <Component firebase={firebase} isLoading={isLoading} />
       </AuthContext.Provider>
     );
   });
