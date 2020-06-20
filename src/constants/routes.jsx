@@ -2,7 +2,6 @@ export const BONUS = '/bonus';
 export const CREATE_QUIZ = '/quizzes/new';
 export const DASHBOARD = '/dashboard';
 export const QUIZZES = '/quizzes';
-export const QUIZ_LIST = '/quizzes/list';
 export const QUIZZES_ANSWERED = '/quizzes/answered';
 export const QUIZZES_OPEN = '/quizzes/open';
 export const RANKING = '/ranking';
