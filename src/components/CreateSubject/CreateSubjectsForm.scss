@@ -14,7 +14,7 @@
         margin-top: 12px;
     }
 
-
+    background-color: darken($BLUE, 10%);
     min-height: 100vh;
 
     .ant-row {
@@ -28,7 +28,6 @@
                 margin: 0;
             }
             .item-box,  .ant-select-selector {
-                
                 justify-content: space-between;
                 align-items: center;
                 border-radius: 4px;
@@ -40,7 +39,6 @@
             }
             .ant-select-selector{
                 margin: 0;
-
             }
         }
     }
@@ -48,7 +46,7 @@
     @media screen and (min-width: $MD-BREAKPOINT) {
     background-color: white;
 
-        .ant-row .ant-col {
+    .ant-row .ant-col {
             .item-box,  
             .ant-select-selector {
                 background-color: white;
