@@ -5,6 +5,7 @@ export const FORGOT_PASSWORD = '/forgot-password';
 export const QUIZZES = '/quizzes';
 export const QUIZZES_ANSWERED = '/quizzes/answered';
 export const QUIZZES_OPEN = '/quizzes/open';
+export const QUIZZES_QUESTIONS = '/quizzes/questions';
 export const RANKING = '/ranking';
 export const SETTINGS = '/settings';
 export const SIGN_IN = '/sign-in';
