@@ -57,7 +57,7 @@ class Subjects extends React.Component {
           </Col>
         </Row>
         <AuthContext.Consumer>
-          {user => user.role === 'teacher' && (
+          {({ user }) => user.role === 'teacher' && (
             <Link to={ROUTES.SUBJECTS_NEW}><BottomButton title="Criar disciplina" /></Link>
           )}
         </AuthContext.Consumer>
