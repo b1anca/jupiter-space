@@ -13,6 +13,7 @@ import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 import { NotFound } from '../Result';
 import QuizList from '../QuizList/QuizList'
+import CreateQuestion from '../CreateQuestion/index'
 
 import { ROUTES } from '../../constants';
 
@@ -25,6 +26,7 @@ const Routes = () => (
     <PrivateRoute exact path={ROUTES.DASHBOARD} component={Dashboard} />
     <PrivateRoute exact path={ROUTES.CREATE_QUIZ} component={CreateQuiz} />
     <PrivateRoute exact path={ROUTES.QUIZZES_QUESTIONS} component={QuizList} />
+    <PrivateRoute exact path={ROUTES.CREATE_QUESTION} component={CreateQuestion} />
     <PublicRoute restricted exact path={ROUTES.SIGN_UP} component={SignUpPage} />
     <PublicRoute restricted exact path={ROUTES.SIGN_IN} component={SignInPage} />
     <PrivateRoute exact path="/" component={Dashboard} />
