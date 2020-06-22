@@ -1,5 +1,6 @@
 export const BONUS = '/bonus';
 export const CREATE_QUIZ = '/quizzes/new';
+export const CREATE_QUESTION = '/quizzes/questions/new';
 export const DASHBOARD = '/dashboard';
 export const QUIZZES = '/quizzes/questions';
 export const QUIZZES_ANSWERED = '/quizzes/answered';

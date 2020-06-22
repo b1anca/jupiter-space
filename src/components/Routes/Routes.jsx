@@ -10,6 +10,7 @@ import Subjects from '../Subjects/Subjects';
 import CreateSubjectsForm from '../CreateSubject/CreateSubjectsForm'
 import CreateQuiz from '../CreateQuiz';
 import QuizList from '../QuizList/QuizList'
+import CreateQuestion from '../CreateQuestion/index'
 
 import * as ROUTES from '../../constants/routes';
 
@@ -23,6 +24,7 @@ const Routes = () => (
     <Route exact path={ROUTES.SUBJECTS_NEW} component={CreateSubjectsForm} />
     <Route exact path={ROUTES.DASHBOARD} component={Dashboard} />
     <Route exact path={ROUTES.QUIZZES} component={QuizList} />
+    <Route exact path={ROUTES.CREATE_QUESTION} component={CreateQuestion} />
     <Route exact path={ROUTES.CREATE_QUIZ} component={CreateQuiz} />
     <Route path="/" component={Dashboard} />
   </Switch>
