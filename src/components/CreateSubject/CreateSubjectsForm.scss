@@ -1,13 +1,13 @@
 @import '../../constants';
 
 .CreateSubjectsForm{
+
     .ant-row {
         justify-content: center;
       }
 
     .alunos{
         margin-bottom: 4px;
-        font-weight: bold;
     }
 
     .create-button{
@@ -23,10 +23,10 @@
         .ant-col {
             flex: 1;
 
-            .ant-form-item{
-                padding: 0;
-                margin: 0;
+            .ant-select{
+                width: 100%;
             }
+
             .item-box,  .ant-select-selector {
                 justify-content: space-between;
                 align-items: center;
@@ -34,6 +34,7 @@
                 padding: 15px;
                 margin-top: 20px;
                 background-color: $LIGHT-BLUE;
+                color: #bfbfbf;
                 cursor: pointer;
 
             }

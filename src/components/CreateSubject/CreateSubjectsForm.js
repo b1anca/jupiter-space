@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Form, Input, Row, Col, Select } from 'antd';
+import { Input, Row, Col, Select } from 'antd';
 import 'antd/dist/antd.css';
 import './CreateSubjectsForm.scss'
 import listaAlunos from './listaAlunos';
@@ -21,8 +21,6 @@ class CreateSubjectsForm extends Component {
     name: null,
     code: null,
     description: null,
-    codeValidate: null,
-    codeErrorMsg: null,
     auxList: [],
   }
 
@@ -33,25 +31,18 @@ class CreateSubjectsForm extends Component {
   }
 
   handleSelect = (e) => {
-    const aux = listaMaterias.filter((v) => v.nome === e).map((v) => (v.alunos))[0]
-    const auxDesc = listaMaterias.filter((v) => v.nome === e).map((v) => (v.desc))[0]
+    const aux = listaMaterias.filter((v) => v.name === e).map((v) => (v.alunos))[0]
+    const auxDesc = listaMaterias.filter((v) => v.name === e).map((v) => (v.description))[0]
     const arrayAux = [];
     for(let i in aux){
-      arrayAux.push(listaAlunos.filter(v => v.nusp === aux[i].nusp)[0]);
+      arrayAux.push(listaAlunos.filter(v => v.USPN === aux[i].USPN)[0]);
     }
-    console.log(aux, arrayAux, auxDesc)
+    
     this.setState({ name: e, auxList: arrayAux, description: auxDesc })
   }
 
-  onClick = (values) => {
-    console.log('oi');
-    // Para validação no servidor
-    // if(this.state.code === 'teste'){
-    //   this.setState({
-    //     codeValidate: 'error',
-    //     codeErrorMsg: 'Código de disciplina já existe'
-    //   });
-    // }
+  handleSubmit = (values) => {  
+
      
   }
 
@@ -61,30 +52,23 @@ class CreateSubjectsForm extends Component {
 
   render() {
   const { auxList, description } = this.state;
-  const list = listaMaterias.map((v) => (<Option value={v.nome} key={v.cod}>{v.cod} - {v.nome}</Option>))
+  const list = listaMaterias.map((v) => (<Option value={v.name} key={v.cod}>{v.cod} - {v.name}</Option>))
     return (
       <div className="CreateSubjectsForm">
         <MobileHeader title="Criar disciplina" color="white" />
         <BrowserHeader title="Criar disciplina" />
-
-        
-
-        <Form ref={this.formRef} onFinish={this.handleSubmit}>
           <Row gutter={gutterSize}>
             <Col sm={{ span: 24 }} md={{ span: 18 }} lg={{ span: 12 }}>
-              <Form.Item rules={[{ required: true, message: 'Por favor, selecione a disciplina.' }]}>
-                <Select 
-                  
-                  placeholder="Nome da disciplina" 
-                  type="text" 
-                  id="name"       
-                  onChange={this.handleSelect}          
-                >
-                {  
-                  list
-                }    
-                </Select>
-              </Form.Item>
+              <Select 
+                placeholder="Nome da disciplina" 
+                type="text" 
+                id="name"       
+                onChange={this.handleSelect}          
+              >
+              {  
+                list
+              }    
+              </Select>
 
               <TextArea 
                 className='item-box'
@@ -95,32 +79,26 @@ class CreateSubjectsForm extends Component {
                 disabled       
               />
 
-
-              <div className='item-box'>
-                
-                Alunos:
-                {auxList.map(v => (
-                  <div className="alunos">
-                        {v.nome} - Número USP: {v.nusp}
-                  </div>
-
-                ))
-                }
-              </div>
-
+              <TextArea 
+                className='item-box'
+                placeholder="Alunos"
+                id="students"
+                autoSize={{ minRows: 3, maxRows: 8 }}
+                value={auxList.map(v => (
+                  
+                    v.name + '- Número USP: ' + v.USPN + '\n'
+                 
+                )).join('')}           
+                disabled       
+              />
             </Col>
           </Row>
 
           <Row gutter={gutterSize}>
             <Col xs={{ span: 22 }} lg={{ span: 16 }}>
-              <Form.Item>    
-                <BottomButton title="Criar disciplina" />        
-               
-              </Form.Item>
+              <BottomButton title="Criar disciplina" onClick={this.handleSubmit}/>     
             </Col>
           </Row>
-
-        </Form>
       </div>
     );
   }
