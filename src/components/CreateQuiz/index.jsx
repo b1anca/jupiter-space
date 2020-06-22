@@ -16,9 +16,6 @@ const defaultSubjects = [
   { label: 'Disciplina 6', value: 6 },
 ];
 
-const openNotificationWithIcon = ({ type, message, description }) =>
-  notification[type]({ message, description });
-
 const CreateQuiz = ({ subjects = defaultSubjects, firebase }) => {
   const form = React.useRef();
   const fields = [
@@ -42,17 +39,13 @@ const CreateQuiz = ({ subjects = defaultSubjects, firebase }) => {
     form.current.validateFields(fields)
       .then((quiz) => firebase.db.ref('quizzes').push(parseQuiz(quiz)))
       .then(() => {
-        openNotificationWithIcon({
-          type: 'success',
+        notification['success']({
           message: 'Quiz criado!',
           description: 'Adicione perguntas ao seu novo quiz!'
         });
         form.current.resetFields(fields);
       })
-      .catch(() => openNotificationWithIcon({
-        type: 'error',
-        message: 'Erro ao criar quiz',
-      }))
+      .catch(() => notification['error']({ message: 'Erro ao criar quiz' }))
   };
 
   return (

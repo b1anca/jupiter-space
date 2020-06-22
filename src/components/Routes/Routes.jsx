@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 
 import Ranking from '../Ranking';
 import SignUpPage from '../Sign/SignUp';
@@ -9,20 +9,26 @@ import Dashboard from '../Dashboard';
 import Subjects from '../Subjects/Subjects';
 import CreateSubjectsForm from '../CreateSubject/CreateSubjectsForm'
 import CreateQuiz from '../CreateQuiz';
+import PrivateRoute from './PrivateRoute';
+import PublicRoute from './PublicRoute';
+import { NotFound } from '../Result';
+import QuizList from '../QuizList/QuizList'
 
-import * as ROUTES from '../../constants/routes';
+import { ROUTES } from '../../constants';
 
 const Routes = () => (
   <Switch>
-    <Route exact path={ROUTES.USERS_SIGN_UP} component={SignUpPage} />
-    <Route exact path={ROUTES.USERS_SIGN_IN} component={SignInPage} />
-    <Route exact path={ROUTES.RANKING} component={Ranking} />
-    <Route exact path={ROUTES.USERS_FORGOT_PASSWORD} component={ForgotPasswordPage} />
-    <Route exact path={ROUTES.SUBJECTS} component={Subjects} />
-    <Route exact path={ROUTES.SUBJECTS_NEW} component={CreateSubjectsForm} />
-    <Route exact path={ROUTES.DASHBOARD} component={Dashboard} />
-    <Route exact path={ROUTES.CREATE_QUIZ} component={CreateQuiz} />
-    <Route path="/" component={Dashboard} />
+    <PrivateRoute exact path={ROUTES.RANKING} component={Ranking} />
+    <PublicRoute exact path={ROUTES.FORGOT_PASSWORD} component={ForgotPasswordPage} />
+    <PrivateRoute exact path={ROUTES.SUBJECTS} component={Subjects} />
+    <PrivateRoute exact path={ROUTES.SUBJECTS_NEW} component={CreateSubjectsForm} />
+    <PrivateRoute exact path={ROUTES.DASHBOARD} component={Dashboard} />
+    <PrivateRoute exact path={ROUTES.CREATE_QUIZ} component={CreateQuiz} />
+    <PrivateRoute exact path={ROUTES.QUIZZES_QUESTIONS} component={QuizList} />
+    <PublicRoute restricted exact path={ROUTES.SIGN_UP} component={SignUpPage} />
+    <PublicRoute restricted exact path={ROUTES.SIGN_IN} component={SignInPage} />
+    <PrivateRoute exact path="/" component={Dashboard} />
+    <PublicRoute path="/" component={NotFound} />
   </Switch>
 );
 
