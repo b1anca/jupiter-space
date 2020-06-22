@@ -30,7 +30,7 @@
                 padding: 15px;
                 margin-top: 20px;
                 background-color: $LIGHT-BLUE;
-                color: #bfbfbf;
+                color: white;
                 cursor: pointer;
 
             }
@@ -48,6 +48,7 @@
             .ant-select-selector {
                 background-color: white;
                 border: 1px solid $BLUE;
+                color: black;
             }
         }
     }
