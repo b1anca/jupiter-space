@@ -20,7 +20,8 @@
       color: white;
       background-color: $BLUE;
       border-radius: 5px;
-      border-color: none;
+      border-color: transparent;
+      outline: none;
 
       &.orange-bg {
         background-color: $ORANGE;
@@ -28,13 +29,14 @@
         &:hover,
         &:focus {
           background-color: darken($ORANGE, 5%);
+          border-color: transparent;
         }
       }
 
       &:hover,
       &:focus {
         background-color: darken($BLUE, 5%);
-        border-color: white;
+        border-color: transparent;
       }
     }
   }

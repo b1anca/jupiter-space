@@ -46,6 +46,10 @@
     .name {
       text-transform: capitalize;
       padding: 0 5px;
+      max-width: 150px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
     }
 
     .icon {

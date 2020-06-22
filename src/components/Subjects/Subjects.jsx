@@ -1,36 +1,69 @@
 import React from 'react';
+import { withFirebase } from '../Firebase';
 import { Layout, Typography, Row, Col } from 'antd';
-import './Subjects.scss'
+import { Link } from 'react-router-dom';
 import MobileHeader from '../MobileHeader';
 import BrowserHeader from '../BrowserHeader';
 import BottomButton from '../BottomButton';
+import { AuthContext } from '../Session';
+import { ROUTES } from '../../constants';
+import './Subjects.scss'
 
 const { Text } = Typography;
 
-const defaultSubjects = [
-  { name: 'Disciplina 1' },
-  { name: 'Disciplina 2' },
-  { name: 'Disciplina 4' },
-  { name: 'Disciplina 5' },
-  { name: 'Disciplina 6' },
-];
+class Subjects extends React.Component {
+  constructor(props) {
+    super(props);
 
-const Subjects = ({ subjects = defaultSubjects }) => (
-  <Layout className='layoutSubject'>
-    <MobileHeader title="Disciplinas" color="white" />
-    <BrowserHeader title="Disciplinas" />
-    <Row>
-      <Col sm={{ span: 24 }} md={{ span: 18 }} lg={{ span: 12 }}>
-        {subjects.map((subject, index) => (
-          <div key={index} className='button'>
-            <Text className="subject-name">{subject.name}</Text>
-            <i className="icon fas fa-chevron-right" />
-          </div>
-        ))}
-      </Col>
-    </Row>
-    <BottomButton title="Criar disciplina" />
-  </Layout>
-);
+    this.state = {
+      subjects: [],
+    };
+  }
 
-export default Subjects;
+  componentDidMount() {
+    const { firebase } = this.props;
+
+    var aux = [];
+    firebase.getSubjects().on('value', snapshot => {
+      const message = snapshot.val();
+      var uids = Object.keys(message);
+      const subjects = Object.values(message)
+      for (let i in uids) {
+        aux.push({
+          ...subjects[i],
+          "code": uids[i],
+        })
+      }
+      this.setState({ subjects })
+    })
+  }
+
+
+  render() {
+    const { subjects } = this.state;
+
+    return (
+      <Layout className='layoutSubject'>
+        <MobileHeader title="Disciplinas" color="white" />
+        <BrowserHeader title="Disciplinas" />
+        <Row>
+          <Col sm={{ span: 24 }} md={{ span: 18 }} lg={{ span: 12 }}>
+            {subjects.map((subject, index) => (
+              <div key={index} className='button'>
+                <Text className="subject-name">{subject.name}</Text>
+                <i className="icon fas fa-chevron-right" />
+              </div>
+            ))}
+          </Col>
+        </Row>
+        <AuthContext.Consumer>
+          {({ user }) => user.role === 'teacher' && (
+            <Link to={ROUTES.SUBJECTS_NEW}><BottomButton title="Criar disciplina" /></Link>
+          )}
+        </AuthContext.Consumer>
+      </Layout>
+    )
+  }
+};
+
+export default withFirebase(Subjects);
