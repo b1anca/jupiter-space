@@ -49,6 +49,8 @@ class Firebase {
   resetPassword = email => this.auth.sendPasswordResetEmail(email);
 
   updatePassword = password => this.auth.currentUser.updatePassword(password);
+
+  getSubjects = () => this.db.ref('subjects/');
 }
 
 export default Firebase;
