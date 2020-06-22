@@ -1,0 +1,55 @@
+@import '../../constants';
+
+.CreateSubjectsForm{
+
+    .ant-row {
+        justify-content: center;
+      }
+
+    .create-button{
+        margin-top: 12px;
+    }
+
+    background-color: darken($BLUE, 10%);
+    min-height: 100vh;
+
+    .ant-row {
+        padding: 10px;
+
+        .ant-col {
+            flex: 1;
+
+            .ant-select{
+                width: 100%;
+            }
+
+            .item-box,  .ant-select-selector {
+                justify-content: space-between;
+                align-items: center;
+                border-radius: 4px;
+                padding: 15px;
+                margin-top: 20px;
+                background-color: $LIGHT-BLUE;
+                color: white;
+                cursor: pointer;
+
+            }
+            .ant-select-selector{
+                margin: 0;
+            }
+        }
+    }
+
+    @media screen and (min-width: $MD-BREAKPOINT) {
+    background-color: white;
+
+    .ant-row .ant-col {
+            .item-box,  
+            .ant-select-selector {
+                background-color: white;
+                border: 1px solid $BLUE;
+                color: black;
+            }
+        }
+    }
+}

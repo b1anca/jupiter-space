@@ -1,12 +1,17 @@
 import React, { Component } from 'react'
-import { Form, Input, Button, Row, Col } from 'antd';
+import { Input, Row, Col, Select } from 'antd';
 import 'antd/dist/antd.css';
+import './CreateSubjectsForm.scss'
+import listaAlunos from './listaAlunos';
 
+import listaMaterias from './listaMaterias';
+import BottomButton from '../BottomButton';
+import MobileHeader from '../MobileHeader';
+import BrowserHeader from '../BrowserHeader';
+
+const { Option } = Select;
 const { TextArea } = Input;
 const gutterSize = [0, { xs: 0, sm: 0, md: 0 }];
-
-
-
 
 
 class CreateSubjectsForm extends Component {
@@ -16,93 +21,84 @@ class CreateSubjectsForm extends Component {
     name: null,
     code: null,
     description: null,
-    codeValidate: null,
-    codeErrorMsg: null,
-
+    auxList: [],
   }
-
 
   handleChange = (e) => {
     this.setState({
       [e.target.id]: e.target.value
     });
-    
-    
   }
 
-  handleSubmit = (values) => {
-    // Para validação no servidor
-    // if(this.state.code === 'teste'){
-    //   this.setState({
-    //     codeValidate: 'error',
-    //     codeErrorMsg: 'Código de disciplina já existe'
-    //   });
-    // }
+  handleSelect = (e) => {
+    const aux = listaMaterias.filter((v) => v.name === e).map((v) => (v.alunos))[0]
+    const auxDesc = listaMaterias.filter((v) => v.name === e).map((v) => (v.description))[0]
+    const arrayAux = [];
+    for(let i in aux){
+      arrayAux.push(listaAlunos.filter(v => v.USPN === aux[i].USPN)[0]);
+    }
     
-    console.log(this.state);
-    console.log(values);    
-  };
+    this.setState({ name: e, auxList: arrayAux, description: auxDesc })
+  }
+
+  handleSubmit = (values) => {  
+
+     
+  }
+
+  changeState = (v) => {
+    this.setState({ description: v })
+  }
 
   render() {
+  const { auxList, description } = this.state;
+  const list = listaMaterias.map((v) => (<Option value={v.name} key={v.cod}>{v.cod} - {v.name}</Option>))
     return (
-      <div>
-        <Row gutter={gutterSize}>
-          <Col xs={{ span: 22, offset: 1 }} lg={{ span: 16, offset: 2 }}>
-            <h2>Criar disciplina</h2>
-          </Col>
-        </Row>
-
-        <Form ref={this.formRef} onFinish={this.handleSubmit}>
+      <div className="CreateSubjectsForm">
+        <MobileHeader title="Criar disciplina" color="white" />
+        <BrowserHeader title="Criar disciplina" />
           <Row gutter={gutterSize}>
-            <Col xs={{ span: 22, offset: 1 }} lg={{ span: 16, offset: 2 }}>
-              <Form.Item name="name" rules={[{ required: true, message: 'Por favor, insira o nome da disciplina.' }]}>
-                  <Input 
-                  placeholder="Nome da disciplina" 
-                  type="text" 
-                  id="name"
-                  onChange={this.handleChange}                  
-                />
-              </Form.Item>
-
-
-              <Form.Item 
-                name="code" 
-                rules={[{ required: true, message: 'Por favor, insira o código da disciplina.' }]}
-                validateStatus={this.state.codeValidate}
-                help={this.state.codeErrorMsg}
+            <Col sm={{ span: 24 }} md={{ span: 18 }} lg={{ span: 12 }}>
+              <Select 
+                placeholder="Nome da disciplina" 
+                type="text" 
+                id="name"       
+                onChange={this.handleSelect}          
               >
-                <Input 
-                  placeholder="Código" 
-                  type="text" 
-                  id="code"
-                  onChange={this.handleChange}                  
-                />
-              </Form.Item>
+              {  
+                list
+              }    
+              </Select>
 
+              <TextArea 
+                className='item-box'
+                placeholder="Descrição"
+                id="description"
+                autoSize={{ minRows: 3, maxRows: 5 }}
+                value={description}            
+                disabled       
+              />
 
-              <Form.Item name="description" rules={[{ required: true, message: 'Por favor, insira a descrição da disciplina.' }]}>
-                <TextArea 
-                  placeholder="Descrição" 
-                  type="text"
-                  id="description"
-                  onChange={this.handleChange} 
-                  autoSize={{ minRows: 3, maxRows: 5 }}                     
-                />
-              </Form.Item>
+              <TextArea 
+                className='item-box'
+                placeholder="Alunos"
+                id="students"
+                autoSize={{ minRows: 3, maxRows: 8 }}
+                value={auxList.map(v => (
+                  
+                    v.name + '- Número USP: ' + v.USPN + '\n'
+                 
+                )).join('')}           
+                disabled       
+              />
             </Col>
           </Row>
 
           <Row gutter={gutterSize}>
-            <Col xs={{ span: 22, offset: 1 }} sm={{ span: 10, offset: 7 }} lg={{ span: 8, offset: 2 }}>
-              <Form.Item>            
-                <Button type="primary" htmlType="submit" block>
-                  Criar disciplina
-                </Button>                 
-              </Form.Item>
+            <Col xs={{ span: 22 }} lg={{ span: 16 }}>
+              <BottomButton title="Criar disciplina" onClick={this.handleSubmit}/>     
             </Col>
           </Row>
-
-        </Form>
       </div>
     );
   }
