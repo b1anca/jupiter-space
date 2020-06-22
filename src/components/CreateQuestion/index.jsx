@@ -101,10 +101,15 @@ const CreateQuestion = ({ firebase }) => {
               hasFeedback
               rules={[
                 () => ({
+                  validator2(_rule, value) {
+                    return typeof value !== 'number' ?
+                    Promise.resolve() :
+                    Promise.reject()
+                  },
                   validator(_rule, value) {
-                    return typeof value !== 'number' || value >= 0 ?
+                    return value >= 0 ?
                       Promise.resolve() :
-                      Promise.reject('Pontuação deve ser maior ou igual a 0')
+                      Promise.reject('Pontuação deve ser um número e maior ou igual a 0')
                   }
                 })
               ]}
