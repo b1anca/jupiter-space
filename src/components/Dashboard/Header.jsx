@@ -13,15 +13,13 @@ const teacherCards = [
   { count: 3, text: 'quizzes abertos' },
 ];
 
-const isStudent = true;
-
-const Header = ({ cards = isStudent ? studentCards : teacherCards, name = 'john doe' }) => (
+const Header = ({ isStudent, name }) => (
   <div className="dashboard-header">
     <div className="header">
       <h1>{name}</h1>
     </div>
     <div className="info">
-      {cards.map((card, index) => (
+      {(isStudent ? studentCards : teacherCards).map((card, index) => (
         <div key={index} className="card">
           <span className="count">{card.count}</span>
           <span>{card.text}</span>

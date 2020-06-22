@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from './Link';
-import * as ROUTES from '../../constants/routes';
+import { ROUTES } from '../../constants';
 import './MenuOptions.scss';
 
 const studentOptions = [
@@ -18,10 +18,10 @@ const teacherOptions = [
   { text: 'Ranking', url: ROUTES.RANKING },
   { text: 'Bônus disponíveis', url: ROUTES.BONUS },
   { text: 'Alunos', url: ROUTES.STUDENTS },
-  { text: 'Configurações', url: ROUTES.SETTINGS },
+  { text: 'Criar quiz', url: ROUTES.CREATE_QUIZ },
 ];
 
-const Menu = ({ isStudent = true }) => (
+const Menu = ({ isStudent }) => (
   <div className="menu">
     {(isStudent ? studentOptions : teacherOptions).map((option, index) => (
       <Link key={index} text={option.text} url={option.url} />
