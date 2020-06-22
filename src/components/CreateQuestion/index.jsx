@@ -13,7 +13,8 @@ const openNotificationWithIcon = ({ type, message, description }) =>
 const CreateQuestion = ({ firebase }) => {
   const form = React.useRef();
   const fields = [
-    'query',
+    'name',
+    'description',
     'rightAnswer',
     'wrongAnswer1',
     'wrongAnswer2',
@@ -22,13 +23,35 @@ const CreateQuestion = ({ firebase }) => {
     'score'
   ];
 
-  const parseQuestion = (question) => ({
-    ...question,
-    wrongAnswer2: question.wrongAnswer2 || '',
-    wrongAnswer3: question.wrongAnswer3 || '',
-    wrongAnswer4: question.wrongAnswer4 || '',
+  
+  const parseQuestion = (question) => { 
+    const answers = [{
+      text: question.rightAnswer,
+      isCorrect: true
+    },
+    {
+      text: question.wrongAnswer1,
+      isCorrect: false
+    },
+    {
+      text: question.wrongAnswer2 || '',
+      isCorrect: false
+    },
+    {
+      text: question.wrongAnswer3 || '',
+      isCorrect: false
+    },
+    {
+      text: question.wrongAnswer4 || '',
+      isCorrect: false
+    }
+    ]
+    return {
+    name: question.name,
+    description: question.description,
+    answers,
     score: question.score || '',
-  });
+  }};
 
   const onSubmit = () => {
     form.current.validateFields(fields)
@@ -57,23 +80,36 @@ const CreateQuestion = ({ firebase }) => {
             <Form.Item
               rules={[{ required: true, message: 'Campo obrigatório' }]}
               hasFeedback
-              name="query"
+              name="name"
             >
               <TextArea label="Pergunta" color="blue" required name="name" />
             </Form.Item>
             <Form.Item
               rules={[{ required: true, message: 'Campo obrigatório' }]}
               hasFeedback
+              name="description"
+            >
+              <TextArea label="Descrição" color="blue" required name="description" />
+            </Form.Item>
+            <Form.Item
+              rules={[{ required: true, message: 'Campo obrigatório' }]}
+              hasFeedback
               name="rightAnswer"
             >
-              <TextArea label="Alternativa correta" color="blue" required name="name" />
+              <TextArea 
+                label="Alternativa correta" 
+                color="blue" 
+                required name="rightAnswer" />
             </Form.Item>
             <Form.Item
               rules={[{ required: true, message: 'Campo obrigatório' }]}
               hasFeedback
               name="wrongAnswer1"
             >
-              <TextArea label="Alternativa incorreta" color="blue" required name="name" />
+              <TextArea 
+                label="Alternativa incorreta" 
+                color="blue" 
+                required name="wrongAnswer1" />
             </Form.Item>
             <Form.Item name="wrongAnswer2" hasFeedback>
               <TextArea
