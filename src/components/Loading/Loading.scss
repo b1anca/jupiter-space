@@ -1,0 +1,16 @@
+@import '../../constants/';
+
+.loading {
+  height: 90vh;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+
+  .ant-spin {
+    color: $BLUE;
+
+    .ant-spin-dot-item {
+      background-color: $BLUE;
+    }
+  }
+}
