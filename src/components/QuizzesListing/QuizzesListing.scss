@@ -1,0 +1,92 @@
+@import '../../constants';
+
+.ant-layout.layoutQuiz {
+  background-color: darken($ORANGE, 20%);
+  min-height: 100vh;
+
+  .ant-row {
+    justify-content: center;
+  }
+
+  .ant-row {
+    padding: 10px;
+
+    .ant-col {
+      flex: 1;
+
+      .button {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: justify;
+        border-radius: 4px;
+        padding: 15px;
+        margin-bottom: 10px;
+        background-color: rgba(236, 151, 31, 0.3);
+        cursor: pointer;
+
+        .quizx-name {
+          font-weight: 800;
+          color: white;
+          font-size: 20px;
+        }
+
+        .subject-name{
+          font-weight: 800;
+          color: white;
+          font-size: 15px;
+        }
+
+        .bonus{
+          color: white;
+          font-size: medium;
+        }
+
+        .data{
+          color: white;
+          font-size: small;
+        }
+        
+        .answers{
+          color: white;
+          font-size: small;
+        }
+
+        .icon {
+          align-self: flex-end;
+          color: white;
+        }
+      }
+    }
+  }
+
+  @media screen and (min-width: $MD-BREAKPOINT) {
+    background-color: white;
+
+    .ant-row .ant-col {
+      .button {
+        background-color: white;
+        border: 1px solid $BLUE;
+
+        .quizx-name,
+        .subject-name{
+          color: black;
+        }
+        .bonus{
+          color: black;
+        }
+        .data{
+          color: black;
+        }
+
+        .answers{
+          color: black;
+        }
+
+        .icon {
+          color: black;
+        }
+      }
+    }
+  }
+}
