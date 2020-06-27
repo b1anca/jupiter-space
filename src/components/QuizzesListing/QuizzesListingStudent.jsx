@@ -1,6 +1,6 @@
 import React from 'react';
 import { Layout, Typography, Row, Col } from 'antd';
-import './ListQuizzes.scss';
+import './QuizzesListing.scss';
 import MobileHeader from '../MobileHeader';
 import BrowserHeader from '../BrowserHeader';
 
