@@ -16,6 +16,7 @@ import QuizList from '../QuizList/QuizList'
 import CreateQuestion from '../CreateQuestion/index'
 import QuizzesListingStudent from '../QuizzesListing/QuizzesListingStudent';
 import QuizzesListingProfessor from '../QuizzesListing/QuizzesListingProfessor';
+import Question from '../Question/Question'
 
 import { ROUTES } from '../../constants';
 
@@ -28,6 +29,7 @@ const Routes = () => (
     <PrivateRoute exact path={ROUTES.DASHBOARD} component={Dashboard} />
     <PrivateRoute exact path={ROUTES.CREATE_QUIZ} component={CreateQuiz} />
     <PrivateRoute exact path={ROUTES.QUIZZES_QUESTIONS} component={QuizList} />
+    <PublicRoute exact path={ROUTES.QUIZZES_QUESTION} component={Question} />
     <PrivateRoute exact path={ROUTES.CREATE_QUESTION} component={CreateQuestion} />
     <PublicRoute restricted exact path={ROUTES.SIGN_UP} component={SignUpPage} />
     <PublicRoute restricted exact path={ROUTES.SIGN_IN} component={SignInPage} />
