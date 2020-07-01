@@ -1,0 +1,171 @@
+@import "../../constants";
+
+.ant-layout.layoutQuestion {
+  min-height: 100vh;
+
+  .ant-row {
+    justify-content: center;
+  }
+
+  .ant-row {
+    padding: 10px;
+
+    .ant-col {
+      flex: 1;
+
+      .question-title {
+        margin-bottom: 20px;
+        font-size: 18px;
+        font-weight: 800;
+        color: black;
+      }
+
+      .box {
+        align-items: center;
+
+        .number {
+          width: 40px;
+          height: 40px;
+          border-radius: 40px;
+          margin-bottom: 10px;
+          padding: 9px 15px;
+          margin-right: 10px;
+          cursor: pointer;
+
+          .ant-typography {
+            font-weight: bold;
+          }
+          color: black;
+        }
+      }
+
+      .answer-container {
+        display: flex;
+        align-items: center;
+        border-radius: 4px;
+        padding: 15px;
+        margin-bottom: 10px;
+        cursor: pointer;
+        box-shadow: $box-shadow;
+
+        &.selected {
+          background-color: $ORANGE;
+          @media screen and (min-width: $MD-BREAKPOINT) {
+            background-color: $BLUE;
+          }
+
+          .letter-text,
+          .answer-name {
+            color: white;
+          }
+        }
+
+        .letter-text {
+          color: black;
+          font-weight: 800;
+          font-size: 25px;
+          margin-right: 20px;
+        }
+
+        .answer-name {
+          font-weight: 700;
+          color: black;
+          font-size: 16px;
+        }
+
+        .icon {
+          color: white;
+        }
+      }
+    }
+  }
+
+  .bottom-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    width: 90%;
+    margin: 10px auto;
+
+    button {
+      height: unset;
+      width: 100%;
+      padding: 15px;
+      font-weight: 800;
+      font-size: 15px;
+      text-align: center;
+      color: white;
+      background-color: $ORANGE;
+      border-radius: 5px;
+      border-color: transparent;
+      outline: none;
+
+      &:first-child {
+        background-color: lighten($ORANGE, 30%);
+      }
+
+      @media screen and (min-width: $MD-BREAKPOINT) {
+        background-color: $BLUE;
+        &:first-child {
+          background-color: lighten($BLUE, 30%);
+        }
+      }
+    }
+  }
+
+  @media screen and (min-width: $MD-BREAKPOINT) {
+    .ant-row .ant-col {
+      .question-title {
+        color: black;
+      }
+
+      .box {
+        width: auto;
+        .number {
+          .ant-typography {
+            font-weight: bold;
+            color: black;
+          }
+        }
+      }
+
+      .button {
+        display: flex;
+        justify-content: normal;
+
+        .answer-name,
+        .icon {
+          color: black;
+        }
+
+        .letter-text {
+          padding-left: 15px;
+          color: black;
+          position: relative;
+        }
+      }
+    }
+
+    .bottom-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      width: 49.5%;
+      margin: 0 auto;
+
+      button {
+        height: unset;
+        width: 100%;
+        padding: 15px;
+        font-weight: 800;
+        font-size: 15px;
+        text-align: center;
+        color: white;
+        border-radius: 5px;
+        border-color: transparent;
+        outline: none;
+        cursor: pointer;
+      }
+    }
+  }
+}
