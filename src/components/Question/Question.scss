@@ -1,7 +1,6 @@
-@import '../../constants';
+@import "../../constants";
 
 .ant-layout.layoutQuestion {
-  background-color: darken($BLUE, 10%);
   min-height: 100vh;
 
   .ant-row {
@@ -15,11 +14,10 @@
       flex: 1;
 
       .question-title {
-        text-align: center;
         margin-bottom: 20px;
-        font-size: 24px;
+        font-size: 18px;
         font-weight: 800;
-        color: white;
+        color: black;
       }
 
       .box {
@@ -32,50 +30,52 @@
           margin-bottom: 10px;
           padding: 9px 15px;
           margin-right: 10px;
-          background-color: $LIGHT-BLUE;
           cursor: pointer;
 
           .ant-typography {
             font-weight: bold;
-            color: white;
           }
-        }
-
-        .number.active {
-          background-color: $ORANGE;
+          color: black;
         }
       }
-      
-      .button {
+
+      .answer-container {
         display: flex;
-        justify-content: space-between;
         align-items: center;
         border-radius: 4px;
         padding: 15px;
         margin-bottom: 10px;
-        background-color: $LIGHT-BLUE;
         cursor: pointer;
+        box-shadow: $box-shadow;
 
-        .letter-text {
-          font-weight: bold;
-          font-size: 25px;
-          margin-right: 25pt;
-          color: white;
+        &.selected {
+          background-color: $ORANGE;
+          @media screen and (min-width: $MD-BREAKPOINT) {
+            background-color: $BLUE;
+          }
+
+          .letter-text,
+          .answer-name {
+            color: white;
+          }
         }
 
-        .question-name {
+        .letter-text {
+          color: black;
           font-weight: 800;
-          color: white;
-          font-size: 15px;
+          font-size: 25px;
+          margin-right: 20px;
+        }
+
+        .answer-name {
+          font-weight: 700;
+          color: black;
+          font-size: 16px;
         }
 
         .icon {
           color: white;
         }
-      }
-
-      .button.active {
-        background-color: $ORANGE;
       }
     }
   }
@@ -84,7 +84,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
-    width: 60%;
+    width: 90%;
     margin: 10px auto;
 
     button {
@@ -95,19 +95,26 @@
       font-size: 15px;
       text-align: center;
       color: white;
-      background-color: $BLUE;
+      background-color: $ORANGE;
       border-radius: 5px;
       border-color: transparent;
       outline: none;
+
+      &:first-child {
+        background-color: lighten($ORANGE, 30%);
+      }
+
+      @media screen and (min-width: $MD-BREAKPOINT) {
+        background-color: $BLUE;
+        &:first-child {
+          background-color: lighten($BLUE, 30%);
+        }
+      }
     }
   }
 
   @media screen and (min-width: $MD-BREAKPOINT) {
-    background-color: white;
-
-    
     .ant-row .ant-col {
-
       .question-title {
         color: black;
       }
@@ -115,9 +122,6 @@
       .box {
         width: auto;
         .number {
-          background-color: white;
-          border: 1px solid $BLUE;
-    
           .ant-typography {
             font-weight: bold;
             color: black;
@@ -126,12 +130,10 @@
       }
 
       .button {
-        background-color: white;
-        border: 1px solid $BLUE;
         display: flex;
         justify-content: normal;
 
-        .question-name,
+        .answer-name,
         .icon {
           color: black;
         }
@@ -159,7 +161,6 @@
         font-size: 15px;
         text-align: center;
         color: white;
-        background-color: $BLUE;
         border-radius: 5px;
         border-color: transparent;
         outline: none;
