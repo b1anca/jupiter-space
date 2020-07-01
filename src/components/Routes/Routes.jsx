@@ -13,9 +13,8 @@ import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 import { NotFound } from '../Result';
 import QuizList from '../QuizList/QuizList'
-import CreateQuestion from '../CreateQuestion/index'
-import QuizzesListingStudent from '../QuizzesListing/QuizzesListingStudent';
-import QuizzesListingProfessor from '../QuizzesListing/QuizzesListingProfessor';
+import CreateQuestion from '../CreateQuestion'
+import QuizzesListing from '../QuizzesListing';
 import Question from '../Question/Question'
 
 import { ROUTES } from '../../constants';
@@ -34,8 +33,7 @@ const Routes = () => (
     <PublicRoute restricted exact path={ROUTES.SIGN_UP} component={SignUpPage} />
     <PublicRoute restricted exact path={ROUTES.SIGN_IN} component={SignInPage} />
     <PrivateRoute exact path="/" component={Dashboard} />
-    <PrivateRoute exact path = {ROUTES.QUIZZES_OPEN} component={QuizzesListingStudent} />
-    <PrivateRoute exact path = {ROUTES.QUIZZES_ANSWERED} component={QuizzesListingProfessor} />
+    <PrivateRoute exact path = {ROUTES.QUIZZES} component={QuizzesListing} />
     <PublicRoute path="/" component={NotFound} />
   </Switch>
 );
