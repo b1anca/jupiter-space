@@ -7,8 +7,8 @@ const SelectField = ({ onChange = () => { }, label, color, options, required, na
   <div key={label} className={`select-field-container ${color}`}>
     <Label name={label} required={required} />
     <Select onChange={onChange} name={name}>
-      {options.map((option) => (
-        <Select.Option key={option.value} value={option.value}>{option.label}</Select.Option>
+      {options.map((option, index) => (
+        <Select.Option key={index} value={option.value}>{option.label}</Select.Option>
       ))}
     </Select>
   </div>

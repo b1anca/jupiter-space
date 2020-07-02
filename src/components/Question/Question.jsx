@@ -1,9 +1,9 @@
 import React from 'react';
 import { Layout, Typography, Row, Col } from 'antd';
 import classNames from 'classnames';
-import './Question.scss'
 import MobileHeader from '../MobileHeader';
 import BrowserHeader from '../BrowserHeader';
+import './Question.scss'
 
 const { Text } = Typography;
 

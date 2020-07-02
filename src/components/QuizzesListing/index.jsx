@@ -1,10 +1,12 @@
 import React from 'react';
 import { Layout, Typography, Row, Col } from 'antd';
 import './QuizzesListing.scss';
+import { Link } from 'react-router-dom';
 import MobileHeader from '../MobileHeader';
 import BrowserHeader from '../BrowserHeader';
 import { AuthContext } from '../Session';
 import BottomButton from '../BottomButton';
+import { ROUTES } from '../../constants';
 
 const { Text } = Typography;
 
@@ -36,7 +38,11 @@ const Quiz = ({ quiz = defaultQuiz }) => {
           ))}
         </Col>
       </Row>
-      {user.role === 'teacher' && <BottomButton title="Criar quiz" bgColor="orange-bg" />}
+      {user.role === 'teacher' && (
+        <Link to={ROUTES.CREATE_QUIZ}>
+          <BottomButton title="Criar quiz" bgColor="orange-bg" />
+        </Link>
+      )}
     </Layout>
   )
 };

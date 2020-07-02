@@ -51,6 +51,8 @@ class Firebase {
   updatePassword = password => this.auth.currentUser.updatePassword(password);
 
   getSubjects = () => this.db.ref('subjects/');
+
+  getQuiz = (quizUid) => this.db.ref(`quizzes/${quizUid}`);
 }
 
 export default Firebase;
