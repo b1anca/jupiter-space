@@ -1,11 +1,13 @@
 import React from 'react';
 import { Layout, Typography, Row, Col } from 'antd';
+import { Link } from 'react-router-dom';
 import MobileHeader from '../MobileHeader';
 import BrowserHeader from '../BrowserHeader';
 import BottomButton from '../BottomButton';
 import { withFirebase } from '../Firebase';
 import { NotFound } from '../Result';
 import Loading from '../Loading';
+import { ROUTES } from '../../constants';
 import './Questions.scss'
 
 const { Text } = Typography;
@@ -54,7 +56,9 @@ const Questions = ({ match, firebase }) => {
         </Col>
       </Row>
       <div className="space"></div>
-      <BottomButton title="Criar pergunta" />
+      <Link to={ROUTES.CREATE_QUESTION.replace(':quizUid', quizUid)}>
+        <BottomButton title="Criar pergunta" />
+      </Link>
     </Layout>
   )
 };

@@ -1,6 +1,6 @@
 export const BONUS = '/bonus';
 export const CREATE_QUIZ = '/quizzes/new';
-export const CREATE_QUESTION = '/quizzes/questions/new';
+export const CREATE_QUESTION = '/quizzes/:quizUid/questions/new';
 export const DASHBOARD = '/dashboard';
 export const FORGOT_PASSWORD = '/forgot-password';
 export const QUIZZES = '/quizzes';
