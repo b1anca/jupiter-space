@@ -4,8 +4,7 @@ import { ROUTES } from '../../constants';
 import './MenuOptions.scss';
 
 const studentOptions = [
-  { text: 'Quizzes abertos', url: ROUTES.QUIZZES_OPEN },
-  { text: 'Quizzes respondidos', url: ROUTES.QUIZZES_ANSWERED },
+  { text: 'Quizzes', url: ROUTES.QUIZZES },
   { text: 'Ranking', url: ROUTES.RANKING },
   { text: 'Disciplinas', url: ROUTES.SUBJECTS },
   { text: 'Bônus ganhos', url: ROUTES.BONUS },

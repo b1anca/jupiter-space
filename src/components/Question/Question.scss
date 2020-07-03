@@ -50,6 +50,7 @@
 
         &.selected {
           background-color: $ORANGE;
+          box-shadow: none;
           @media screen and (min-width: $MD-BREAKPOINT) {
             background-color: $BLUE;
           }
@@ -57,6 +58,26 @@
           .letter-text,
           .answer-name {
             color: white;
+          }
+        }
+
+        &.incorrect {
+          box-shadow: none;
+          background-color: lighten(red, 30%);
+
+          .letter-text,
+          .answer-name {
+            color: black;
+          }
+        }
+
+        &.correct {
+          box-shadow: none;
+          background-color: #00c70096;
+
+          .letter-text,
+          .answer-name {
+            color: black;
           }
         }
 
@@ -100,13 +121,13 @@
       border-color: transparent;
       outline: none;
 
-      &:first-child {
+      &.previous {
         background-color: lighten($ORANGE, 30%);
       }
 
       @media screen and (min-width: $MD-BREAKPOINT) {
         background-color: $BLUE;
-        &:first-child {
+        &.previous {
           background-color: lighten($BLUE, 30%);
         }
       }
