@@ -3,6 +3,7 @@
 .ant-layout.layoutQuiz {
   background-color: darken($ORANGE, 20%);
   min-height: 100vh;
+  padding-bottom: 70px;
 
   .ant-row {
     justify-content: center;
@@ -14,47 +15,75 @@
     .ant-col {
       flex: 1;
 
-      .button {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: justify;
-        border-radius: 4px;
-        padding: 15px;
-        margin-bottom: 10px;
+      .quiz-container {
         background-color: rgba(236, 151, 31, 0.3);
-        cursor: pointer;
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
 
-        .quiz-name {
-          font-weight: 800;
-          color: white;
-          font-size: 20px;
+        .button {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          align-items: justify;
+          border-radius: 4px;
+          padding: 15px;
+          flex: 1;
+
+          .quiz-name {
+            font-weight: 800;
+            color: white;
+            font-size: 20px;
+          }
+
+          .subject-name {
+            font-weight: 800;
+            color: white;
+            font-size: 15px;
+          }
+
+          .bonus {
+            color: white;
+            font-size: medium;
+          }
+
+          .data {
+            color: white;
+            font-size: small;
+          }
+
+          .answers {
+            color: white;
+            font-size: small;
+          }
+
+          .start-quiz {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 10px;
+            align-items: center;
+
+            > .ant-typography {
+              color: white;
+              font-size: 18px;
+              font-weight: 800;
+              margin-right: 20px;
+            }
+
+            > .fa-play {
+              color: white;
+            }
+          }
         }
+        .info {
+          flex-grow: 0;
 
-        .subject-name{
-          font-weight: 800;
-          color: white;
-          font-size: 15px;
-        }
-
-        .bonus{
-          color: white;
-          font-size: medium;
-        }
-
-        .data{
-          color: white;
-          font-size: small;
-        }
-
-        .answers{
-          color: white;
-          font-size: small;
-        }
-
-        .icon {
-          align-self: flex-end;
-          color: white;
+          .icon {
+            color: white;
+            padding: 20px;
+            font-size: 16px;
+          }
         }
       }
     }
@@ -64,26 +93,24 @@
     background-color: white;
 
     .ant-row .ant-col {
-      .button {
+      .quiz-container {
         background-color: white;
         border: 1px solid $BLUE;
 
-        .quizx-name,
-        .subject-name{
-          color: black;
-        }
-        .bonus{
-          color: black;
-        }
-        .data{
-          color: black;
-        }
-
-        .answers{
-          color: black;
+        .button {
+          .quiz-name,
+          .subject-name,
+          .bonus,
+          .data,
+          .answers,
+          .icon,
+          .start-quiz .ant-typography,
+          .start-quiz .fa-play {
+            color: black;
+          }
         }
 
-        .icon {
+        .info a .icon {
           color: black;
         }
       }

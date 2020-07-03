@@ -71,15 +71,16 @@ const Question = ({ match, firebase, history }) => {
 
   return (
     <Layout className='layoutQuestion'>
-      <MobileHeader title={`Pergunta ${questionId}`} color="black" />
-      <BrowserHeader title={`Pergunta ${questionId}`} />
+      <MobileHeader title={`Pergunta ${parseInt(questionId) + 1}`} color="black" />
+      <BrowserHeader title={`Pergunta ${parseInt(questionId) + 1}`} />
       <Row>
         <Col sm={{ span: 24 }} md={{ span: 18 }} lg={{ span: 12 }}>
           <div className="question-title">
             <p>{question.name}</p>
           </div>
           {question.answers.map((answer, index) => {
-            const showSelected = selected === index || (answer.studentUids || []).includes(firebaseUser.uid);
+            const showSelected = selected === index ||
+              ((answer.studentUids || []).includes(firebaseUser.uid) && selected === false);
 
             return (
               <div key={index} className="box">

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Layout, Typography, Row, Col } from 'antd';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 import MobileHeader from '../MobileHeader';
 import BrowserHeader from '../BrowserHeader';
 import { AuthContext } from '../Session';
@@ -22,12 +23,13 @@ const parseQuizzes = (quizzes) =>
   });
 
 const Quiz = ({ firebase }) => {
-  const { user } = React.useContext(AuthContext);
+  const { user, firebaseUser } = React.useContext(AuthContext);
   const [quizzes, setQuizzes] = React.useState([]);
 
   React.useState(() => {
     firebase.getQuizzes().on('value', (quizzes) => quizzes.val() && setQuizzes(parseQuizzes(quizzes.val())))
   }, [firebase])
+
 
   return (
     <Layout className='layoutQuiz'>
@@ -35,18 +37,40 @@ const Quiz = ({ firebase }) => {
       <BrowserHeader title="Quizzes" />
       <Row>
         <Col sm={{ span: 24 }} md={{ span: 18 }} lg={{ span: 12 }}>
-          {quizzes.map((quiz, index) => (
-            <Link key={index} to={ROUTES.QUIZZES_QUESTIONS.replace(':quizUid', quiz.uid)}>
-              <div className='button'>
-                <Text className="quiz-name">{quiz.name}</Text>
-                <span className="subject-name">{quiz.subject}</span>
-                <span className="bonus">{quiz.bonusDescription}</span>
-                {quiz.questions && <span className="data">{quiz.questions.length} perguntas</span>}
-                {quiz.endDate && (<span className="data">{quiz.endDate}</span>)}
-                <i className="icon fas fa-chevron-right" />
+          {quizzes.map((quiz, index) => {
+            const startDate = moment(quiz.startDate, 'DD-MM-YYYY');
+            const endDate = quiz.endDate ? moment(quiz.endDate, 'DD-MM-YYYY') : moment().add(1, 'day');
+            const isOpen = moment().isBetween(startDate, endDate);
+            const alreadyAnswered = (quiz.studentUids || []).includes(firebaseUser.uid);
+            const showStartQuiz = isOpen && user.role !== 'teacher' && !alreadyAnswered;
+
+            return (
+              <div key={index}>
+                <div className="quiz-container">
+                  <div className="button">
+                    <Text className="quiz-name">{quiz.name}</Text>
+                    <span className="subject-name">{quiz.subject}</span>
+                    <span className="bonus">{quiz.bonusDescription}</span>
+                    {quiz.questions && <span className="data">{quiz.questions.length} perguntas</span>}
+                    {quiz.endDate && (<span className="data">{quiz.endDate}</span>)}
+                    {showStartQuiz && (
+                      <Link className="start-quiz" to={ROUTES.QUIZZES_QUESTIONS.replace(':quizUid', quiz.uid)}>
+                        <Text>Iniciar</Text>
+                        <i className="fas fa-play"></i>
+                      </Link>
+                    )}
+                  </div>
+                  <div className="info">
+                    {!showStartQuiz && (
+                      <Link to={ROUTES.QUIZZES_QUESTIONS.replace(':quizUid', quiz.uid)}>
+                        <i className="icon fas fa-chevron-right" />
+                      </Link>
+                    )}
+                  </div>
+                </div>
               </div>
-            </Link>
-          ))}
+            )
+          })}
         </Col>
       </Row>
       {user.role === 'teacher' && (
