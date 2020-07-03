@@ -52,6 +52,8 @@ class Firebase {
 
   getSubjects = () => this.db.ref('subjects/');
 
+  getQuizzes = () => this.db.ref('quizzes/');
+
   getQuiz = (quizUid) => this.db.ref(`quizzes/${quizUid}`);
 }
 

@@ -50,6 +50,7 @@
 
         &.selected {
           background-color: $ORANGE;
+          box-shadow: none;
           @media screen and (min-width: $MD-BREAKPOINT) {
             background-color: $BLUE;
           }
@@ -100,13 +101,13 @@
       border-color: transparent;
       outline: none;
 
-      &:first-child {
+      &.previous {
         background-color: lighten($ORANGE, 30%);
       }
 
       @media screen and (min-width: $MD-BREAKPOINT) {
         background-color: $BLUE;
-        &:first-child {
+        &.previous {
           background-color: lighten($BLUE, 30%);
         }
       }

@@ -59,9 +59,12 @@
         cursor: pointer;
 
         .question-name {
-          font-weight: 600;
+          font-weight: 700;
           color: white;
           font-size: 15px;
+          @media screen and (min-width: $MD-BREAKPOINT) {
+            color: black;
+          }
         }
 
         .icon {
@@ -78,9 +81,7 @@
   @media screen and (min-width: $MD-BREAKPOINT) {
     background-color: white;
 
-
     .ant-row .ant-col {
-
       .box {
         .number {
           background-color: white;

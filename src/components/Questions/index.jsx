@@ -38,17 +38,25 @@ const Questions = ({ match, firebase }) => {
         <Col sm={{ span: 24 }} md={{ span: 18 }} lg={{ span: 12 }}>
           <Text className="quiz-name">{quiz.name}</Text>
           {quiz.questions && quiz.questions.length ?
-            quiz.questions.map((question, index) => (
-              <div key={index} className="box">
-                <div className="number">
-                  <Text className="number-text">{index + 1}</Text>
-                </div>
-                <div key={index} className='button'>
-                  <Text className="question-name">{question.name}</Text>
-                  <i className="icon fas fa-chevron-right" />
-                </div>
-              </div>
-            )) :
+            quiz.questions.map((question, index) => {
+              const questionRoute = ROUTES.QUIZZES_QUESTION
+                .replace(':questionId', index)
+                .replace(':quizUid', quizUid);
+
+              return (
+                <Link to={questionRoute} key={index} >
+                  <div className="box">
+                    <div className="number">
+                      <Text className="number-text">{index + 1}</Text>
+                    </div>
+                    <div key={index} className='button'>
+                      <Text className="question-name">{question.name}</Text>
+                      <i className="icon fas fa-chevron-right" />
+                    </div>
+                  </div>
+                </Link>
+              )
+            }) :
             <Text className="no-questions">
               Este quiz ainda não possui nenhuma pergunta :(
             </Text>
