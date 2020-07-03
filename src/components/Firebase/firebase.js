@@ -69,7 +69,11 @@ class Firebase {
   getStudents = () =>
     this.db.ref("users/").orderByChild("role").equalTo("student");
 
-  studentsUpdateDisciplines = (uid) => this.db.ref(`users/${uid}`);
+  getSubjects = () => this.db.ref("subjects/");
+
+  getQuizzes = () => this.db.ref("quizzes/");
+
+  getQuiz = (quizUid) => this.db.ref(`quizzes/${quizUid}`);
 }
 
 export default Firebase;

@@ -5,18 +5,32 @@ import BrowserHeader from '../BrowserHeader';
 import MobileHeader from '../MobileHeader';
 import BottomButton from '../BottomButton';
 import { TextField, TextArea, DatePicker, NumberField, SelectField } from '../Input';
+import { ROUTES } from '../../constants';
 import './CreateQuiz.scss';
 
-const defaultSubjects = [
-  { label: 'Disciplina 1', value: 1 },
-  { label: 'Disciplina 2', value: 2 },
-  { label: 'Disciplina 3', value: 3 },
-  { label: 'Disciplina 4', value: 4 },
-  { label: 'Disciplina 5', value: 5 },
-  { label: 'Disciplina 6', value: 6 },
-];
+const parseQuiz = (quiz) => ({
+  ...quiz,
+  startDate: quiz.startDate ? quiz.startDate.format('DD/MM/YYYY') : '',
+  endDate: quiz.endDate ? quiz.endDate.format('DD/MM/YYYY') : '',
+  bonusDescription: quiz.bonusDescription || '',
+  score: quiz.score || '',
+  questions: '',
+  studentIds: ''
+});
 
-const CreateQuiz = ({ subjects = defaultSubjects, firebase }) => {
+const parseSubjects = (subjects) =>
+  Object.keys(subjects).map((key) => {
+    const subject = subjects[key];
+
+    return {
+      ...subject,
+      value: key,
+      label: `${subject.code} - ${subject.name}`,
+    }
+  });
+
+const CreateQuiz = ({ firebase, history }) => {
+  const [subjects, setSubjects] = React.useState([]);
   const form = React.useRef();
   const fields = [
     'name',
@@ -27,26 +41,25 @@ const CreateQuiz = ({ subjects = defaultSubjects, firebase }) => {
     'bonusDescription'
   ];
 
-  const parseQuiz = (quiz) => ({
-    ...quiz,
-    startDate: quiz.startDate ? quiz.startDate.format('DD/MM/YYYY') : '',
-    endDate: quiz.endDate ? quiz.endDate.format('DD/MM/YYYY') : '',
-    bonusDescription: quiz.bonusDescription || '',
-    score: quiz.score || '',
-  });
-
   const onSubmit = () => {
     form.current.validateFields(fields)
       .then((quiz) => firebase.db.ref('quizzes').push(parseQuiz(quiz)))
-      .then(() => {
+      .then((quiz) => {
         notification['success']({
           message: 'Quiz criado!',
           description: 'Adicione perguntas ao seu novo quiz!'
         });
         form.current.resetFields(fields);
+        history.push(ROUTES.QUIZZES_QUESTIONS.replace(':quizUid', quiz.key))
       })
       .catch(() => notification['error']({ message: 'Erro ao criar quiz' }))
   };
+
+  React.useEffect(() => {
+    firebase
+      .getSubjects()
+      .on('value', (subjects) => setSubjects(parseSubjects(subjects.val())));
+  }, [firebase]);
 
   return (
     <div className="create-quiz-container">

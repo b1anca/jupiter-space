@@ -6,12 +6,41 @@ import MobileHeader from '../MobileHeader';
 import BottomButton from '../BottomButton';
 import { TextArea, NumberField } from '../Input';
 import './CreateQuestion.scss';
+import { ROUTES } from '../../constants';
 
 const openNotificationWithIcon = ({ type, message, description }) =>
   notification[type]({ message, description });
 
-const CreateQuestion = ({ firebase }) => {
+const parseQuestion = (question) => {
+  const answers = [
+    { text: question.rightAnswer, isCorrect: true },
+    { text: question.wrongAnswer1, isCorrect: false },
+    { text: question.wrongAnswer2 || '', isCorrect: false },
+    { text: question.wrongAnswer3 || '', isCorrect: false },
+    { text: question.wrongAnswer4 || '', isCorrect: false }
+  ];
+
+  return {
+    name: question.name,
+    description: question.description,
+    answers,
+    score: question.score || 0,
+  }
+};
+
+const parseQuiz = ({ question, quiz }) => ({
+  ...quiz,
+  questions: [
+    ...(Array.isArray(quiz.questions) ? quiz.questions : []),
+    parseQuestion(question)
+  ]
+});
+
+const CreateQuestion = ({ firebase, match, history }) => {
   const form = React.useRef();
+  const quizUid = match.params.quizUid;
+  const [quiz, setQuiz] = React.useState({});
+
   const fields = [
     'name',
     'description',
@@ -23,52 +52,29 @@ const CreateQuestion = ({ firebase }) => {
     'score'
   ];
 
-  
-  const parseQuestion = (question) => { 
-    const answers = [{
-      text: question.rightAnswer,
-      isCorrect: true
-    },
-    {
-      text: question.wrongAnswer1,
-      isCorrect: false
-    },
-    {
-      text: question.wrongAnswer2 || '',
-      isCorrect: false
-    },
-    {
-      text: question.wrongAnswer3 || '',
-      isCorrect: false
-    },
-    {
-      text: question.wrongAnswer4 || '',
-      isCorrect: false
-    }
-    ]
-    return {
-    name: question.name,
-    description: question.description,
-    answers,
-    score: question.score || '',
-  }};
-
   const onSubmit = () => {
     form.current.validateFields(fields)
-      .then((question) => firebase.db.ref('questions').push(parseQuestion(question)))
+      .then((question) => firebase
+        .getQuiz(quizUid)
+        .set(parseQuiz({ question, quiz })))
       .then(() => {
         openNotificationWithIcon({
           type: 'success',
           message: 'Pergunta criada!',
-          description: 'Você pode adicionar mais perguntas ao se quiz!'
+          description: 'Você pode adicionar mais perguntas ao quiz!'
         });
         form.current.resetFields(fields);
+        history.push(ROUTES.QUIZZES_QUESTIONS.replace(':quizUid', quizUid))
       })
       .catch(() => openNotificationWithIcon({
         type: 'error',
         message: 'Erro ao criar a pergunta',
       }))
   };
+
+  React.useEffect(() => {
+    firebase.getQuiz(quizUid).on('value', (quiz) => setQuiz(quiz.val()))
+  }, [firebase, quizUid]);
 
   return (
     <div className="create-quiz-container">
@@ -96,9 +102,9 @@ const CreateQuestion = ({ firebase }) => {
               hasFeedback
               name="rightAnswer"
             >
-              <TextArea 
-                label="Alternativa correta" 
-                color="blue" 
+              <TextArea
+                label="Alternativa correta"
+                color="blue"
                 required name="rightAnswer" />
             </Form.Item>
             <Form.Item
@@ -106,9 +112,9 @@ const CreateQuestion = ({ firebase }) => {
               hasFeedback
               name="wrongAnswer1"
             >
-              <TextArea 
-                label="Alternativa incorreta" 
-                color="blue" 
+              <TextArea
+                label="Alternativa incorreta"
+                color="blue"
                 required name="wrongAnswer1" />
             </Form.Item>
             <Form.Item name="wrongAnswer2" hasFeedback>
@@ -139,13 +145,13 @@ const CreateQuestion = ({ firebase }) => {
                 () => ({
                   validator2(_rule, value) {
                     return typeof value !== 'number' ?
-                    Promise.resolve() :
-                    Promise.reject()
+                      Promise.resolve() :
+                      Promise.reject()
                   },
                   validator(_rule, value) {
-                    return value >= 0 ?
-                      Promise.resolve() :
-                      Promise.reject('Pontuação deve ser um número e maior ou igual a 0')
+                    return value && value < 0 ?
+                      Promise.reject('Pontuação deve ser um número e maior ou igual a 0') :
+                      Promise.resolve()
                   }
                 })
               ]}

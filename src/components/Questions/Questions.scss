@@ -1,6 +1,6 @@
 @import '../../constants';
 
-.ant-layout.layoutQuizList {
+.ant-layout.questions-container {
   background-color: darken($BLUE, 10%);
   min-height: 100vh;
 
@@ -13,6 +13,25 @@
 
     .ant-col {
       flex: 1;
+
+      > .quiz-name {
+        font-size: 16px;
+        margin-bottom: 10px;
+        display: block;
+        color: white;
+        font-weight: 800;
+        @media screen and (min-width: $MD-BREAKPOINT) {
+          color: black;
+        }
+      }
+
+      > .no-questions {
+        color: white;
+
+        @media screen and (min-width: $MD-BREAKPOINT) {
+          color: black;
+        }
+      }
 
       .box {
         display: grid;
@@ -33,6 +52,14 @@
             font-weight: bold;
             color: white;
           }
+
+          &.correct {
+            background-color: #49ec4996;
+          }
+
+          &.incorrect {
+            background-color: #c75454;
+          }
         }
       }
 
@@ -46,10 +73,13 @@
         background-color: $LIGHT-BLUE;
         cursor: pointer;
 
-        .quiz-name {
-          font-weight: 800;
+        .question-name {
+          font-weight: 700;
           color: white;
           font-size: 15px;
+          @media screen and (min-width: $MD-BREAKPOINT) {
+            color: black;
+          }
         }
 
         .icon {
@@ -66,14 +96,12 @@
   @media screen and (min-width: $MD-BREAKPOINT) {
     background-color: white;
 
-    
     .ant-row .ant-col {
-
       .box {
         .number {
           background-color: white;
           border: 1px solid $BLUE;
-    
+
           .ant-typography {
             font-weight: bold;
             color: black;

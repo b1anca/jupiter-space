@@ -1,12 +1,11 @@
 export const BONUS = '/bonus';
 export const CREATE_QUIZ = '/quizzes/new';
-export const CREATE_QUESTION = '/quizzes/questions/new';
+export const CREATE_QUESTION = '/quizzes/:quizUid/questions/new';
 export const DASHBOARD = '/dashboard';
 export const FORGOT_PASSWORD = '/forgot-password';
 export const QUIZZES = '/quizzes';
-export const QUIZZES_ANSWERED = '/quizzes/answered';
-export const QUIZZES_OPEN = '/quizzes/open';
-export const QUIZZES_QUESTIONS = '/quizzes/questions';
+export const QUIZZES_QUESTIONS = '/quizzes/:quizUid/questions';
+export const QUIZZES_QUESTION = '/quizzes/:quizUid/question/:questionId';
 export const RANKING = '/ranking';
 export const SETTINGS = '/settings';
 export const SIGN_IN = '/sign-in';
