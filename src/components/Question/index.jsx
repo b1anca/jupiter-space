@@ -20,6 +20,7 @@ const Question = ({ match, firebase, history }) => {
   const { quizUid, questionId } = match.params;
   const question = quiz.questions && quiz.questions[questionId];
   const quizRoute = ROUTES.QUIZZES_QUESTION.replace(':quizUid', quizUid);
+  const quizAlreadyAnswered = (quiz.studentUids || []).includes(firebaseUser.uid);
 
   const updateQuiz = ({ finished }) => {
     const updatedAnswers = question.answers.map((answer, i) => {
@@ -41,8 +42,13 @@ const Question = ({ match, firebase, history }) => {
     firebase.getQuiz(quizUid).set(updatedQuiz);
   }
 
-  const handleClick = ({ next, finish }) => {
-    const hasSelectedAnswer = (selected !== false) || (question.answers || []).some((a) => (a.studentUids || []).includes(firebaseUser.uid));
+  const handleClick = ({ next, finish, back }) => {
+    if (back) {
+      return history.push(ROUTES.QUIZZES_QUESTIONS.replace(':quizUid', quizUid));
+    }
+
+    const hasSelectedAnswer = (selected !== false) || (question.answers || [])
+      .some((a) => (a.studentUids || []).includes(firebaseUser.uid));
     if (!hasSelectedAnswer) {
       return notification['error']({ message: 'Selecione uma alternativa' })
     }
@@ -79,14 +85,24 @@ const Question = ({ match, firebase, history }) => {
             <p>{question.name}</p>
           </div>
           {question.answers.map((answer, index) => {
-            const showSelected = selected === index ||
-              ((answer.studentUids || []).includes(firebaseUser.uid) && selected === false);
+            const hasUserAnswer = (answer.studentUids || []).includes(firebaseUser.uid);
+            const showSelected = selected === index || (hasUserAnswer && selected === false);
+            const isCorrect = quizAlreadyAnswered && hasUserAnswer && answer.isCorrect ? 'correct' : 'incorrect';
+            const showAsCorrect = quizAlreadyAnswered && answer.isCorrect;
 
             return (
               <div key={index} className="box">
                 <div
                   key={index}
-                  className={classNames('answer-container', { 'selected': showSelected })}
+                  className={
+                    classNames(
+                      'answer-container',
+                      {
+                        'selected': showSelected,
+                        [isCorrect]: hasUserAnswer,
+                        'correct': showAsCorrect
+                      }
+                    )}
                   onClick={() => setSelected(index)}
                 >
                   <Text className="letter-text">{String.fromCharCode(index + 65)}</Text>
@@ -101,7 +117,11 @@ const Question = ({ match, firebase, history }) => {
         {questionId > 0 && (<button onClick={handleClick} className="previous">Anterior</button>)}
         {questionId + 1 < quiz.questions.length ?
           <button onClick={() => handleClick({ next: true })}>Próximo</button> :
-          <button onClick={() => handleClick({ finish: true })}>Finalizar</button>
+          <button
+            onClick={() => handleClick(quizAlreadyAnswered ? { back: true } : { finish: true })}
+          >
+            {quizAlreadyAnswered ? 'Voltar ao quiz' : 'Finalizar'}
+          </button>
         }
       </div>
     </Layout>

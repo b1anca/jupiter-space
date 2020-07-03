@@ -20,10 +20,17 @@
         display: block;
         color: white;
         font-weight: 800;
+        @media screen and (min-width: $MD-BREAKPOINT) {
+          color: black;
+        }
       }
 
       > .no-questions {
         color: white;
+
+        @media screen and (min-width: $MD-BREAKPOINT) {
+          color: black;
+        }
       }
 
       .box {
@@ -44,6 +51,14 @@
           .ant-typography {
             font-weight: bold;
             color: white;
+          }
+
+          &.correct {
+            background-color: #49ec4996;
+          }
+
+          &.incorrect {
+            background-color: #c75454;
           }
         }
       }

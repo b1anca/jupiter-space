@@ -61,6 +61,26 @@
           }
         }
 
+        &.incorrect {
+          box-shadow: none;
+          background-color: lighten(red, 30%);
+
+          .letter-text,
+          .answer-name {
+            color: black;
+          }
+        }
+
+        &.correct {
+          box-shadow: none;
+          background-color: #00c70096;
+
+          .letter-text,
+          .answer-name {
+            color: black;
+          }
+        }
+
         .letter-text {
           color: black;
           font-weight: 800;

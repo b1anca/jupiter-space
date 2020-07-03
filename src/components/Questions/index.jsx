@@ -1,6 +1,7 @@
 import React from 'react';
 import { Layout, Typography, Row, Col } from 'antd';
 import { Link } from 'react-router-dom';
+import classNames from 'classnames';
 import MobileHeader from '../MobileHeader';
 import BrowserHeader from '../BrowserHeader';
 import BottomButton from '../BottomButton';
@@ -9,6 +10,7 @@ import { NotFound } from '../Result';
 import Loading from '../Loading';
 import { ROUTES } from '../../constants';
 import './Questions.scss'
+import { AuthContext } from '../Session';
 
 const { Text } = Typography;
 
@@ -16,6 +18,8 @@ const Questions = ({ match, firebase }) => {
   const quizUid = match.params.quizUid;
   const [quiz, setQuiz] = React.useState();
   const [loading, setLoading] = React.useState(true);
+  const { user, firebaseUser } = React.useContext(AuthContext);
+  const quizAlreadyAnswered = quiz && (quiz.studentUids || []).includes(firebaseUser.uid);
 
   React.useEffect(() => {
     firebase.getQuiz(quizUid).on('value', (quiz) => {
@@ -42,11 +46,13 @@ const Questions = ({ match, firebase }) => {
               const questionRoute = ROUTES.QUIZZES_QUESTION
                 .replace(':questionId', index)
                 .replace(':quizUid', quizUid);
+              const answeredCorrectly = question.answers
+                .some((a) => a.isCorrect && (a.studentUids || []).includes(firebaseUser.uid)) ? 'correct' : 'incorrect';
 
               return (
                 <Link to={questionRoute} key={index} >
                   <div className="box">
-                    <div className="number">
+                    <div className={classNames('number', { [answeredCorrectly]: quizAlreadyAnswered })}>
                       <Text className="number-text">{index + 1}</Text>
                     </div>
                     <div key={index} className='button'>
@@ -64,9 +70,11 @@ const Questions = ({ match, firebase }) => {
         </Col>
       </Row>
       <div className="space"></div>
-      <Link to={ROUTES.CREATE_QUESTION.replace(':quizUid', quizUid)}>
-        <BottomButton title="Criar pergunta" />
-      </Link>
+      {user.role === 'teacher' && (
+        <Link to={ROUTES.CREATE_QUESTION.replace(':quizUid', quizUid)}>
+          <BottomButton title="Criar pergunta" />
+        </Link>
+      )}
     </Layout>
   )
 };
