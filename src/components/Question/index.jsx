@@ -16,7 +16,7 @@ const Question = ({ match, firebase, history }) => {
   const [selected, setSelected] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
   const [quiz, setQuiz] = React.useState({});
-  const { firebaseUser } = React.useContext(AuthContext);
+  const { user, firebaseUser } = React.useContext(AuthContext);
   const { quizUid, questionId } = match.params;
   const question = quiz.questions && quiz.questions[questionId];
   const quizRoute = ROUTES.QUIZZES_QUESTION.replace(':quizUid', quizUid);
@@ -38,6 +38,12 @@ const Question = ({ match, firebase, history }) => {
         { studentUids: (quiz.studentUids || []).concat(firebaseUser.uid) } :
         {}),
     };
+
+    if (finished) {
+      firebase
+        .getUser(firebaseUser.uid)
+        .set({ ...user, answeredQuizzes: (parseInt(user.answeredQuizzes) || 0) + 1 })
+    }
 
     firebase.getQuiz(quizUid).set(updatedQuiz);
   }

@@ -4,19 +4,30 @@ import MenuOptions from './MenuOptions';
 import RecentQuizzes from './RecentQuizzes';
 import Header from './Header';
 import { AuthContext } from '../Session';
+import { withFirebase } from "../Firebase";
 import './Dashboard.scss';
 
-const Dashboard = () => {
+const parseQuizzes = (quizzes) => Object.keys(quizzes).map((key) => ({
+  ...quizzes[key],
+  uid: quizzes[key].uid,
+}));
+
+const Dashboard = ({ firebase }) => {
+  const [quizzes, setQuizzes] = React.useState([]);
   const { user } = React.useContext(AuthContext);
+
+  React.useEffect(() => {
+    firebase.getQuizzes().on('value', (quizzes) => setQuizzes(parseQuizzes(quizzes.val())))
+  }, [firebase]);
 
   return (
     <div className="dashboard-container">
-      <Header isStudent={user.role === 'student'} name={user.name} />
+      <Header user={user} quizzes={quizzes} />
       <Row>
         <Col xs={{ span: 24 }} md={{ span: 18 }} lg={{ span: 12 }}>
           <div className="dashboard">
             <div className="white-bg">
-              <RecentQuizzes />
+              <RecentQuizzes quizzes={quizzes} user={user}/>
               <MenuOptions isStudent={user.role === 'student'} />
             </div>
           </div>
@@ -26,4 +37,4 @@ const Dashboard = () => {
   )
 };
 
-export default Dashboard;
+export default withFirebase(Dashboard);

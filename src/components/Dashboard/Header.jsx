@@ -1,32 +1,42 @@
 import React from 'react';
+import moment from 'moment';
 import './Header.scss';
 
-const studentCards = [
-  { count: 3, text: 'quizzes respondidos' },
-  { count: 21, text: 'pontos ganhos' },
-  { count: 0, text: 'quizzes abertos' },
-];
+const Header = ({ user, quizzes }) => {
+  const openQuizzes = quizzes.filter((quiz) => {
+    const startDate = moment(quiz.startDate, 'DD-MM-YYYY');
+    const endDate = quiz.endDate ? moment(quiz.endDate, 'DD-MM-YYYY') : moment().add(1, 'day');
 
-const teacherCards = [
-  { count: 1, text: 'alunos' },
-  { count: 10, text: 'pontos distribuidos' },
-  { count: 3, text: 'quizzes abertos' },
-];
+    return moment().isBetween(startDate, endDate);
+  });
+  const totalScore = quizzes.reduce((acc, quiz) => acc + parseInt(quiz.score || 0), 0);
 
-const Header = ({ isStudent, name }) => (
-  <div className="dashboard-header">
-    <div className="header">
-      <h1>{name}</h1>
+  const cards = user.role === 'student' ?
+    [
+      { count: user.answeredQuizzes, text: 'quizzes respondidos' },
+      { count: user.score, text: 'pontos ganhos' },
+      { count: openQuizzes.length, text: 'quizzes abertos' },
+    ] :
+    [
+      { count: totalScore, text: 'pontos distribuidos' },
+      { count: openQuizzes.length, text: 'quizzes abertos' },
+    ];
+
+  return (
+    <div className="dashboard-header">
+      <div className="header">
+        <h1>{user.name}</h1>
+      </div>
+      <div className="info">
+        {cards.map((card, index) => (
+          <div key={index} className="card">
+            <span className="count">{card.count}</span>
+            <span>{card.text}</span>
+          </div>
+        ))}
+      </div>
     </div>
-    <div className="info">
-      {(isStudent ? studentCards : teacherCards).map((card, index) => (
-        <div key={index} className="card">
-          <span className="count">{card.count}</span>
-          <span>{card.text}</span>
-        </div>
-      ))}
-    </div>
-  </div>
-);
+  )
+};
 
 export default Header;

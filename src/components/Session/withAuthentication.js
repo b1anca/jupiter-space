@@ -12,7 +12,7 @@ const withAuthentication = (Component) => ({ firebase }) => {
     const getUser = async () => {
       unsubscribe = await firebase.auth.onAuthStateChanged((firebaseUser) => {
         if (firebaseUser) {
-          return firebase.db.ref(`users/${firebaseUser.uid}`)
+          return firebase.getUser(firebaseUser.uid)
             .on('value', user => {
               setUser({ user: user.val(), firebaseUser })
               setIsLoading(false);
