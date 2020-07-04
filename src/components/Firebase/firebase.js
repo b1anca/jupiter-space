@@ -1,8 +1,8 @@
-import app from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/database';
-import { notification } from 'antd';
-import { ERRORS } from '../../constants';
+import app from "firebase/app";
+import "firebase/auth";
+import "firebase/database";
+import { notification } from "antd";
+import { ERRORS } from "../../constants";
 
 const config = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -20,39 +20,58 @@ class Firebase {
     this.db = app.database();
   }
 
-  signUp = ({ email, password, callback = () => { }, ...userProps }) =>
-    this.auth.createUserWithEmailAndPassword(email, password)
+  signUp = ({ email, password, callback = () => {}, ...userProps }) =>
+    this.auth
+      .createUserWithEmailAndPassword(email, password)
       .then(({ user }) =>
-        this.db.ref('users/' + user.uid).set({ email, ...userProps }))
+        this.db.ref("users/" + user.uid).set({ email, ...userProps })
+      )
       .then(() => callback())
-      .then(() => notification['success']({ message: 'Conta criada com sucesso!' }))
+      .then(() =>
+        notification["success"]({ message: "Conta criada com sucesso!" })
+      )
       .catch((e) => {
         callback();
-        notification['error']({ message: ERRORS[e.code] || e.message });
-      })
+        notification["error"]({ message: ERRORS[e.code] || e.message });
+      });
 
-  signIn = ({ email, password, callback = () => { } }) =>
-    this.auth.signInWithEmailAndPassword(email, password)
+  signIn = ({ email, password, callback = () => {} }) =>
+    this.auth
+      .signInWithEmailAndPassword(email, password)
       .then(() => callback())
-      .then(() => notification['success']({ message: 'Login realizado com sucesso!' }))
+      .then(() =>
+        notification["success"]({ message: "Login realizado com sucesso!" })
+      )
       .catch((e) => {
         callback();
-        notification['error']({ message: ERRORS[e.code] || e.message });
-      })
+        notification["error"]({ message: ERRORS[e.code] || e.message });
+      });
 
   signOut = () =>
-    this.auth.signOut()
-      .then(() => indexedDB.deleteDatabase('firebaseLocalStorageDb'))
-      .then(() => notification['success']({ message: 'Logout realizado com sucesso!' }))
-      .catch((e) => notification['error']({ message: ERRORS[e.code] || e.message }))
+    this.auth
+      .signOut()
+      .then(() => indexedDB.deleteDatabase("firebaseLocalStorageDb"))
+      .then(() =>
+        notification["success"]({ message: "Logout realizado com sucesso!" })
+      )
+      .catch((e) =>
+        notification["error"]({ message: ERRORS[e.code] || e.message })
+      );
 
-  resetPassword = email => this.auth.sendPasswordResetEmail(email);
+  resetPassword = (email) => this.auth.sendPasswordResetEmail(email);
 
-  updatePassword = password => this.auth.currentUser.updatePassword(password);
+  updatePassword = (password) => this.auth.currentUser.updatePassword(password);
 
-  getSubjects = () => this.db.ref('subjects/');
+  getSubjects = () => this.db.ref("subjects/");
 
-  getQuizzes = () => this.db.ref('quizzes/');
+  createSubject = () => this.db.ref("subjects/");
+
+  getStudents = () =>
+    this.db.ref("users/").orderByChild("role").equalTo("student");
+
+  getSubjects = () => this.db.ref("subjects/");
+
+  getQuizzes = () => this.db.ref("quizzes/");
 
   getQuiz = (quizUid) => this.db.ref(`quizzes/${quizUid}`);
 }
