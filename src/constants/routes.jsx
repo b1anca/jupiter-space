@@ -11,6 +11,7 @@ export const SETTINGS = '/settings';
 export const SIGN_IN = '/sign-in';
 export const SIGN_OUT = '/sign-out';
 export const SIGN_UP = '/sign-up';
+export const SUBJECTS_VIEW = '/subjects/:subjectId';
 export const STUDENTS = '/students';
 export const SUBJECTS = '/subjects';
 export const SUBJECTS_NEW = '/subjects/new';

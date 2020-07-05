@@ -8,6 +8,7 @@ import ForgotPasswordPage from '../ForgotPassword';
 import Dashboard from '../Dashboard';
 import Subjects from '../Subjects/Subjects';
 import CreateSubjectsForm from '../CreateSubject/CreateSubjectsForm'
+import SubjectsView from '../SubjectsView/SubjectsView'
 import CreateQuiz from '../CreateQuiz';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
@@ -25,6 +26,7 @@ const Routes = () => (
     <PublicRoute exact path={ROUTES.FORGOT_PASSWORD} component={ForgotPasswordPage} />
     <PrivateRoute exact path={ROUTES.SUBJECTS} component={Subjects} />
     <PrivateRoute exact path={ROUTES.SUBJECTS_NEW} component={CreateSubjectsForm} />
+    <PrivateRoute exact path={ROUTES.SUBJECTS_VIEW} component={SubjectsView} />
     <PrivateRoute exact path={ROUTES.DASHBOARD} component={Dashboard} />
     <PrivateRoute exact path={ROUTES.CREATE_QUIZ} component={CreateQuiz} />
     <PrivateRoute exact path={ROUTES.QUIZZES_QUESTIONS} component={Questions} />
