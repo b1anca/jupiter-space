@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Input, Row, Col, DatePicker, notification, Spin } from "antd";
+import { Input, Row, Col, DatePicker, Spin } from "antd";
 import "antd/dist/antd.css";
 import { withFirebase } from "../Firebase";
 import "./SubjectsView.scss";
@@ -59,9 +59,7 @@ class SubjectsView extends Component {
           <Row gutter={gutterSize}>
             <Col sm={{ span: 24 }} md={{ span: 18 }} lg={{ span: 12 }}>
               <Input placeholder="Nome da disciplina" type="text" id="name" value={name} disabled/>
-
               <Input placeholder="Código" type="text" id="code" value={code} disabled/>
-
               <TextArea
                 placeholder="Descrição"
                 value={description}

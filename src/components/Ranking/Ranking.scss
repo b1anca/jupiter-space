@@ -10,8 +10,12 @@
   .ant-row {
     justify-content: center;
 
-    .white-text {
+    .msg-text {
       color: white;
+
+      @media screen and (min-width: $MD-BREAKPOINT) {
+        color: black;
+      }
     }
   }
 }

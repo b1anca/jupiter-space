@@ -42,16 +42,8 @@ const Sidenav = ({ firebase }) => {
               <span className="text">{user.email} - {user.role === 'student' ? 'aluno' : 'professor'}</span>
             </Menu.Item>
           )}
-          <Menu.Item key="2">
-            {user ? (
-              <Link to={ROUTES.USERS_EDIT} >
-                <span className="nav-text">Editar cadastro</span>
-              </Link>
-            ) : (<span className="nav-text">Cadastre-se</span>)
-            }
-          </Menu.Item>
           {user && (
-            <Menu.Item key="3">
+            <Menu.Item key="2">
               <Link to="/" onClick={firebase.signOut}>
                 <span className="text">Sair</span>
               </Link>

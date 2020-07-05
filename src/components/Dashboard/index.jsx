@@ -7,10 +7,11 @@ import { AuthContext } from '../Session';
 import { withFirebase } from "../Firebase";
 import './Dashboard.scss';
 
-const parseQuizzes = (quizzes) => Object.keys(quizzes).map((key) => ({
-  ...quizzes[key],
-  uid: quizzes[key].uid,
-}));
+const parseQuizzes = (quizzes) =>
+  Object.keys(quizzes).map((key) => ({
+    ...quizzes[key],
+    uid: key,
+  }));
 
 const Dashboard = ({ firebase }) => {
   const [quizzes, setQuizzes] = React.useState([]);
@@ -27,7 +28,7 @@ const Dashboard = ({ firebase }) => {
         <Col xs={{ span: 24 }} md={{ span: 18 }} lg={{ span: 12 }}>
           <div className="dashboard">
             <div className="white-bg">
-              <RecentQuizzes quizzes={quizzes} user={user}/>
+              <RecentQuizzes quizzes={quizzes} user={user} />
               <MenuOptions isStudent={user.role === 'student'} />
             </div>
           </div>

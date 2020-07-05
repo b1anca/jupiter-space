@@ -1,4 +1,4 @@
-@import '../../constants/';
+@import "../../constants/";
 
 .dashboard-header {
   background: $BLUE;
@@ -8,10 +8,6 @@
   border-bottom-right-radius: 5px;
   height: 25vh;
   max-height: 150px;
-
-  @media screen and (min-width: $MD_BREAKPOINT) {
-    display: none;
-  }
 
   .header {
     display: flex;
@@ -43,6 +39,27 @@
       .count {
         font-size: 17px;
         font-weight: bold;
+      }
+    }
+  }
+
+  @media screen and (min-width: $MD_BREAKPOINT) {
+    background: white;
+    height: unset;
+    padding: 10;
+
+    .header {
+      display: none;
+    }
+
+    .info {
+      max-width: 75%;
+      margin: auto;
+      justify-content: flex-start;
+
+      .card {
+        color: black;
+        flex: 0;
       }
     }
   }

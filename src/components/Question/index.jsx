@@ -42,7 +42,11 @@ const Question = ({ match, firebase, history }) => {
     if (finished) {
       firebase
         .getUser(firebaseUser.uid)
-        .set({ ...user, answeredQuizzes: (parseInt(user.answeredQuizzes) || 0) + 1 })
+        .set({
+          ...user,
+          answeredQuizzes: (parseInt(user.answeredQuizzes) || 0) + 1,
+          score: parseInt(user.score) + parseInt(quiz.score || 0)
+        })
     }
 
     firebase.getQuiz(quizUid).set(updatedQuiz);

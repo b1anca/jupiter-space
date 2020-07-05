@@ -54,7 +54,7 @@ const Ranking = ({ firebase }) => {
                 <Item key={index} rank={index + 4} {...student} />
               ))}
             </>) :
-            (<div className="white-text">
+            (<div className="msg-text">
               Não há alunos suficientes para exibir ranking :(
             </div>)
           }
