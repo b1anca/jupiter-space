@@ -34,13 +34,14 @@ class Subjects extends React.Component {
           "code": uids[i],
         })
       }
-      this.setState({ subjects })
+      this.setState({ subjects: aux })
     })
   }
 
 
   render() {
     const { subjects } = this.state;
+    const { history } = this.props;
 
     return (
       <Layout className='layoutSubject'>
@@ -49,7 +50,7 @@ class Subjects extends React.Component {
         <Row>
           <Col sm={{ span: 24 }} md={{ span: 18 }} lg={{ span: 12 }}>
             {subjects.map((subject, index) => (
-              <div key={index} className='button'>
+              <div key={index} className='button' onClick={() => history.push(`subjects/${subject.code}`)}>
                 <Text className="subject-name">{subject.name}</Text>
                 <i className="icon fas fa-chevron-right" />
               </div>

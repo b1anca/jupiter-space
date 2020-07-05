@@ -86,6 +86,7 @@ class CreateSubjectsForm extends Component {
         endDate: endDate,
         teacherId: firebase.auth.W,
         description: a.description,
+        code: a.code,
         studentsIds: subjectStudentUids,
       };
       firebase
