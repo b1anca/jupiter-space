@@ -1,10 +1,5 @@
 # Jupiter Space
 
-React Quiz PWA
+### React Quiz PWA - Projeto para disciplina de Engenharia de Software
 
-# Setup
-
-- `npm i -g yarn` _it is necessary to have npm installed, check it with npm -v_
-- `git clone git@github.com:Jmambrini/jupiter-space.git` _and inside the project's directory run:_
-- `yarn install` _to install packages_
-- `yarn start` _to start the app in the development mode at [http://localhost:3000](http://localhost:3000)_
+Aplicativo do tipo Quiz para gameficação de disciplinas, onde alunos matriculados podem responder a perguntas e ir acumulando pontos, os quais podem ser utilizados para trocar por bônus e vantagens em provas.
