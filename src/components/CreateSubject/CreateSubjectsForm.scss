@@ -1,53 +1,18 @@
 @import "../../constants";
 
 .CreateSubjectsForm {
+  background-color: white;
+  min-height: 100vh;
+  margin-bottom: 70px;
+  justify-content: center;
+  padding: 10px;
+
+  .ant-form > .ant-row {
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
   .ant-row {
     justify-content: center;
-  }
-
-  .create-button {
-    margin-top: 12px;
-  }
-
-  background-color: darken($BLUE, 10%);
-  min-height: 100vh;
-
-  .ant-row {
-    padding: 10px;
-
-    .ant-col {
-      .ant-select {
-        width: 100%;
-      }
-
-      .item-box,
-      .ant-select-selector {
-        justify-content: space-between;
-        align-items: center;
-        padding: 15px;
-        background-color: $LIGHT-BLUE;
-        color: white;
-        cursor: pointer;
-      }
-      .ant-select-selector {
-        margin: 0;
-      }
-
-      .ant-picker-range {
-        width: 100%;
-      }
-    }
-  }
-
-  @media screen and (min-width: $MD-BREAKPOINT) {
-    background-color: white;
-
-    .ant-row .ant-col {
-      .item-box,
-      .ant-select-selector {
-        background-color: white;
-        color: black;
-      }
-    }
   }
 }

@@ -1,60 +1,32 @@
 @import "../../constants";
 
 .SubjectsView {
-  .ant-row {
-    justify-content: center;
-  }
-  
-  .ant-input{
-    margin-bottom: 16px;
-  }
-
-  .ant-picker{
-    margin-bottom: 16px;
-  }
-
-  .create-button {
-    margin-top: 8px;
-  }
-
-  background-color: darken($BLUE, 10%);
   min-height: 100vh;
+  margin-bottom: 50px;
 
-  .ant-row {
+  .ant-spin-container > .ant-row {
+    justify-content: center;
     padding: 10px;
 
     .ant-col {
-      .ant-select {
-        width: 100%;
+      flex: 1;
+      .ant-form-item-has-feedback .ant-form-item-children-icon {
+        margin-top: 0;
       }
 
-      // .item-box,
-      // .ant-select-selector {
-      //   justify-content: space-between;
-      //   align-items: center;
-      //   padding: 15px;
-      //   background-color: $LIGHT-BLUE;
-      //   color: white;
-      //   cursor: pointer;
-      // }
-      .ant-select-selector {
-        margin: 0;
+      .text-field-container,
+      .text-area-container,
+      .date-picker-container {
+        margin-bottom: 10px;
       }
 
-      .ant-picker-range {
-        width: 100%;
-      }
-    }
-  }
-
-  @media screen and (min-width: $MD-BREAKPOINT) {
-    background-color: white;
-
-    .ant-row .ant-col {
-      .item-box,
-      .ant-select-selector {
+      .ant-picker.ant-picker-disabled,
+      .ant-input[disabled] {
         background-color: white;
-        color: black;
+      }
+
+      .ant-row {
+        justify-content: center;
       }
     }
   }

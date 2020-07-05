@@ -1,20 +1,16 @@
 import React, { Component } from "react";
-import { Input, Row, Col, DatePicker, Spin } from "antd";
-import "antd/dist/antd.css";
-import { withFirebase } from "../Firebase";
-import "./SubjectsView.scss";
+import { Row, Col, Spin } from "antd";
 import moment from "moment";
-
 import BottomButton from "../BottomButton";
 import MobileHeader from "../MobileHeader";
 import BrowserHeader from "../BrowserHeader";
+import { withFirebase } from "../Firebase";
+import { TextField, TextArea, DatePicker } from '../Input';
+import "./SubjectsView.scss";
 
 moment.locale("pt-br");
 
-const { TextArea } = Input;
-const { RangePicker } = DatePicker;
 const gutterSize = [0, { xs: 0, sm: 0, md: 0 }];
-
 
 class SubjectsView extends Component {
   state = {
@@ -53,34 +49,30 @@ class SubjectsView extends Component {
 
     return (
       <div className="SubjectsView">
-        <MobileHeader title="Visualizar disciplina" color="white" />
-        <BrowserHeader title="Visualizar disciplina" />
+        <MobileHeader title={name} color="black" />
+        <BrowserHeader title={name} />
         <Spin spinning={loading}>
           <Row gutter={gutterSize}>
             <Col sm={{ span: 24 }} md={{ span: 18 }} lg={{ span: 12 }}>
-              <Input placeholder="Nome da disciplina" type="text" id="name" value={name} disabled/>
-              <Input placeholder="Código" type="text" id="code" value={code} disabled/>
+              <TextField label="Nome" disabled value={name} />
+              <TextField label="Código" disabled value={code} />
               <TextArea
-                placeholder="Descrição"
+                label="Descrição"
                 value={description}
-                id="description"
                 disabled
-                autoSize={{ minRows: 3, maxRows: 5 }}
               />
-              <RangePicker
-                value={
-                  endDate && [
-                    moment(initDate, "DD/MM/YYYY"),
-                    moment(endDate, "DD/MM/YYYY"),
-                  ]
-                }
+              <DatePicker
+              label="Início"
                 disabled
-                format="DD/MM/YYYY"
-                placeholder={["Data de início", "Data de término"]}
+                value={moment(initDate, 'DD/MM/YYYY')}
+              />
+              <DatePicker
+              label="Fim"
+                disabled
+                value={moment(endDate, 'DD/MM/YYYY')}
               />
             </Col>
           </Row>
-
           <Row gutter={gutterSize}>
             <Col xs={{ span: 22 }} lg={{ span: 16 }}>
               <BottomButton title="Retornar" onClick={() => history.push('/subjects')} />

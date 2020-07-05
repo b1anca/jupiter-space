@@ -9,6 +9,7 @@ import { AuthContext } from '../Session';
 
 const routesWithBlackTriggerIcon = [
   ROUTES.CREATE_QUIZ,
+  ROUTES.SUBJECTS_NEW,
   ROUTES.QUIZZES_QUESTION,
 ];
 

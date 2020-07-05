@@ -1,21 +1,18 @@
 import React, { Component } from "react";
-import { Input, Row, Col, Form, DatePicker, notification, Spin } from "antd";
-import "antd/dist/antd.css";
-import { withFirebase } from "../Firebase";
-import "./CreateSubjectsForm.scss";
 import moment from "moment";
-
+import { Row, Col, Form, notification, Spin } from "antd";
+import { TextField, TextArea, DatePicker } from '../Input';
+import { withFirebase } from "../Firebase";
 import BottomButton from "../BottomButton";
 import MobileHeader from "../MobileHeader";
 import BrowserHeader from "../BrowserHeader";
+import "./CreateSubjectsForm.scss";
 
 moment.locale("pt-br");
 
-const { TextArea } = Input;
-const { RangePicker } = DatePicker;
 const gutterSize = [0, { xs: 0, sm: 0, md: 0 }];
 
-const fields = ["name", "code", "description", "studentsInput", "date-picker"];
+const fields = ["name", "code", "description", "studentsInput", "startDate", "endDate"];
 
 class CreateSubjectsForm extends Component {
   formRef = React.createRef();
@@ -62,56 +59,56 @@ class CreateSubjectsForm extends Component {
     const { students, initDate, endDate } = this.state;
     const { firebase, history } = this.props;
 
-    this.formRef.current.validateFields(fields).then((a) => {
-      this.setState({ loading: true });
-      var temp = a.studentsInput.replace(/ /g, "");
-      temp = temp.replace(".", "");
-      temp = temp.split(",");
-      const uniqueArray = Array.from(new Set(temp));
-      const subjectStudent = [];
-      const subjectStudentUids = [];
+    this.formRef.current.validateFields(fields)
+      .then((a) => {
+        this.setState({ loading: true });
+        var temp = a.studentsInput.replace(/ /g, "");
+        temp = temp.replace(".", "");
+        temp = temp.split(",");
+        const uniqueArray = Array.from(new Set(temp));
+        const subjectStudent = [];
+        const subjectStudentUids = [];
 
-      for (let j in students) {
-        if (uniqueArray.includes(students[j].USPN.toString())) {
-          subjectStudent.push({
-            ...students[j],
-          });
-          subjectStudentUids.push(students[j].uid);
+        for (let j in students) {
+          if (uniqueArray.includes(students[j].USPN.toString())) {
+            subjectStudent.push({
+              ...students[j],
+            });
+            subjectStudentUids.push(students[j].uid);
+          }
         }
-      }
 
-      const params = {
-        name: a.name,
-        startDate: initDate,
-        endDate: endDate,
-        teacherId: firebase.auth.W,
-        description: a.description,
-        code: a.code,
-        studentsIds: subjectStudentUids,
-      };
-      firebase
-        .createSubject()
-        .push(params)
-        .then(() => {
-          notification["success"]({
-            message: "Disciplina criada!",
-          });
-          this.setState({ loading: false });
-          history.push("/subjects");
-        })
-        .catch(
-          () => notification["error"]({ message: "Erro ao criar disciplina" }),
-          this.setState({ loading: false })
-        );
-    });
+        const params = {
+          name: a.name,
+          startDate: initDate,
+          endDate: endDate,
+          teacherId: firebase.auth.W,
+          description: a.description,
+          code: a.code,
+          studentsIds: subjectStudentUids,
+        };
+        firebase
+          .createSubject()
+          .push(params)
+          .then(() => {
+            notification["success"]({message: "Disciplina criada!"});
+            this.setState({ loading: false });
+            history.push("/subjects");
+          })
+          .catch(
+            () => notification["error"]({ message: "Erro ao criar disciplina" }),
+            this.setState({ loading: false })
+          );
+      })
+      .catch(() => notification['error']({ message: 'Erro ao criar disciplina' }));
   };
 
   render() {
-    const { initDate, endDate, loading } = this.state;
+    const { loading } = this.state;
 
     return (
       <div className="CreateSubjectsForm">
-        <MobileHeader title="Criar disciplina" color="white" />
+        <MobileHeader title="Criar disciplina" color="black" />
         <BrowserHeader title="Criar disciplina" />
         <Spin spinning={loading}>
           <Form ref={this.formRef}>
@@ -119,85 +116,77 @@ class CreateSubjectsForm extends Component {
               <Col sm={{ span: 24 }} md={{ span: 18 }} lg={{ span: 12 }}>
                 <Form.Item
                   name="name"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Por favor, insira o nome da disciplina.",
-                    },
-                  ]}
+                  hasFeedback
+                  rules={[{ required: true, message: "Campo obrigatório" }]}
                 >
-                  <Input
-                    placeholder="Nome da disciplina"
+                  <TextField
+                    label="Nome"
                     type="text"
-                    id="name"
-                    onChange={this.handleChange}
+                    required
+                    name="name"
                   />
                 </Form.Item>
-
                 <Form.Item
                   name="code"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Por favor, insira o código da disciplina.",
-                    },
-                  ]}
+                  hasFeedback
+                  rules={[{ required: true, message: "Campo obrigatório" }]}
                 >
-                  <Input
-                    placeholder="Código"
-                    type="text"
-                    id="code"
-                    onChange={this.handleChange}
+                  <TextField
+                    label="Código"
+                    name="code"
+                    required
                   />
                 </Form.Item>
-
                 <Form.Item
                   name="description"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Por favor, insira a descrição da disciplina.",
-                    },
-                  ]}
+                  hasFeedback
+                  rules={[{ required: true, message: "Campo obrigatório" }]}
                 >
                   <TextArea
-                    className="item-box"
-                    placeholder="Descrição"
-                    id="description"
-                    autoSize={{ minRows: 3, maxRows: 5 }}
-                    onChange={this.handleChange}
+                    label="Descrição"
+                    name="description"
+                    required
                   />
                 </Form.Item>
-
                 <Form.Item
-                  name="date-picker"
                   rules={[
-                    {
-                      required: true,
-                      message: "Por favor, insira as datas do período.",
-                    },
+                    { required: true, message: 'Campo obrigatório' },
+                    ({ validateFields }) => ({
+                      validator(_rule, _value) {
+                        validateFields(['endDate']);
+                        return Promise.resolve();
+                      }
+                    })
                   ]}
+                  name="startDate"
+                  hasFeedback
                 >
-                  <RangePicker
-                    setfieldsvalue={
-                      initDate && [
-                        moment(initDate, "DD/MM/YYYY"),
-                        moment(endDate, "DD/MM/YYYY"),
-                      ]
-                    }
-                    format="DD/MM/YYYY"
-                    placeholder={["Data de início", "Data de término"]}
-                    onChange={(dates, dateStrings) =>
-                      this.setState({
-                        initDate: dateStrings[0],
-                        endDate: dateStrings[1],
-                      })
-                    }
+                  <DatePicker
+                    label="Data de início"
+                    required
+                    name="startDate"
                   />
                 </Form.Item>
-
+                <Form.Item
+                  name="endDate"
+                  hasFeedback
+                  rules={[
+                    ({ getFieldValue }) => {
+                      const startDate = getFieldValue('startDate');
+                      return {
+                        validator(_rule, value) {
+                          return value && value.isBefore(startDate) ?
+                            Promise.reject('Data de término deve ser após data de ínicio') :
+                            Promise.resolve();
+                        }
+                      }
+                    }]}
+                >
+                  <DatePicker label="Data de término" name="endDate" />
+                </Form.Item>
                 <Form.Item
                   name="studentsInput"
+                  hasFeedback
                   rules={[
                     {
                       required: true,
@@ -205,7 +194,7 @@ class CreateSubjectsForm extends Component {
                         "Por favor, insira uma lista com os números USP dos alunos, separados por vírgula.",
                     },
                     () => ({
-                      validator(rule, value) {
+                      validator(_rule, value) {
                         var re = /^([0-9]{7,10}(,( )*))*([0-9]{7,10}(.|))$/;
                         if (!value || re.test(value) === true) {
                           return Promise.resolve();
@@ -218,17 +207,14 @@ class CreateSubjectsForm extends Component {
                   ]}
                 >
                   <TextArea
-                    className="item-box"
-                    placeholder="Alunos"
-                    id="studentsInput"
-                    onChange={this.handleChange}
-                    autoSize={{ minRows: 3, maxRows: 8 }}
+                    label="Alunos"
+                    name="studentsInput"
+                    required
                   />
                 </Form.Item>
               </Col>
             </Row>
           </Form>
-
           <Row gutter={gutterSize}>
             <Col xs={{ span: 22 }} lg={{ span: 16 }}>
               <BottomButton
