@@ -12,6 +12,14 @@ import './Question.scss'
 
 const { Text } = Typography;
 
+const shuffle = (array) => {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
 const Question = ({ match, firebase, history }) => {
   const [selected, setSelected] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
@@ -19,6 +27,7 @@ const Question = ({ match, firebase, history }) => {
   const { user, firebaseUser } = React.useContext(AuthContext);
   const { quizUid, questionId } = match.params;
   const question = quiz.questions && quiz.questions[questionId];
+  const filteredAnswers = question && question.answers.filter((a) => a.text);
   const quizRoute = ROUTES.QUIZZES_QUESTION.replace(':quizUid', quizUid);
   const quizAlreadyAnswered = (quiz.studentUids || []).includes(firebaseUser.uid);
 
@@ -94,7 +103,7 @@ const Question = ({ match, firebase, history }) => {
           <div className="question-title">
             <p>{question.name}</p>
           </div>
-          {question.answers.map((answer, index) => {
+          {shuffle(filteredAnswers).map((answer, index) => {
             const hasUserAnswer = (answer.studentUids || []).includes(firebaseUser.uid);
             const showSelected = selected === index || (hasUserAnswer && selected === false);
             const isCorrect = quizAlreadyAnswered && hasUserAnswer && answer.isCorrect ? 'correct' : 'incorrect';
