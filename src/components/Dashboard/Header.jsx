@@ -13,7 +13,7 @@ const Header = ({ user, quizzes }) => {
 
   const cards = user.role === 'student' ?
     [
-      { count: user.answeredQuizzes, text: 'quizzes respondidos' },
+      { count: user.answeredQuizzes || 0, text: 'quizzes respondidos' },
       { count: user.score, text: 'pontos ganhos' },
       { count: openQuizzes.length, text: 'quizzes abertos' },
     ] :
