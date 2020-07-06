@@ -27,9 +27,13 @@ const Question = ({ match, firebase, history }) => {
   const { user, firebaseUser } = React.useContext(AuthContext);
   const { quizUid, questionId } = match.params;
   const question = quiz.questions && quiz.questions[questionId];
-  const filteredAnswers = question && question.answers.filter((a) => a.text);
   const quizRoute = ROUTES.QUIZZES_QUESTION.replace(':quizUid', quizUid);
   const quizAlreadyAnswered = (quiz.studentUids || []).includes(firebaseUser.uid);
+
+  const shuffledAnswers = React.useMemo(() => {
+    const filteredAnswers = question && question.answers.filter((a) => a.text);
+    return filteredAnswers && shuffle(filteredAnswers);
+  }, [question]);
 
   const updateQuiz = ({ finished }) => {
     const updatedAnswers = question.answers.map((answer, i) => {
@@ -103,7 +107,7 @@ const Question = ({ match, firebase, history }) => {
           <div className="question-title">
             <p>{question.name}</p>
           </div>
-          {shuffle(filteredAnswers).map((answer, index) => {
+          {shuffledAnswers.map((answer, index) => {
             const hasUserAnswer = (answer.studentUids || []).includes(firebaseUser.uid);
             const showSelected = selected === index || (hasUserAnswer && selected === false);
             const isCorrect = quizAlreadyAnswered && hasUserAnswer && answer.isCorrect ? 'correct' : 'incorrect';
