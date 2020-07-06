@@ -8,8 +8,6 @@ import { withFirebase } from "../Firebase";
 import { TextField, TextArea, DatePicker } from '../Input';
 import "./SubjectsView.scss";
 
-moment.locale("pt-br");
-
 const gutterSize = [0, { xs: 0, sm: 0, md: 0 }];
 
 class SubjectsView extends Component {
@@ -62,12 +60,12 @@ class SubjectsView extends Component {
                 disabled
               />
               <DatePicker
-              label="Início"
+                label="Início"
                 disabled
                 value={moment(initDate, 'DD/MM/YYYY')}
               />
               <DatePicker
-              label="Fim"
+                label="Fim"
                 disabled
                 value={moment(endDate, 'DD/MM/YYYY')}
               />

@@ -21,7 +21,7 @@ class CreateSubjectsForm extends Component {
     name: null,
     code: null,
     description: null,
-    initDate: "",
+    startDate: "",
     endDate: "",
     students: [],
     studentsInput: "",
@@ -56,7 +56,7 @@ class CreateSubjectsForm extends Component {
   }
 
   handleSubmit = () => {
-    const { students, initDate, endDate } = this.state;
+    const { students } = this.state;
     const { firebase, history } = this.props;
 
     this.formRef.current.validateFields(fields)
@@ -80,13 +80,14 @@ class CreateSubjectsForm extends Component {
 
         const params = {
           name: a.name,
-          startDate: initDate,
-          endDate: endDate,
+          startDate: a.startDate.format('DD/MM/YYYY'),
+          endDate: a.endDate.format('DD/MM/YYYY'),
           teacherId: firebase.auth.W,
           description: a.description,
           code: a.code,
           studentsIds: subjectStudentUids,
         };
+
         firebase
           .createSubject()
           .push(params)
@@ -149,15 +150,7 @@ class CreateSubjectsForm extends Component {
                   />
                 </Form.Item>
                 <Form.Item
-                  rules={[
-                    { required: true, message: 'Campo obrigatório' },
-                    ({ validateFields }) => ({
-                      validator(_rule, _value) {
-                        validateFields(['endDate']);
-                        return Promise.resolve();
-                      }
-                    })
-                  ]}
+                  rules={[{ required: true, message: 'Campo obrigatório' }]}
                   name="startDate"
                   hasFeedback
                 >
@@ -171,6 +164,7 @@ class CreateSubjectsForm extends Component {
                   name="endDate"
                   hasFeedback
                   rules={[
+                    { required: true, message: 'Campo obrigatório' },
                     ({ getFieldValue }) => {
                       const startDate = getFieldValue('startDate');
                       return {
@@ -182,7 +176,7 @@ class CreateSubjectsForm extends Component {
                       }
                     }]}
                 >
-                  <DatePicker label="Data de término" name="endDate" />
+                  <DatePicker required label="Data de término" name="endDate" />
                 </Form.Item>
                 <Form.Item
                   name="studentsInput"
