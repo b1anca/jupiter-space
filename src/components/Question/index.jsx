@@ -53,12 +53,16 @@ const Question = ({ match, firebase, history }) => {
     };
 
     if (finished) {
+      const questionsAnsweredCorrecly = updatedQuiz.questions
+        .filter((question) => question.answers.some((a) => a.isCorrect && (a.studentUids || []).includes(firebaseUser.uid)))
+      const score = questionsAnsweredCorrecly.reduce((acc, q) => acc + parseInt(q.score), 0)
+
       firebase
         .getUser(firebaseUser.uid)
         .set({
           ...user,
           answeredQuizzes: (parseInt(user.answeredQuizzes) || 0) + 1,
-          score: parseInt(user.score) + parseInt(quiz.score || 0)
+          score: parseInt(user.score) + score
         })
     }
 
