@@ -17,13 +17,13 @@ Mateus Borges - 9850328
 ### Continuidade
 
 Caso o projeto fosse continuado, seriam vistos os seguintes pontos:
-* Integrar com os sistemas USP para obter as disciplinas e
+*Integrar com os sistemas USP para obter as disciplinas e
 alunos cadastrados
-* Aplicar e automatizar testes unitários para encontrar possíveis bugs
-* Fazer ranking por disciplina, e não global
-* Fazer área administrativa para conceder permissões à professores
-* Limitar visão das disciplinas e quizzes somente para inscritos nas disciplinas
-* Edição e remoção de disciplinas, quizzes e perguntas
-* Esqueci a senha
+*Aplicar e automatizar testes unitários para encontrar possíveis bugs
+*Fazer ranking por disciplina, e não global
+*Fazer área administrativa para conceder permissões à professores
+*Limitar visão das disciplinas e quizzes somente para inscritos nas disciplinas
+*Edição e remoção de disciplinas, quizzes e perguntas
+*Esqueci a senha
 
 Acesse em: [Jupiter Space](https://nifty-saha-c4a945.netlify.app/)
