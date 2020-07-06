@@ -36,8 +36,8 @@ const Question = ({ match, firebase, history }) => {
   }, [question]);
 
   const updateQuiz = ({ finished }) => {
-    const updatedAnswers = question.answers.map((answer, i) => {
-      const studentUids = selected === i ?
+    const updatedAnswers = question.answers.map((answer) => {
+      const studentUids = selected === answer.text ?
         (answer.studentUids || []).concat(firebaseUser.uid) :
         (answer.studentUids || []).filter((id) => id !== firebaseUser.uid);
 
@@ -53,12 +53,16 @@ const Question = ({ match, firebase, history }) => {
     };
 
     if (finished) {
+      const questionsAnsweredCorrecly = updatedQuiz.questions
+        .filter((question) => question.answers.some((a) => a.isCorrect && (a.studentUids || []).includes(firebaseUser.uid)))
+      const score = questionsAnsweredCorrecly.reduce((acc, q) => acc + parseInt(q.score), 0)
+
       firebase
         .getUser(firebaseUser.uid)
         .set({
           ...user,
           answeredQuizzes: (parseInt(user.answeredQuizzes) || 0) + 1,
-          score: parseInt(user.score) + parseInt(quiz.score || 0)
+          score: parseInt(user.score) + score
         })
     }
 
@@ -82,6 +86,7 @@ const Question = ({ match, firebase, history }) => {
       return history.push(ROUTES.QUIZZES);
     }
 
+    setSelected(false);
     history.push(quizRoute.replace(':questionId', parseInt(questionId) + (next ? 1 : (-1))));
   }
 
@@ -109,7 +114,7 @@ const Question = ({ match, firebase, history }) => {
           </div>
           {shuffledAnswers.map((answer, index) => {
             const hasUserAnswer = (answer.studentUids || []).includes(firebaseUser.uid);
-            const showSelected = selected === index || (hasUserAnswer && selected === false);
+            const showSelected = selected === answer.text || (hasUserAnswer && selected === false);
             const isCorrect = quizAlreadyAnswered && hasUserAnswer && answer.isCorrect ? 'correct' : 'incorrect';
             const showAsCorrect = quizAlreadyAnswered && answer.isCorrect;
 
@@ -126,7 +131,7 @@ const Question = ({ match, firebase, history }) => {
                         'correct': showAsCorrect
                       }
                     )}
-                  onClick={() => setSelected(index)}
+                  onClick={() => setSelected(answer.text)}
                 >
                   <Text className="letter-text">{String.fromCharCode(index + 65)}</Text>
                   <Text className="answer-name">{answer.text}</Text>
@@ -137,8 +142,8 @@ const Question = ({ match, firebase, history }) => {
         </Col>
       </Row>
       <div className="bottom-buttons">
-        {questionId > 0 && (<button onClick={handleClick} className="previous">Anterior</button>)}
-        {questionId + 1 < quiz.questions.length ?
+        {parseInt(questionId) > 0 && (<button onClick={handleClick} className="previous">Anterior</button>)}
+        {parseInt(questionId) + 1 < quiz.questions.length ?
           <button onClick={() => handleClick({ next: true })}>Próximo</button> :
           <button
             onClick={() => handleClick(quizAlreadyAnswered ? { back: true } : { finish: true })}
